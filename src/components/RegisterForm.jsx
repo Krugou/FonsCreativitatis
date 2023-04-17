@@ -111,7 +111,7 @@ const RegisterForm = ({toggle}) => {
         />
         <Button fullWidth sx={{mt: 1}} type="submit" variant="contained">
           {' '}
-          Register
+          Register Account
         </Button>
       </ValidatorForm>
     </>
