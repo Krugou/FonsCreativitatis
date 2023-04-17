@@ -4,7 +4,7 @@ import useForm from '../hooks/FormHooks';
 import {useAuthentication} from '../hooks/apiHooks';
 import {useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {Button, TextField} from '@mui/material';
+import {Button, TextField, Typography} from '@mui/material';
 import {loginValidators} from '../utils/validators';
 import {loginForm} from '../utils/errorMessages';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
@@ -37,6 +37,9 @@ const LoginForm = (props) => {
 
   return (
     <>
+      <Typography component="h1" variant="h3">
+        Login
+      </Typography>
       <ValidatorForm onSubmit={handleSubmit} noValidate>
         <TextValidator
           fullWidth

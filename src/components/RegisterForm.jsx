@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import useForm from '../hooks/FormHooks';
 import {useUser} from '../hooks/apiHooks';
-import {Button} from '@mui/material';
+import {Button, Typography} from '@mui/material';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {registerForm} from '../utils/errorMessages';
 import {registerValidators} from '../utils/validators';
@@ -52,6 +52,9 @@ const RegisterForm = ({toggle}) => {
 
   return (
     <>
+      <Typography component="h1" variant="h3">
+        Register
+      </Typography>
       <ValidatorForm onSubmit={handleSubmit} noValidate>
         <TextValidator
           fullWidth

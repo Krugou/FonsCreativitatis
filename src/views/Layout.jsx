@@ -53,7 +53,7 @@ const Layout = () => {
                 letterSpacing: '.3rem',
               }}
             >
-              Application :D
+              JAK-Reviews
             </Typography>
             <Box sx={{mr: 2}}>
               <Button sx={{color: 'white'}} component={Link} to="/home">

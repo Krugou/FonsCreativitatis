@@ -12,11 +12,6 @@ const Login = (props) => {
   return (
     <Grid container direction={'column'} alignItems="center">
       <Grid item xs={6}>
-        <Typography component="h1" variant="h3">
-          Login / Register
-        </Typography>
-      </Grid>
-      <Grid item xs={6}>
         {formToggle ? <LoginForm /> : <RegisterForm toggle={toggle} />}
       </Grid>
       <Grid item xs={6}>
