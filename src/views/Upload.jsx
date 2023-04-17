@@ -77,15 +77,7 @@ const Upload = (props) => {
 
   return (
     <Box>
-      <img
-        src={selectedImage}
-        alt="preview"
-        style={{
-          width: 300,
-          height: 200,
-          filter: `brightness(${filterInputs.brightness}%) contrast(${filterInputs.contrast}%) saturate(${filterInputs.saturation}%) sepia(${filterInputs.sepia}%)`,
-        }}
-      />
+      <img src={selectedImage} alt="preview" />
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleInputChange}
@@ -106,42 +98,6 @@ const Upload = (props) => {
         />
         <Button type="submit">Upload</Button>
       </form>
-      <Slider
-        name="brightness"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        value={filterInputs.brightness}
-        onChange={handleFilterChange}
-      />
-      <Slider
-        name="contrast"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        value={filterInputs.contrast}
-        onChange={handleFilterChange}
-      />
-      <Slider
-        name="saturation"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        value={filterInputs.saturation}
-        onChange={handleFilterChange}
-      />
-      <Slider
-        name="sepia"
-        min={0}
-        max={100}
-        step={1}
-        valueLabelDisplay="auto"
-        value={filterInputs.sepia}
-        onChange={handleFilterChange}
-      />
     </Box>
   );
 };
