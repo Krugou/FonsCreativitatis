@@ -50,7 +50,7 @@ const MediaRow = ({file, deleteMedia}) => {
             >
               View
             </Button>
-            {file.user_id === user.user_id && (
+            {file.user_id === user?.user_id && (
               <>
                 <Button
                   component={Link}
