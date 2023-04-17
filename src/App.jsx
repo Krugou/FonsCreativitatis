@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import './App.css';
+import Home from './views/Home';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Layout from './views/Layout';
+import Single from './views/Single';
+import Profile from './views/Profile';
+import Login from './views/Login';
+import {MediaProvider} from './contexts/MediaContext';
+import Logout from './views/Logout';
+import Upload from './views/Upload';
+import MyFiles from './views/MyFiles';
+import Update from './views/Update';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+    <Router basename={import.meta.env.BASE_URL}>
+      <MediaProvider>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/single" element={<Single />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/upload" element={<Upload />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/myfiles" element={<MyFiles />} />
+            <Route path="/update" element={<Update />} />
+          </Route>
+        </Routes>
+      </MediaProvider>
+    </Router>
+  );
+};
 
-export default App
+// add to App.jsx after imports
+
+export default App;

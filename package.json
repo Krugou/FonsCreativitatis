@@ -2,7 +2,7 @@
   "name": "reacttasks",
   "version": "0.1.0",
   "private": true,
-  "author": "Aleksi Nokelainen",
+  "author": "Jonsson-123, Krugou, KaarleH",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
@@ -10,8 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fontsource/anonymous-pro": "^4.5.9",
+    "@mui/material": "^5.12.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-material-ui-form-validator": "^3.0.1",
+    "react-router-dom": "^6.10.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
@@ -26,4 +32,3 @@
     "vite": "^4.1.0"
   }
 }
-
