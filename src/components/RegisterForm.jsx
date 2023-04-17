@@ -22,7 +22,7 @@ const RegisterForm = ({toggle}) => {
     try {
       const withoutConfirm = {...inputs};
       delete withoutConfirm.confirm;
-      const userResult = postUser(withoutConfirm);
+      const userResult = await postUser(withoutConfirm);
       alert(userResult.message);
       toggle();
     } catch (error) {
