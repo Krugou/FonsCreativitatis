@@ -45,7 +45,7 @@ const LoginForm = (props) => {
           fullWidth
           margin="normal"
           name="username"
-          placeholder="Username"
+          label="Username"
           onChange={handleInputChange}
           value={inputs.username}
           validators={loginValidators.username}
@@ -56,7 +56,7 @@ const LoginForm = (props) => {
           margin="normal"
           name="password"
           type="password"
-          placeholder="Password"
+          label="Password"
           onChange={handleInputChange}
           value={inputs.password}
           validators={loginValidators.password}

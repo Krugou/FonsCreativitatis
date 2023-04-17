@@ -60,7 +60,7 @@ const RegisterForm = ({toggle}) => {
           fullWidth
           margin="normal"
           name="username"
-          placeholder="Username"
+          label="Username"
           onChange={handleInputChange}
           value={inputs.username}
           validators={registerValidators.username}
@@ -71,7 +71,7 @@ const RegisterForm = ({toggle}) => {
           margin="normal"
           name="password"
           type="password"
-          placeholder="Password"
+          label="Password"
           onChange={handleInputChange}
           value={inputs.password}
           validators={registerValidators.password}
@@ -82,7 +82,7 @@ const RegisterForm = ({toggle}) => {
           margin="normal"
           name="confirm"
           type="password"
-          placeholder="Confirm Password"
+          label="Confirm Password"
           onChange={handleInputChange}
           value={inputs.confirm}
           validators={registerValidators.confirm}
@@ -93,7 +93,7 @@ const RegisterForm = ({toggle}) => {
           margin="normal"
           name="email"
           type="email"
-          placeholder="Email"
+          label="Email"
           onChange={handleInputChange}
           value={inputs.email}
           validators={registerValidators.email}
@@ -103,7 +103,7 @@ const RegisterForm = ({toggle}) => {
           fullWidth
           margin="normal"
           name="full_name"
-          placeholder="Full name"
+          label="Full name"
           onChange={handleInputChange}
           value={inputs.full_name}
           validators={registerValidators.full_name}
