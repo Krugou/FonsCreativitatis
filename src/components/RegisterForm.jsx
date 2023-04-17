@@ -58,7 +58,7 @@ const RegisterForm = ({toggle}) => {
       <ValidatorForm onSubmit={handleSubmit} noValidate>
         <TextValidator
           fullWidth
-          margin="dense"
+          margin="normal"
           name="username"
           placeholder="Username"
           onChange={handleInputChange}
@@ -68,7 +68,7 @@ const RegisterForm = ({toggle}) => {
         />
         <TextValidator
           fullWidth
-          margin="dense"
+          margin="normal"
           name="password"
           type="password"
           placeholder="Password"
@@ -79,7 +79,7 @@ const RegisterForm = ({toggle}) => {
         />
         <TextValidator
           fullWidth
-          margin="dense"
+          margin="normal"
           name="confirm"
           type="password"
           placeholder="Confirm Password"
@@ -90,7 +90,7 @@ const RegisterForm = ({toggle}) => {
         />
         <TextValidator
           fullWidth
-          margin="dense"
+          margin="normal"
           name="email"
           type="email"
           placeholder="Email"
@@ -101,7 +101,7 @@ const RegisterForm = ({toggle}) => {
         />
         <TextValidator
           fullWidth
-          margin="dense"
+          margin="normal"
           name="full_name"
           placeholder="Full name"
           onChange={handleInputChange}

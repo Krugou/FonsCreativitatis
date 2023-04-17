@@ -43,7 +43,7 @@ const LoginForm = (props) => {
       <ValidatorForm onSubmit={handleSubmit} noValidate>
         <TextValidator
           fullWidth
-          margin="dense"
+          margin="normal"
           name="username"
           placeholder="Username"
           onChange={handleInputChange}
@@ -53,7 +53,7 @@ const LoginForm = (props) => {
         />
         <TextValidator
           fullWidth
-          margin="dense"
+          margin="normal"
           name="password"
           type="password"
           placeholder="Password"
