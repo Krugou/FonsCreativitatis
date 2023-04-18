@@ -3,9 +3,16 @@ import PropTypes from 'prop-types';
 import {
   Box,
   Button,
+  Checkbox,
   Container,
+  FormControl,
   Grid,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  OutlinedInput,
   Rating,
+  Select,
   Slider,
   TextField,
 } from '@mui/material';
@@ -21,6 +28,8 @@ const ReviewUpload = (props) => {
   const [selectedImage, setSelectedImage] = useState(
     'https://media.mw.metropolia.fi/wbma/uploads/81656b38be55c675abac021df9186eb2.png'
   );
+  const [selectedTags, setSelectedTags] = useState([]);
+
   // https://placehold.co/600x400?text=Choose+Media
   const {postMedia} = useMedia();
   const {postTag} = useTags();
@@ -47,6 +56,7 @@ const ReviewUpload = (props) => {
         stars: restaurantRating,
         website: inputs.website,
         address: inputs.address,
+        tags: selectedTags,
         // filters: filterInputs,
       };
 
@@ -90,6 +100,34 @@ const ReviewUpload = (props) => {
   );
   */
   console.log('upload', inputs);
+
+  const tagNames = [
+    'Burgers',
+    'Child friendly',
+    'Chinese food',
+    'Cozy',
+    'Date restaurant',
+    'Fast food',
+    'Indian food',
+    'Kebab restaurant',
+    'Nightclub',
+    'Pizzeria',
+    'Romantic',
+    'Vegan food',
+    'Vegetarian food',
+  ];
+
+  const handleChange = (event) => {
+    const {
+      target: {value},
+    } = event;
+    setSelectedTags(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value
+    );
+    console.log(selectedTags);
+  };
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} container justifyContent="center" mt={3}>
@@ -151,6 +189,25 @@ const ReviewUpload = (props) => {
             hidden
           />
         </Button>
+        <FormControl sx={{m: 1, width: 300}}>
+          <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+          <Select
+            labelId="demo-multiple-checkbox-label"
+            id="demo-multiple-checkbox"
+            multiple
+            value={selectedTags}
+            onChange={handleChange}
+            input={<OutlinedInput label="Tag" />}
+            renderValue={(selected) => selected.join(', ')}
+          >
+            {tagNames.map((name) => (
+              <MenuItem key={name} value={name}>
+                <Checkbox checked={selectedTags.indexOf(name) > -1} />
+                <ListItemText primary={name} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Button
           type="submit"
           variant="contained"
