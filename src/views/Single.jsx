@@ -118,6 +118,7 @@ const Single = () => {
           src={mediaUrl + file.filename}
           title={file.title}
           style={{
+            /*
             width: '100%',
             height: 400,
             filter: `
@@ -126,6 +127,7 @@ const Single = () => {
             saturate(${allData.filters.saturation}%)
             sepia(${allData.filters.sepia}%)
             `,
+            */
             backgroundImage: file.media_type === 'audio' && `url(vite.svg)`,
           }}
         />

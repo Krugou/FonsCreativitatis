@@ -11,6 +11,13 @@ const MediaTable = ({myFilesOnly = false}) => {
   return (
     <ImageList cols={windowSize.width > 768 ? 3 : 2} gap={8}>
       {mediaArray.map((item, index) => {
+        console.log(item);
+        try {
+          console.log(JSON.parse(item.description));
+        } catch (error) {}
+
+        console.log(item.description);
+
         return <MediaRow key={index} file={item} deleteMedia={deleteMedia} />;
       })}
     </ImageList>

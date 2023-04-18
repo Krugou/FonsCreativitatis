@@ -64,7 +64,11 @@ const Layout = () => {
                   <Button sx={{color: 'white'}} component={Link} to="/profile">
                     Profile
                   </Button>
-                  <Button sx={{color: 'white'}} component={Link} to="/upload">
+                  <Button
+                    sx={{color: 'white'}}
+                    component={Link}
+                    to="/reviewupload"
+                  >
                     Write A Review
                   </Button>
                   <Button sx={{color: 'white'}} component={Link} to="/myfiles">

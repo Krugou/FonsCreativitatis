@@ -14,9 +14,10 @@ import {useMedia, useTags} from '../hooks/apiHooks';
 import {useNavigate} from 'react-router-dom';
 import {appId} from '../utils/variables';
 
-const Upload = (props) => {
+const ReviewUpload = (props) => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
+  const [restaurantRating, setRestaurantRating] = useState(0);
   const [selectedImage, setSelectedImage] = useState(
     'https://media.mw.metropolia.fi/wbma/uploads/81656b38be55c675abac021df9186eb2.png'
   );
@@ -25,23 +26,28 @@ const Upload = (props) => {
   const {postTag} = useTags();
   const initValues = {
     title: '',
-    description: '',
+    review: '',
+    website: '',
+    address: '',
   };
-
+  /*
   const filterInitValues = {
     brightness: 100,
     contrast: 100,
     saturation: 100,
     sepia: 0,
   };
-
+*/
   const doUpload = async () => {
     try {
       const data = new FormData();
       data.append('title', inputs.title);
       const allData = {
-        desc: inputs.description,
-        filters: filterInputs,
+        review: inputs.review,
+        stars: restaurantRating,
+        website: inputs.website,
+        address: inputs.address,
+        // filters: filterInputs,
       };
 
       data.append('description', JSON.stringify(allData));
@@ -77,12 +83,13 @@ const Upload = (props) => {
     initValues
   );
 
+  /*
   const {inputs: filterInputs, handleInputChange: handleFilterChange} = useForm(
     null,
     filterInitValues
   );
+  */
   console.log('upload', inputs);
-
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} container justifyContent="center" mt={3}>
@@ -103,13 +110,36 @@ const Upload = (props) => {
         />
         <TextField
           onChange={handleInputChange}
-          name="description"
+          name="review"
           label="Review"
           margin="normal"
           multiline
-          value={inputs.description}
-        ></TextField>
-        <Rating name="restaurant-rating" defaultValue={0} precision={0.5} />
+          value={inputs.review}
+        />
+        <TextField
+          onChange={handleInputChange}
+          name="address"
+          label="Restaurant's Address"
+          margin="normal"
+          multiline
+          value={inputs.address}
+        />
+        <TextField
+          onChange={handleInputChange}
+          name="website"
+          label="Link to Restaurant's Website"
+          margin="normal"
+          multiline
+          value={inputs.website}
+        />
+        <Rating
+          name="rating"
+          onChange={(event, value) => {
+            setRestaurantRating(value);
+          }}
+          precision={0.5}
+          value={restaurantRating}
+        />
 
         <Button variant="outlined" component="label" sx={{mt: 2}}>
           Upload File
@@ -135,6 +165,6 @@ const Upload = (props) => {
   );
 };
 
-Upload.propTypes = {};
+ReviewUpload.propTypes = {};
 
-export default Upload;
+export default ReviewUpload;
