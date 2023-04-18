@@ -1,13 +1,16 @@
 {
-  "name": "reacttasks",
+  "name": "FonsCreativitatis",
   "version": "0.1.0",
   "private": true,
   "author": "Jonsson-123, Krugou, KaarleH",
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "vite --port 8080 --open ",
+    "devDebug": "vite --port 8080 --open -d",
     "build": "vite build",
-    "preview": "vite preview"
+    "buildPages": "vite build --base FonsCreativitatis/project --outDir project",
+    "preview": "vite preview",
+    "optimize": "vite optimize ./dist"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -17,7 +20,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-material-ui-form-validator": "^3.0.1",
-    "react-router-dom": "^6.10.0"
+    "react-router-dom": "^6.10.0",
+    "sass": "^1.62.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
