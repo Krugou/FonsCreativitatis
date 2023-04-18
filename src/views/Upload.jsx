@@ -1,6 +1,14 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {Box, Button, Container, Grid, Slider, TextField} from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Rating,
+  Slider,
+  TextField,
+} from '@mui/material';
 import useForm from '../hooks/FormHooks';
 import {useMedia, useTags} from '../hooks/apiHooks';
 import {useNavigate} from 'react-router-dom';
@@ -84,40 +92,44 @@ const Upload = (props) => {
           style={{width: '30%', border: '1px solid black'}}
         />
       </Grid>
-      <Grid item>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            onChange={handleInputChange}
-            type="text"
-            name="title"
-            margin="normal"
-            label="Review Title"
-            value={inputs.title}
-          />
-          <TextField
-            onChange={handleInputChange}
-            name="description"
-            fullWidth
-            label="Review"
-            margin="normal"
-            multiline
-            value={inputs.description}
-          ></TextField>
+      <Grid item container direction="column" xs={12} md={8} lg={6}>
+        <TextField
+          onChange={handleInputChange}
+          type="text"
+          name="title"
+          margin="normal"
+          label="Review Title"
+          value={inputs.title}
+        />
+        <TextField
+          onChange={handleInputChange}
+          name="description"
+          label="Review"
+          margin="normal"
+          multiline
+          value={inputs.description}
+        ></TextField>
+        <Rating name="restaurant-rating" defaultValue={0} precision={0.5} />
 
-          <Button variant="outlined" component="label" sx={{mt: 2}}>
-            Upload File
-            <input
-              onChange={handleFileChange}
-              type="file"
-              name="file"
-              accept="image/*,video/*,audio/*"
-              hidden
-            />
-          </Button>
-          <Button type="submit" variant="contained" fullWidth sx={{mt: 3}}>
-            Add Review
-          </Button>
-        </form>
+        <Button variant="outlined" component="label" sx={{mt: 2}}>
+          Upload File
+          <input
+            onChange={handleFileChange}
+            type="file"
+            name="file"
+            accept="image/*,video/*,audio/*"
+            hidden
+          />
+        </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          fullWidth
+          sx={{mt: 3}}
+          onClick={handleSubmit}
+        >
+          Add Review
+        </Button>
       </Grid>
     </Grid>
   );
