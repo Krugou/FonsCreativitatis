@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {Box, Button, Slider} from '@mui/material';
+import {Box, Button, Container, Grid, Slider, TextField} from '@mui/material';
 import useForm from '../hooks/FormHooks';
 import {useMedia, useTags} from '../hooks/apiHooks';
 import {useNavigate} from 'react-router-dom';
@@ -10,7 +10,7 @@ const Upload = (props) => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(
-    'https://placekitten.com/600/400'
+    'https://media.mw.metropolia.fi/wbma/uploads/81656b38be55c675abac021df9186eb2.png'
   );
   // https://placehold.co/600x400?text=Choose+Media
   const {postMedia} = useMedia();
@@ -76,29 +76,50 @@ const Upload = (props) => {
   console.log('upload', inputs);
 
   return (
-    <Box>
-      <img src={selectedImage} alt="preview" />
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleInputChange}
-          type="text"
-          name="title"
-          value={inputs.title}
+    <Grid container justifyContent="center">
+      <Grid item xs={12} container justifyContent="center" mt={3}>
+        <img
+          src={selectedImage}
+          alt="preview"
+          style={{width: '30%', border: '1px solid black'}}
         />
-        <textarea
-          onChange={handleInputChange}
-          name="description"
-          value={inputs.description}
-        ></textarea>
-        <input
-          onChange={handleFileChange}
-          type="file"
-          name="file"
-          accept="image/*,video/*,audio/*"
-        />
-        <Button type="submit">Upload</Button>
-      </form>
-    </Box>
+      </Grid>
+      <Grid item>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            onChange={handleInputChange}
+            type="text"
+            name="title"
+            margin="normal"
+            label="Review Title"
+            value={inputs.title}
+          />
+          <TextField
+            onChange={handleInputChange}
+            name="description"
+            fullWidth
+            label="Review"
+            margin="normal"
+            multiline
+            value={inputs.description}
+          ></TextField>
+
+          <Button variant="outlined" component="label" sx={{mt: 2}}>
+            Upload File
+            <input
+              onChange={handleFileChange}
+              type="file"
+              name="file"
+              accept="image/*,video/*,audio/*"
+              hidden
+            />
+          </Button>
+          <Button type="submit" variant="contained" fullWidth sx={{mt: 3}}>
+            Add Review
+          </Button>
+        </form>
+      </Grid>
+    </Grid>
   );
 };
 
