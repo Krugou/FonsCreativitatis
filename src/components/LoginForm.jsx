@@ -9,6 +9,7 @@ import {loginValidators} from '../utils/validators';
 import {loginForm} from '../utils/errorMessages';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 
+
 const LoginForm = (props) => {
   const {setUser} = useContext(MediaContext);
   const {postLogin} = useAuthentication();
@@ -62,7 +63,11 @@ const LoginForm = (props) => {
           validators={loginValidators.password}
           errorMessages={loginForm.password}
         />
-        <Button fullWidth sx={{mt: 1}} type="submit" variant="contained">
+        <Button
+          sx={{
+            borderRadius: '20px',
+            width: '10em',
+        }} fullWidth type="submit" variant="contained">
           {' '}
           Login
         </Button>

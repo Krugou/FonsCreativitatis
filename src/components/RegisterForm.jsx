@@ -109,7 +109,15 @@ const RegisterForm = ({toggle}) => {
           validators={registerValidators.full_name}
           errorMessages={registerForm.full_name}
         />
-        <Button fullWidth sx={{mt: 1}} type="submit" variant="contained">
+        <Button
+          fullWidth
+          sx={{
+            borderRadius: '20px',
+            width: '15em',
+          }}
+          type="submit"
+          variant="contained"
+        >
           {' '}
           Register Account
         </Button>

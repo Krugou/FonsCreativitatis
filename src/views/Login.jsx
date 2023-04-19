@@ -9,9 +9,26 @@ const Login = (props) => {
   const toggle = () => {
     setFormToggle(!formToggle);
   };
+
   return (
-    <Grid container direction={'column'} alignItems="center">
-      <Grid item xs={6}>
+    <Grid
+      sx={{
+        marginTop: '5em',
+      }}
+      container
+      direction={'column'}
+      alignItems="center"
+    >
+      <Grid
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4em',
+          textAlign: 'center',
+        }}
+        item
+        xs={6}
+      >
         {formToggle ? <LoginForm /> : <RegisterForm toggle={toggle} />}
       </Grid>
       <Grid item xs={6}>
