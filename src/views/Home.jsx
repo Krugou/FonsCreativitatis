@@ -7,7 +7,7 @@ const Home = () => {
     <>
       <Box
         sx={{
-          backgroundImage: `url('/krugou_finnish_pizza_place_filled_with_happy_people_0a69e28f-7135-4d33-b2d3-56bdbfd0ecb4.png')`,
+          backgroundImage: `url('./krugou_finnish_pizza_place_filled_with_happy_people_0a69e28f-7135-4d33-b2d3-56bdbfd0ecb4.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           height: 400,
