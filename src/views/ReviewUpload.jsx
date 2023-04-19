@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Box,
   Button,
   Checkbox,
-  Container,
   FormControl,
   Grid,
   InputLabel,
@@ -13,7 +11,6 @@ import {
   OutlinedInput,
   Rating,
   Select,
-  Slider,
   TextField,
   Typography,
 } from '@mui/material';
@@ -21,11 +18,14 @@ import useForm from '../hooks/FormHooks';
 import {useMedia, useTags} from '../hooks/apiHooks';
 import {useNavigate} from 'react-router-dom';
 import {appId} from '../utils/variables';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
+import {reviewValidators} from '../utils/validators';
+import {reviewForm} from '../utils/errorMessages';
 
 const ReviewUpload = (props) => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
-  const [restaurantRating, setRestaurantRating] = useState(0);
+  const [restaurantRating, setRestaurantRating] = useState(null);
   const [selectedImage, setSelectedImage] = useState(
     'https://media.mw.metropolia.fi/wbma/uploads/81656b38be55c675abac021df9186eb2.png'
   );
@@ -130,97 +130,101 @@ const ReviewUpload = (props) => {
   };
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12} container justifyContent="center" mt={3}>
-        <img
-          src={selectedImage}
-          alt="preview"
-          style={{width: '30%', border: '1px solid black'}}
-        />
-      </Grid>
-      <Grid item container direction="column" xs={12} md={8} lg={6}>
-        <TextField
-          onChange={handleInputChange}
-          type="text"
-          name="title"
-          margin="normal"
-          label="Review Title"
-          value={inputs.title}
-        />
-        <TextField
-          onChange={handleInputChange}
-          name="review"
-          label="Review"
-          margin="normal"
-          multiline
-          value={inputs.review}
-        />
-        <TextField
-          onChange={handleInputChange}
-          name="address"
-          label="Restaurant's Address"
-          margin="normal"
-          multiline
-          value={inputs.address}
-        />
-        <TextField
-          onChange={handleInputChange}
-          name="website"
-          label="Link to Restaurant's Website"
-          margin="normal"
-          multiline
-          value={inputs.website}
-        />
-        <Typography component="legend">Select rating:</Typography>
-        <Rating
-          name="rating"
-          onChange={(event, value) => {
-            setRestaurantRating(value);
-          }}
-          precision={0.5}
-          value={restaurantRating}
-        />
-
-        <Button variant="outlined" component="label" sx={{mt: 2}}>
-          Upload File
-          <input
-            onChange={handleFileChange}
-            type="file"
-            name="file"
-            accept="image/*,video/*,audio/*"
-            hidden
+    <ValidatorForm onSubmit={handleSubmit}>
+      <Grid container justifyContent="center">
+        <Grid item xs={12} container justifyContent="center" mt={3}>
+          <img
+            src={selectedImage}
+            alt="preview"
+            style={{width: '30%', border: '1px solid black'}}
           />
-        </Button>
-        <FormControl sx={{m: 1, width: 300}}>
-          <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-          <Select
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={selectedTags}
-            onChange={handleChange}
-            input={<OutlinedInput label="Tag" />}
-            renderValue={(selected) => selected.join(', ')}
-          >
-            {tagNames.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={selectedTags.indexOf(name) > -1} />
-                <ListItemText primary={name} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Button
-          type="submit"
-          variant="contained"
-          fullWidth
-          sx={{mt: 3}}
-          onClick={handleSubmit}
-        >
-          Add Review
-        </Button>
+        </Grid>
+        <Grid item container direction="column" xs={12} md={8} lg={6}>
+          <TextValidator
+            onChange={handleInputChange}
+            type="text"
+            name="title"
+            fullWidth
+            margin="normal"
+            label="Review Title"
+            validators={reviewValidators.title}
+            errorMessages={reviewForm.title}
+            value={inputs.title}
+          />
+          <TextValidator
+            onChange={handleInputChange}
+            name="review"
+            label="Review"
+            fullWidth
+            margin="normal"
+            validators={reviewValidators.review}
+            errorMessages={reviewForm.review}
+            multiline
+            value={inputs.review}
+          />
+          <TextField
+            onChange={handleInputChange}
+            name="address"
+            label="Restaurant's Address"
+            margin="normal"
+            multiline
+            value={inputs.address}
+          />
+          <TextField
+            onChange={handleInputChange}
+            name="website"
+            label="Link to Restaurant's Website"
+            margin="normal"
+            multiline
+            value={inputs.website}
+          />
+          <Typography component="legend">Select rating:</Typography>
+          <Rating
+            name="rating"
+            onChange={(event, value) => {
+              setRestaurantRating(value);
+            }}
+            precision={0.5}
+            value={restaurantRating}
+          />
+
+          <Button variant="outlined" component="label" sx={{mt: 2}}>
+            Upload File
+            <input
+              onChange={handleFileChange}
+              type="file"
+              name="file"
+              accept="image/*,video/*,audio/*"
+              hidden
+            />
+          </Button>
+          <FormControl sx={{m: 1, width: 300}}>
+            <InputLabel id="demo-multiple-checkbox-label">
+              Choose Tags
+            </InputLabel>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value={selectedTags}
+              onChange={handleChange}
+              input={<OutlinedInput label="Tag" />}
+              renderValue={(selected) => selected.join(', ')}
+            >
+              {tagNames.map((name) => (
+                <MenuItem key={name} value={name}>
+                  <Checkbox checked={selectedTags.indexOf(name) > -1} />
+                  <ListItemText primary={name} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button type="submit" variant="contained" fullWidth sx={{mt: 3}}>
+            Add Review
+          </Button>
+        </Grid>
       </Grid>
-    </Grid>
+    </ValidatorForm>
   );
 };
 

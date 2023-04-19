@@ -14,4 +14,9 @@ const loginForm = {
   username: ['this field is required'],
   password: ['this field is required'],
 };
-export {registerForm, loginForm};
+
+const reviewForm = {
+  title: ['this field is required', 'Title must be atleast 3 characters'],
+  review: ['this field is required', 'Title must be atleast 2 characters'],
+};
+export {registerForm, loginForm, reviewForm};
