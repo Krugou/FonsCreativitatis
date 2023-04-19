@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {Box, Button, Slider} from '@mui/material';
+import { Box, Button, Slider } from '@mui/material';
 import useForm from '../hooks/FormHooks';
-import {useMedia} from '../hooks/apiHooks';
-import {useLocation, useNavigate} from 'react-router-dom';
-import {mediaUrl} from '../utils/variables';
+import { useMedia } from '../hooks/apiHooks';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { mediaUrl } from '../utils/variables';
 
 const Update = (props) => {
-  const {putMedia} = useMedia();
+  const { putMedia } = useMedia();
   const navigate = useNavigate();
-  const {state} = useLocation();
+  const { state } = useLocation();
   const file = state.file;
 
   const selectedImage = mediaUrl + file.filename;
@@ -49,18 +49,18 @@ const Update = (props) => {
       const userToken = localStorage.getItem('userToken');
       const updateResult = await putMedia(file.file_id, data, userToken);
       console.log('doUpdate', updateResult);
-      navigate('/home');
+      navigate('/');
     } catch (error) {
       alert(error.message);
     }
   };
 
-  const {inputs, handleSubmit, handleInputChange} = useForm(
+  const { inputs, handleSubmit, handleInputChange } = useForm(
     doUpdate,
     initValues
   );
 
-  const {inputs: filterInputs, handleInputChange: handleFilterChange} = useForm(
+  const { inputs: filterInputs, handleInputChange: handleFilterChange } = useForm(
     null,
     filterInitValues
   );

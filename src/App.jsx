@@ -1,14 +1,14 @@
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
+import { MediaProvider } from './contexts/MediaContext';
 import Home from './views/Home';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Layout from './views/Layout';
-import Single from './views/Single';
-import Profile from './views/Profile';
 import Login from './views/Login';
-import {MediaProvider} from './contexts/MediaContext';
 import Logout from './views/Logout';
-import ReviewUpload from './views/ReviewUpload';
 import MyFiles from './views/MyFiles';
+import Profile from './views/Profile';
+import ReviewUpload from './views/ReviewUpload';
+import Single from './views/Single';
 import Update from './views/Update';
 
 const App = () => {
@@ -17,8 +17,8 @@ const App = () => {
       <MediaProvider>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/single" element={<Single />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/reviewupload" element={<ReviewUpload />} />

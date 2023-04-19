@@ -25,7 +25,7 @@ const LoginForm = (props) => {
       const loginResult = await postLogin(inputs);
       localStorage.setItem('userToken', loginResult.token);
       setUser(loginResult.user);
-      navigate('/home');
+      navigate('/');
     } catch (error) {
       alert(error.message);
     }

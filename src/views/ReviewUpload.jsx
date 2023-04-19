@@ -85,7 +85,7 @@ const ReviewUpload = (props) => {
 
       console.log(tagResult);
       setTimeout(() => {
-        navigate('/home');
+        navigate('/');
       }, 500);
     } catch (error) {
       alert(error.message);

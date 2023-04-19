@@ -3,22 +3,38 @@ import {
   Box,
   Button,
   Container,
-  createTheme,
   CssBaseline,
+  Drawer,
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   ThemeProvider,
   Toolbar,
   Typography,
+  createTheme,
 } from '@mui/material';
-import {useContext, useEffect} from 'react';
-import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
-import {MediaContext} from '../contexts/MediaContext';
-import {useUser} from '../hooks/apiHooks';
-import {themeOptions} from '../theme/themeOptions';
+
+// material-ui icons
+import {
+  AccountCircle,
+  CloudUpload,
+  Folder,
+  Home,
+  Menu as MenuIcon,
+} from '@mui/icons-material';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { MediaContext } from '../contexts/MediaContext';
+import { useUser } from '../hooks/apiHooks';
+import { themeOptions } from '../theme/themeOptions';
 const Layout = () => {
-  const {user, setUser} = useContext(MediaContext);
+  const { user, setUser } = useContext(MediaContext);
   const navigate = useNavigate();
-  const {getUserByToken} = useUser();
+  const { getUserByToken } = useUser();
   const location = useLocation();
+  const [open, setOpen] = useState(false);
 
   const getUserInfo = async () => {
     const userToken = localStorage.getItem('userToken');
@@ -26,7 +42,7 @@ const Layout = () => {
       const user = await getUserByToken(userToken);
       if (user) {
         setUser(user);
-        const target = location.pathname === '/' ? '/home' : location.pathname;
+        const target = location.pathname === '/' ? '/' : location.pathname;
         navigate(target);
         return;
       }
@@ -45,7 +61,19 @@ const Layout = () => {
       <CssBaseline />
       <Container maxWidth="xl">
         <AppBar position="sticky">
-          <Toolbar disableGutters sx={{justifyContent: 'space-between'}}>
+          <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
             <Typography
               variant="h6"
               sx={{
@@ -53,33 +81,93 @@ const Layout = () => {
                 letterSpacing: '.3rem',
               }}
             >
-              JAK-Reviews
+              <Button sx={{ color: 'white' }} component={Link} to="/">
+                JAK-Reviews
+              </Button>
             </Typography>
-            <Box sx={{mr: 2}}>
-              <Button sx={{color: 'white'}} component={Link} to="/home">
+            <Drawer
+              open={open}
+              onClose={() => {
+                setOpen(!open);
+              }}
+            >
+              <List
+                onClick={() => {
+                  setOpen(!open);
+                }}
+              >
+                <ListItemButton component={Link} to={'/'}>
+                  <ListItemIcon>
+                    <Home />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+                {!user && (
+                  <>
+                    <ListItemButton component={Link} to="/login">
+                      <ListItemIcon>
+                        <AccountCircle />
+                      </ListItemIcon>
+                      <ListItemText primary="Login" />
+                    </ListItemButton>
+                  </>
+                )}
+                {user && (
+                  <>
+                    <ListItemButton component={Link} to="/profile">
+                      <ListItemIcon>
+                        <AccountCircle />
+                      </ListItemIcon>
+                      <ListItemText primary="Profile" />
+                    </ListItemButton>
+                    <ListItemButton component={Link} to="/reviewupload">
+                      <ListItemIcon>
+                        <CloudUpload />
+                      </ListItemIcon>
+                      <ListItemText primary="Reviewupload" />
+                    </ListItemButton>
+                    <ListItemButton component={Link} to="/myfiles">
+                      <ListItemIcon>
+                        <Folder />
+                      </ListItemIcon>
+                      <ListItemText primary="My Files" />
+                    </ListItemButton>
+                    <ListItemButton component={Link} to="/logout">
+                      <ListItemIcon>
+                        <AccountCircle />
+                      </ListItemIcon>
+                      <ListItemText primary="Logout" />
+                    </ListItemButton>
+                  </>
+                )}
+              </List>
+            </Drawer>
+            <Box sx={{ mr: 2 }}>
+              <Button sx={{ color: 'white' }} component={Link} to="/">
                 Home
               </Button>
+
               {user ? (
                 <>
-                  <Button sx={{color: 'white'}} component={Link} to="/profile">
+                  <Button sx={{ color: 'white' }} component={Link} to="/profile">
                     Profile
                   </Button>
                   <Button
-                    sx={{color: 'white'}}
+                    sx={{ color: 'white' }}
                     component={Link}
                     to="/reviewupload"
                   >
                     Write A Review
                   </Button>
-                  <Button sx={{color: 'white'}} component={Link} to="/myfiles">
+                  <Button sx={{ color: 'white' }} component={Link} to="/myfiles">
                     My Files
                   </Button>
-                  <Button sx={{color: 'white'}} component={Link} to="/logout">
+                  <Button sx={{ color: 'white' }} component={Link} to="/logout">
                     Logout
                   </Button>
                 </>
               ) : (
-                <Button sx={{color: 'white'}} component={Link} to="/">
+                <Button sx={{ color: 'white' }} component={Link} to="/login">
                   Login
                 </Button>
               )}
