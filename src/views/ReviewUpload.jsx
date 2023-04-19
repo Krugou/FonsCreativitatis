@@ -84,20 +84,23 @@ const ReviewUpload = (props) => {
       });
 
       console.log(tagResult);
-      navigate('/home');
+      setTimeout(() => {
+        navigate('/home');
+      }, 500);
     } catch (error) {
       alert(error.message);
     }
   };
 
   const handleFileChange = (event) => {
+    console.log(event.target.files);
     event.persist();
     setFile(event.target.files[0]);
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       setSelectedImage(reader.result);
     });
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(event.target.files[0]);
   };
 
   const {inputs, handleSubmit, handleInputChange} = useForm(
