@@ -15,6 +15,7 @@ import {
   Select,
   Slider,
   TextField,
+  Typography,
 } from '@mui/material';
 import useForm from '../hooks/FormHooks';
 import {useMedia, useTags} from '../hooks/apiHooks';
@@ -99,7 +100,7 @@ const ReviewUpload = (props) => {
     filterInitValues
   );
   */
-  console.log('upload', inputs);
+  console.log('upload', inputs, restaurantRating);
 
   const tagNames = [
     'Burgers',
@@ -170,6 +171,7 @@ const ReviewUpload = (props) => {
           multiline
           value={inputs.website}
         />
+        <Typography component="legend">Select rating:</Typography>
         <Rating
           name="rating"
           onChange={(event, value) => {
