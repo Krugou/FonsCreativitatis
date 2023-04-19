@@ -52,16 +52,15 @@ const ReviewUpload = (props) => {
     try {
       const data = new FormData();
       data.append('title', inputs.title);
-      const allData = {
+      const mediaData = {
         review: inputs.review,
         stars: restaurantRating,
         website: inputs.website,
         address: inputs.address,
-        tags: selectedTags,
         // filters: filterInputs,
       };
 
-      data.append('description', JSON.stringify(allData));
+      data.append('description', JSON.stringify(mediaData));
       data.append('file', file);
       const userToken = localStorage.getItem('userToken');
       const uploadResult = await postMedia(data, userToken);
@@ -72,7 +71,19 @@ const ReviewUpload = (props) => {
         },
         userToken
       );
-      console.log('doUpload', tagResult);
+      // Upload selected tags
+      selectedTags.forEach(async (selectedTag) => {
+        const uploadSelectedTagsResult = await postTag(
+          {
+            file_id: uploadResult.file_id,
+            tag: selectedTag,
+          },
+          userToken
+        );
+        console.log(uploadSelectedTagsResult);
+      });
+
+      console.log(tagResult);
       navigate('/home');
     } catch (error) {
       alert(error.message);
