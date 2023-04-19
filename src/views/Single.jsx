@@ -4,8 +4,10 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Rating,
   Typography,
 } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useLocation} from 'react-router-dom';
 import {mediaUrl} from '../utils/variables';
 import {useContext, useState} from 'react';
@@ -24,7 +26,7 @@ const Single = () => {
 
   const {state} = useLocation();
   const file = state.file;
-
+  console.log(file);
   let allData = {
     desc: file.description,
     filters: {
@@ -36,6 +38,7 @@ const Single = () => {
   };
   try {
     allData = JSON.parse(file.description);
+    console.log(allData, 'Alldata');
   } catch (error) {
     /* Empty */
   }
@@ -132,10 +135,9 @@ const Single = () => {
           }}
         />
         <CardContent>
-          <Typography variant="body1">{allData.desc}</Typography>
+          <Typography variant="body1">{allData.review}</Typography>
           <Typography variant="body2">By: {owner.username}</Typography>
           <Typography variant="body2">Likes: {likes}</Typography>
-
           <ButtonGroup>
             <Button onClick={doLike} disabled={userLike}>
               Like
@@ -144,6 +146,13 @@ const Single = () => {
               Dislike
             </Button>
           </ButtonGroup>
+          <Rating
+            name="restaurant-rating"
+            value={allData.stars}
+            precision="0.5"
+            readOnly
+          />
+          <FavoriteIcon style={{color: 'red'}}></FavoriteIcon>
         </CardContent>
       </Card>
     </>
