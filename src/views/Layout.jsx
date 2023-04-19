@@ -23,6 +23,7 @@ import {
   Folder,
   Home,
   Menu as MenuIcon,
+  Search,
 } from '@mui/icons-material';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -148,29 +149,17 @@ const Layout = () => {
               </Button>
 
               {user ? (
-                <>
-                  <Button sx={{ color: 'white' }} component={Link} to="/profile">
-                    Profile
-                  </Button>
-                  <Button
-                    sx={{ color: 'white' }}
-                    component={Link}
-                    to="/reviewupload"
-                  >
-                    Write A Review
-                  </Button>
-                  <Button sx={{ color: 'white' }} component={Link} to="/myfiles">
-                    My Files
-                  </Button>
-                  <Button sx={{ color: 'white' }} component={Link} to="/logout">
-                    Logout
-                  </Button>
-                </>
+                <IconButton color="inherit">
+                  <AccountCircle />
+                </IconButton>
               ) : (
                 <Button sx={{ color: 'white' }} component={Link} to="/login">
                   Login
                 </Button>
               )}
+              <IconButton color="inherit">
+                <Search />
+              </IconButton>
             </Box>
           </Toolbar>
         </AppBar>
