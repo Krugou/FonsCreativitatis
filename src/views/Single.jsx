@@ -137,22 +137,22 @@ const Single = () => {
         <CardContent>
           <Typography variant="body1">{allData.review}</Typography>
           <Typography variant="body2">By: {owner.username}</Typography>
-          <Typography variant="body2">Likes: {likes}</Typography>
-          <ButtonGroup>
-            <Button onClick={doLike} disabled={userLike}>
-              Like
-            </Button>
-            <Button onClick={deleteLike} disabled={!userLike}>
-              Dislike
-            </Button>
-          </ButtonGroup>
+          <Typography variant="body2">Favorites: {likes}</Typography>
+
           <Rating
             name="restaurant-rating"
             value={allData.stars}
             precision="0.5"
             readOnly
           />
-          <FavoriteIcon style={{color: 'red'}}></FavoriteIcon>
+          <FavoriteIcon
+            onClick={userLike ? deleteLike : doLike}
+            style={
+              userLike
+                ? {color: 'red', display: 'block'}
+                : {color: 'orange', display: 'block'}
+            }
+          ></FavoriteIcon>
         </CardContent>
       </Card>
     </>
