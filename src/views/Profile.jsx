@@ -46,7 +46,8 @@ const Profile = () => {
                 sx={{width: '5rem', height: '5rem'}}
               />
               <p>Username: {user.username}</p>
-              <p>Full name: {user.full_name}</p>
+              {/* if user has full name show it if not dont */}
+              {user.full_name && <p>Full name: {user.full_name}</p>}
               <p>Email: {user.email}</p>
             </Box>
           </div>
