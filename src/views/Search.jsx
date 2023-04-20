@@ -1,4 +1,5 @@
-import {Box, Typography} from '@mui/material';
+import TuneIcon from '@mui/icons-material/Tune';
+import {Box, TextField, Typography} from '@mui/material';
 import React from 'react';
 import MediaTable from '../components/Mediatable';
 const imageUrls = [
@@ -47,6 +48,10 @@ const Search = () => {
       >
         Search
       </Typography>
+      <Box sx={{display: 'flex', alignItems: 'center'}}>
+        <TextField name="search" label="search" margin="normal" multiline />
+        <TuneIcon />
+      </Box>
       <MediaTable />
     </>
   );
