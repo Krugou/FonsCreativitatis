@@ -122,7 +122,7 @@ const Single = () => {
       <Card
         sx={{
           display: 'flex',
-          gap: '15em',
+          gap: '10em',
         }}
       >
         <CardMedia
@@ -133,6 +133,7 @@ const Single = () => {
           title={file.title}
           sx={{
             width: '800px',
+            height: '600px',
             padding: '20px',
             boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           }}
@@ -147,7 +148,7 @@ const Single = () => {
         >
           <Typography
             sx={{
-              fontSize: '30px',
+              fontSize: '40px',
             }}
             variant="body1"
           >
@@ -155,7 +156,7 @@ const Single = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: '30px',
+              fontSize: '40px',
             }}
             variant="body2"
           >
@@ -163,7 +164,7 @@ const Single = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: '30px',
+              fontSize: '40px',
             }}
             variant="body2"
           >
@@ -172,7 +173,7 @@ const Single = () => {
 
           <Rating
             sx={{
-              fontSize: '30px',
+              fontSize: '40px',
             }}
             name="restaurant-rating"
             value={allData.stars}
@@ -181,7 +182,7 @@ const Single = () => {
           />
           <FavoriteIcon
             sx={{
-              fontSize: '30px',
+              fontSize: '40px',
             }}
             onClick={userLike ? deleteLike : doLike}
             style={
@@ -192,6 +193,16 @@ const Single = () => {
           ></FavoriteIcon>
         </CardContent>
       </Card>
+      <Typography
+        sx={{
+          fontSize: '30px',
+          marginTop: '1em',
+          boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
+          padding: '20px',
+        }}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet delectus doloribus ducimus esse et expedita maiores minima, molestiae natus necessitatibus nesciunt nulla placeat reprehenderit sapiente suscipit veniam, veritatis. Commodi dolorem doloremque expedita facere harum illo ipsam maiores quis. A esse facere harum nesciunt vero? Cum earum magnam quo sit.
+      </Typography>
     </>
   );
 };
