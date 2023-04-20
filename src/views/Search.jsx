@@ -59,9 +59,31 @@ const Search = () => {
       >
         Search
       </Typography>
-      <Box sx={{display: 'flex', alignItems: 'center'}}>
-        <TextField name="search" label="search" margin="normal" multiline />
-        <Button onClick={handleOpen} variant="contained">
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center ',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <TextField
+            sx={{m: 2}}
+            name="search"
+            label="search"
+            margin="normal"
+            multiline
+          />
+          <Button sx={{m: 2}} variant="contained">
+            Search
+          </Button>
+        </Box>
+        <Button sx={{m: 2}} onClick={handleOpen} variant="contained">
           <TuneIcon />
         </Button>
       </Box>
