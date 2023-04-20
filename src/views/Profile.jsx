@@ -1,5 +1,5 @@
 import {Avatar} from '@mui/material';
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
 import {useTags} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';

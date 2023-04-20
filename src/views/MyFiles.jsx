@@ -1,6 +1,6 @@
+import {Typography} from '@mui/material';
 import React from 'react';
 import MediaTable from '../components/Mediatable';
-import {Typography} from '@mui/material';
 const MyFiles = () => {
   return (
     <>

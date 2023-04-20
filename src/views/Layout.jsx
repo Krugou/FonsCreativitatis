@@ -25,15 +25,15 @@ import {
   Menu as MenuIcon,
   Search,
 } from '@mui/icons-material';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { MediaContext } from '../contexts/MediaContext';
-import { useUser } from '../hooks/apiHooks';
-import { themeOptions } from '../theme/themeOptions';
+import React, {useContext, useEffect, useState} from 'react';
+import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
+import {MediaContext} from '../contexts/MediaContext';
+import {useUser} from '../hooks/apiHooks';
+import {themeOptions} from '../theme/themeOptions';
 const Layout = () => {
-  const { user, setUser } = useContext(MediaContext);
+  const {user, setUser} = useContext(MediaContext);
   const navigate = useNavigate();
-  const { getUserByToken } = useUser();
+  const {getUserByToken} = useUser();
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
@@ -62,13 +62,13 @@ const Layout = () => {
       <CssBaseline />
       <Container maxWidth="xl">
         <AppBar position="sticky">
-          <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
+          <Toolbar disableGutters sx={{justifyContent: 'space-between'}}>
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              sx={{mr: 2}}
               onClick={() => {
                 setOpen(!open);
               }}
@@ -82,7 +82,7 @@ const Layout = () => {
                 letterSpacing: '.3rem',
               }}
             >
-              <Button sx={{ color: 'white' }} component={Link} to="/">
+              <Button sx={{color: 'white'}} component={Link} to="/">
                 JAK-Reviews
               </Button>
             </Typography>
@@ -143,21 +143,21 @@ const Layout = () => {
                 )}
               </List>
             </Drawer>
-            <Box sx={{ mr: 2 }}>
-              <Button sx={{ color: 'white' }} component={Link} to="/">
+            <Box sx={{mr: 2}}>
+              <Button sx={{color: 'white'}} component={Link} to="/">
                 Home
               </Button>
 
               {user ? (
-                <IconButton color="inherit">
+                <IconButton color="inherit" component={Link} to="/profile">
                   <AccountCircle />
                 </IconButton>
               ) : (
-                <Button sx={{ color: 'white' }} component={Link} to="/login">
+                <Button sx={{color: 'white'}} component={Link} to="/login">
                   Login
                 </Button>
               )}
-              <IconButton color="inherit">
+              <IconButton color="inherit" component={Link} to="/search">
                 <Search />
               </IconButton>
             </Box>

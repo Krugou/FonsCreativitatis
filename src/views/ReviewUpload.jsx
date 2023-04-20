@@ -1,5 +1,3 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {
   Button,
   Checkbox,
@@ -14,13 +12,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, {useState} from 'react';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
+import {useNavigate} from 'react-router-dom';
 import useForm from '../hooks/FormHooks';
 import {useMedia, useTags} from '../hooks/apiHooks';
-import {useNavigate} from 'react-router-dom';
-import {appId} from '../utils/variables';
-import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
-import {reviewValidators} from '../utils/validators';
 import {reviewForm} from '../utils/errorMessages';
+import {reviewValidators} from '../utils/validators';
+import {appId} from '../utils/variables';
 
 const ReviewUpload = (props) => {
   const navigate = useNavigate();

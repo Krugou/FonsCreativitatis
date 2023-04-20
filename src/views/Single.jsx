@@ -1,3 +1,4 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   Button,
   ButtonGroup,
@@ -7,13 +8,11 @@ import {
   Rating,
   Typography,
 } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import React, {useContext, useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
-import {mediaUrl} from '../utils/variables';
-import {useContext, useState} from 'react';
-import {useEffect} from 'react';
-import {useFavourite, useUser} from '../hooks/apiHooks';
 import {MediaContext} from '../contexts/MediaContext';
+import {useFavourite, useUser} from '../hooks/apiHooks';
+import {mediaUrl} from '../utils/variables';
 
 const Single = () => {
   const [owner, setOwner] = useState({username: ''});

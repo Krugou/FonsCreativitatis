@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import {Button, Grid, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-import {Button, Grid, Typography} from '@mui/material';
 
 const Login = (props) => {
   const [formToggle, setFormToggle] = useState(true);

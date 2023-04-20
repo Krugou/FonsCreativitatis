@@ -9,7 +9,7 @@ const imageUrls = [
   'krugou_restaurant_table_with_delicious_salad_mix_on_place_356c12f5-dd0d-40c3-8fee-d37ca27d021f (1).png',
 ];
 
-const Home = () => {
+const Search = () => {
   const randomImageUrl =
     imageUrls[Math.floor(Math.random() * imageUrls.length)];
   return (
@@ -36,7 +36,7 @@ const Home = () => {
           }}
         >
           <Typography component="h1" variant="h2" sx={{color: 'white'}}>
-            Home
+            Search
           </Typography>
         </Box>
       </Box>
@@ -45,11 +45,11 @@ const Home = () => {
         variant="h2"
         sx={{display: {xs: 'block', md: 'none'}}}
       >
-        Home
+        Search
       </Typography>
       <MediaTable />
     </>
   );
 };
 
-export default Home;
+export default Search;
