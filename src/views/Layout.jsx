@@ -26,6 +26,7 @@ import {
   Menu as MenuIcon,
   Search,
 } from '@mui/icons-material';
+import LoginIcon from '@mui/icons-material/Login';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
@@ -110,7 +111,7 @@ const Layout = () => {
                   <>
                     <ListItemButton component={Link} to="/login">
                       <ListItemIcon>
-                        <AccountCircle />
+                        <LoginIcon />
                       </ListItemIcon>
                       <ListItemText primary="Login" />
                     </ListItemButton>
