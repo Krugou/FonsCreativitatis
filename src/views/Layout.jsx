@@ -2,6 +2,7 @@ import {
   AppBar,
   Box,
   Button,
+  ButtonGroup,
   Container,
   CssBaseline,
   Drawer,
@@ -64,28 +65,30 @@ const Layout = () => {
         <AppBar position="sticky">
           <Toolbar disableGutters sx={{justifyContent: 'space-between'}}>
             <IconButton
+              sx={{ml: 2}}
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{mr: 2}}
               onClick={() => {
                 setOpen(!open);
               }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              variant="h6"
+            <Button
+              component={Link}
+              to="/"
+              variant="h3"
               sx={{
-                m: 2,
+                m: 1,
                 letterSpacing: '.3rem',
+                color: 'white',
+                fontSize: {xs: '1rem', md: '1.5rem'},
               }}
             >
-              <Button sx={{color: 'white'}} component={Link} to="/">
-                JAK-Reviews
-              </Button>
-            </Typography>
+              JAK-Reviews
+            </Button>
             <Drawer
               open={open}
               onClose={() => {
