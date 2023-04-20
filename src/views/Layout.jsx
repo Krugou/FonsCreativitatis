@@ -68,7 +68,6 @@ const Layout = () => {
             <IconButton
               sx={{
                 ml: 2,
-                display: {xs: 'inline-flex', md: 'none'},
               }}
               size="large"
               edge="start"
