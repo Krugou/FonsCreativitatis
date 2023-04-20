@@ -1,4 +1,4 @@
-import {Avatar} from '@mui/material';
+import {Avatar, Box} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
 import {useTags} from '../hooks/apiHooks';
@@ -28,14 +28,28 @@ const Profile = () => {
     <>
       {user && (
         <>
-          <h1>Profile</h1>
-          <Avatar
-            src={avatar}
-            imgProps={{alt: `${user.username}'s profile picture`}}
-          />
-          <p>Username: {user.username}</p>
-          <p>Full name: {user.full_name}</p>
-          <p>Email: {user.email}</p>
+          <div
+            style={{
+              display: 'flex',
+              marginTop: '10px',
+
+              justifyContent: 'center',
+              alignItems: 'start',
+              height: '100vh',
+            }}
+          >
+            <Box>
+              <h1>Profile</h1>
+              <Avatar
+                src={avatar}
+                imgProps={{alt: `${user.username}'s profile picture`}}
+                sx={{width: '5rem', height: '5rem'}}
+              />
+              <p>Username: {user.username}</p>
+              <p>Full name: {user.full_name}</p>
+              <p>Email: {user.email}</p>
+            </Box>
+          </div>
         </>
       )}
     </>
