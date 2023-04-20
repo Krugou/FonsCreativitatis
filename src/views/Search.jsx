@@ -1,18 +1,29 @@
 import TuneIcon from '@mui/icons-material/Tune';
 import {Box, TextField, Typography} from '@mui/material';
-import React from 'react';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Stack from '@mui/material/Stack';
+import React, {useState} from 'react';
 import MediaTable from '../components/Mediatable';
-const imageUrls = [
-  'krugou_fine_dining_table_view_d174b4ee-4faa-4d95-9d7e-b200757cded3.png',
-  'krugou_finnish_pizza_place_filled_with_happy_people_0a69e28f-7135-4d33-b2d3-56bdbfd0ecb4.png',
-  'krugou_finnish_pizza_place_filled_with_happy_people_6fd39d60-7066-490b-b87b-aecc7283801c.png',
-  'krugou_finnish_pizza_place_filled_with_happy_people_17b54793-ad14-42a1-9bbf-95f36e386824.png',
-  'krugou_restaurant_table_with_delicious_salad_mix_on_place_356c12f5-dd0d-40c3-8fee-d37ca27d021f (1).png',
-];
+import imageUrls from '../utils/auxiliaryContent';
 
 const Search = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission here
+  };
   const randomImageUrl =
-    imageUrls[Math.floor(Math.random() * imageUrls.length)];
+    imageUrls.home[Math.floor(Math.random() * imageUrls.home.length)];
   return (
     <>
       <Box
@@ -50,8 +61,26 @@ const Search = () => {
       </Typography>
       <Box sx={{display: 'flex', alignItems: 'center'}}>
         <TextField name="search" label="search" margin="normal" multiline />
-        <TuneIcon />
+        <Button onClick={handleOpen} variant="contained">
+          <TuneIcon />
+        </Button>
       </Box>
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={{p: 3, backgroundColor: 'white'}}>
+          <Typography variant="h5" gutterBottom>
+            Filter Results
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <Stack spacing={2}>
+              <TextField name="search" label="Search" variant="outlined" />
+              <TextField name="category" label="Category" variant="outlined" />
+              <Button type="submit" variant="contained">
+                Apply Filters
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+      </Modal>
       <MediaTable />
     </>
   );
