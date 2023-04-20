@@ -66,7 +66,10 @@ const Layout = () => {
         <AppBar position="sticky">
           <Toolbar disableGutters sx={{justifyContent: 'space-between'}}>
             <IconButton
-              sx={{ml: 2}}
+              sx={{
+                ml: 2,
+                display: {xs: 'inline-flex', md: 'none'},
+              }}
               size="large"
               edge="start"
               color="inherit"
@@ -148,7 +151,14 @@ const Layout = () => {
               </List>
             </Drawer>
             <Box sx={{mr: 2}}>
-              <Button sx={{color: 'white'}} component={Link} to="/">
+              <Button
+                sx={{
+                  color: 'white',
+                  display: {xs: 'none', md: 'inline-flex'},
+                }}
+                component={Link}
+                to="/"
+              >
                 Home
               </Button>
 
@@ -157,7 +167,14 @@ const Layout = () => {
                   <AccountCircle />
                 </IconButton>
               ) : (
-                <Button sx={{color: 'white'}} component={Link} to="/login">
+                <Button
+                  sx={{
+                    color: 'white',
+                    display: {xs: 'none', md: 'inline-flex'},
+                  }}
+                  component={Link}
+                  to="/login"
+                >
                   Login
                 </Button>
               )}

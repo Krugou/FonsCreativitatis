@@ -109,42 +109,80 @@ const Single = () => {
 
   return (
     <>
-      <Typography component="h1" variant="h3">
+      <Typography
+        sx={{
+          marginTop: '0.5em',
+          marginBottom: '0.5em',
+        }}
+        component="h1"
+        variant="h3"
+      >
         {file.title}
       </Typography>
-      <Card>
+      <Card
+        sx={{
+          display: 'flex',
+          gap: '15em',
+        }}
+      >
         <CardMedia
           controls={true}
           poster={mediaUrl + file.screenshot}
           component={componentType}
           src={mediaUrl + file.filename}
           title={file.title}
-          style={{
-            /*
-            width: '100%',
-            height: 400,
-            filter: `
-            brightness(${allData.filters.brightness}%)
-            contrast(${allData.filters.contrast}%)
-            saturate(${allData.filters.saturation}%)
-            sepia(${allData.filters.sepia}%)
-            `,
-            */
-            backgroundImage: file.media_type === 'audio' && `url(vite.svg)`,
+          sx={{
+            width: '800px',
+            padding: '20px',
+            boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           }}
         />
-        <CardContent>
-          <Typography variant="body1">{allData.review}</Typography>
-          <Typography variant="body2">By: {owner.username}</Typography>
-          <Typography variant="body2">Favorites: {likes}</Typography>
+        <CardContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4em',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: '30px',
+            }}
+            variant="body1"
+          >
+            {allData.review}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '30px',
+            }}
+            variant="body2"
+          >
+            By: {owner.username}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '30px',
+            }}
+            variant="body2"
+          >
+            Favorites: {likes}
+          </Typography>
 
           <Rating
+            sx={{
+              fontSize: '30px',
+            }}
             name="restaurant-rating"
             value={allData.stars}
             precision="0.5"
             readOnly
           />
           <FavoriteIcon
+            sx={{
+              fontSize: '30px',
+            }}
             onClick={userLike ? deleteLike : doLike}
             style={
               userLike
