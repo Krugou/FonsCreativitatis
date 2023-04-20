@@ -122,7 +122,7 @@ const Single = () => {
       <Card
         sx={{
           display: 'flex',
-          gap: '10em',
+          flexDirection: {xs: 'column', md: 'row'},
         }}
       >
         <CardMedia
@@ -132,8 +132,7 @@ const Single = () => {
           src={mediaUrl + file.filename}
           title={file.title}
           sx={{
-            width: '800px',
-            height: '600px',
+            width: '60%',
             padding: '20px',
             boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           }}
@@ -141,14 +140,15 @@ const Single = () => {
         <CardContent
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: {xs: 'row', md: 'column'},
             gap: '4em',
             justifyContent: 'center',
+            paddingLeft: {xs: '0em', md: '5em'},
           }}
         >
           <Typography
             sx={{
-              fontSize: '40px',
+              fontSize: {xs: '20px', md: '35px'},
             }}
             variant="body1"
           >
@@ -156,7 +156,7 @@ const Single = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: '40px',
+              fontSize: {xs: '20px', md: '35px'},
             }}
             variant="body2"
           >
@@ -164,7 +164,7 @@ const Single = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: '40px',
+              fontSize: {xs: '20px', md: '35px'},
             }}
             variant="body2"
           >
@@ -173,7 +173,7 @@ const Single = () => {
 
           <Rating
             sx={{
-              fontSize: '40px',
+              fontSize: {xs: '20px', md: '35px'},
             }}
             name="restaurant-rating"
             value={allData.stars}
@@ -182,7 +182,7 @@ const Single = () => {
           />
           <FavoriteIcon
             sx={{
-              fontSize: '40px',
+              fontSize: {xs: '20px', md: '35px'},
             }}
             onClick={userLike ? deleteLike : doLike}
             style={
@@ -201,7 +201,12 @@ const Single = () => {
           padding: '20px',
         }}
       >
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet delectus doloribus ducimus esse et expedita maiores minima, molestiae natus necessitatibus nesciunt nulla placeat reprehenderit sapiente suscipit veniam, veritatis. Commodi dolorem doloremque expedita facere harum illo ipsam maiores quis. A esse facere harum nesciunt vero? Cum earum magnam quo sit.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet
+        delectus doloribus ducimus esse et expedita maiores minima, molestiae
+        natus necessitatibus nesciunt nulla placeat reprehenderit sapiente
+        suscipit veniam, veritatis. Commodi dolorem doloremque expedita facere
+        harum illo ipsam maiores quis. A esse facere harum nesciunt vero? Cum
+        earum magnam quo sit.
       </Typography>
     </>
   );
