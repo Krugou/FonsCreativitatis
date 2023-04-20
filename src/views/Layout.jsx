@@ -1,3 +1,4 @@
+import LogoutIcon from '@mui/icons-material/Logout';
 import {
   AppBar,
   Box,
@@ -16,7 +17,6 @@ import {
   Typography,
   createTheme,
 } from '@mui/material';
-
 // material-ui icons
 import {
   AccountCircle,
@@ -138,7 +138,7 @@ const Layout = () => {
                     </ListItemButton>
                     <ListItemButton component={Link} to="/logout">
                       <ListItemIcon>
-                        <AccountCircle />
+                        <LogoutIcon />
                       </ListItemIcon>
                       <ListItemText primary="Logout" />
                     </ListItemButton>
