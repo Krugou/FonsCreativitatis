@@ -187,6 +187,7 @@ const Layout = () => {
           <Outlet />
         </main>
       </Container>
+      <footer className="main-footer">© MoneyTeam LLC JAK Productions</footer>
     </ThemeProvider>
   );
 };

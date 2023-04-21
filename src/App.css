@@ -2,12 +2,16 @@ button:focus {
   outline: none !important;
 }
 form {
-  display:flex;
+  display: flex;
   flex-direction: column;
   gap: 1em;
   align-items: center;
   margin-bottom: 0.5em;
 }
-
-
-
+.main-footer {
+  height: 3em;
+  border-top: 1px solid black;
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+}
