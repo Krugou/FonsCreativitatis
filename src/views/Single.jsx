@@ -205,7 +205,7 @@ const Single = () => {
           fontSize: '20px',
           boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           padding: '20px',
-          width: '75%',
+          width: {xs: '100%', sm: '75%'},
           marginTop: '1em',
         }}
       >
