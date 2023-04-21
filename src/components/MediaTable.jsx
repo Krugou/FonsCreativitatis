@@ -1,4 +1,4 @@
-import {ImageList} from '@mui/material';
+import {Box, ImageList} from '@mui/material';
 import PropTypes from 'prop-types';
 import {useMedia} from '../hooks/apiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
@@ -9,7 +9,7 @@ const MediaTable = ({myFilesOnly = false}) => {
   const windowSize = useWindowSize();
 
   return (
-    <ImageList cols={windowSize.width > 768 ? 4 : 2} gap={24}>
+    <ImageList cols={windowSize.width > 768 ? 4 : 2} gap={24} component={Box}>
       {mediaArray.map((item, index) => {
         console.log(item);
         try {
