@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import {mediaUrl} from '../utils/variables';
-import {Link} from 'react-router-dom';
 import {
   Button,
+  ButtonGroup,
   ImageListItem,
   ImageListItemBar,
-  ButtonGroup,
 } from '@mui/material';
-import {useContext} from 'react';
+import PropTypes from 'prop-types';
+import React, {useContext, useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {useUser} from '../hooks/apiHooks';
+import {useAuthentication, useUser} from '../hooks/apiHooks';
+import {generalUser, mediaUrl} from '../utils/variables';
 
 const MediaRow = ({file, deleteMedia}) => {
   const {user, update, setUpdate} = useContext(MediaContext);
   const [owner, setOwner] = useState({username: ''});
   const {getUser} = useUser();
+  const {postLogin} = useAuthentication();
   const doDelete = async () => {
     try {
       const sure = confirm('Are you sure?');
@@ -31,7 +31,11 @@ const MediaRow = ({file, deleteMedia}) => {
   };
   const fetchOwner = async () => {
     try {
-      const userToken = localStorage.getItem('userToken');
+      // general user for functions that require user to be logged in backend side
+      const generalUserLog = await postLogin(generalUser);
+      const userToken = user
+        ? localStorage.getItem('userToken')
+        : generalUserLog.token;
       const ownerInfo = await getUser(file.user_id, userToken);
       setOwner(ownerInfo);
     } catch (error) {
@@ -54,31 +58,31 @@ const MediaRow = ({file, deleteMedia}) => {
       <ImageListItemBar
         title={file.title}
         subtitle={'By:' + owner.username}
-        /*
-          actionIcon={
-            <ButtonGroup>
-              {file.user_id === user?.user_id && (
-                <>
-                  <Button
-                    component={Link}
-                    variant="contained"
-                    to="/update"
-                    state={{file}}
-                  >
-                    Update
-                  </Button>
-                  <Button
-                    component={Link}
-                    variant="contained"
-                    onClick={doDelete}
-                  >
-                    Delete
-                  </Button>
-                </>
-              )}
-            </ButtonGroup>
-          }
-          */
+      /*
+actionIcon={
+<ButtonGroup>
+{file.user_id === user?.user_id && (
+<>
+<Button
+component={Link}
+variant="contained"
+to="/update"
+state={{file}}
+>
+Update
+</Button>
+<Button
+component={Link}
+variant="contained"
+onClick={doDelete}
+>
+Delete
+</Button>
+</>
+)}
+</ButtonGroup>
+}
+*/
       />
     </ImageListItem>
   );
