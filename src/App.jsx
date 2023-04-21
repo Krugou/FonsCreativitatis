@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import {MediaProvider} from './contexts/MediaContext';
 import Home from './views/Home';
 import Layout from './views/Layout';
