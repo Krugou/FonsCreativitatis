@@ -150,8 +150,9 @@ const Layout = () => {
                 )}
               </List>
             </Drawer>
+            <FetchWeather />
             <Box sx={{mr: 2}}>
-              <FetchWeather />
+
 
               <Button
                 sx={{
