@@ -42,20 +42,19 @@ const MediaRow = ({file, deleteMedia}) => {
     fetchOwner();
   }, []); // jos taulukko tyhjä, ajetaan vain kerran, kun sivu ladata
   return (
-    <Link to="/single" state={{file}}>
-      <ImageListItem>
-        <img
-          src={
-            file.media_type !== 'audio'
-              ? mediaUrl + file.thumbnails?.w640
-              : 'vite.svg'
-          }
-          alt={file.title}
-        />
-        <ImageListItemBar
-          title={file.title}
-          subtitle={'By:' + owner.username}
-          /*
+    <ImageListItem component={Link} to="/single" state={{file}}>
+      <img
+        src={
+          file.media_type !== 'audio'
+            ? mediaUrl + file.thumbnails?.w640
+            : 'vite.svg'
+        }
+        alt={file.title}
+      />
+      <ImageListItemBar
+        title={file.title}
+        subtitle={'By:' + owner.username}
+        /*
           actionIcon={
             <ButtonGroup>
               {file.user_id === user?.user_id && (
@@ -80,9 +79,8 @@ const MediaRow = ({file, deleteMedia}) => {
             </ButtonGroup>
           }
           */
-        />
-      </ImageListItem>
-    </Link>
+      />
+    </ImageListItem>
   );
 };
 
