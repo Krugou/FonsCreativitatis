@@ -29,6 +29,7 @@ import {
 import LoginIcon from '@mui/icons-material/Login';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
+import WeatherReport from '../components/WeatherReport';
 import {MediaContext} from '../contexts/MediaContext';
 import {useUser} from '../hooks/apiHooks';
 import {themeOptions} from '../theme/themeOptions';
@@ -150,6 +151,8 @@ const Layout = () => {
               </List>
             </Drawer>
             <Box sx={{mr: 2}}>
+              <WeatherReport lat={59.33258} lon={18.0649} hoursFromNow={3} />
+
               <Button
                 sx={{
                   color: 'white',
