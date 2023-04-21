@@ -28,47 +28,53 @@ const MediaRow = ({file, deleteMedia}) => {
   };
 
   return (
-    <ImageListItem>
-      <img
-        src={
-          file.media_type !== 'audio'
-            ? mediaUrl + file.thumbnails?.w640
-            : 'vite.svg'
-        }
-        alt={file.title}
-      />
-      <ImageListItemBar
-        title={file.title}
-        subtitle={file.description}
-        actionIcon={
-          <ButtonGroup>
-            <Button
-              component={Link}
-              variant="contained"
-              to="/single"
-              state={{file}}
-            >
-              View
-            </Button>
-            {file.user_id === user?.user_id && (
-              <>
-                <Button
-                  component={Link}
-                  variant="contained"
-                  to="/update"
-                  state={{file}}
-                >
-                  Update
-                </Button>
-                <Button component={Link} variant="contained" onClick={doDelete}>
-                  Delete
-                </Button>
-              </>
-            )}
-          </ButtonGroup>
-        }
-      />
-    </ImageListItem>
+    <Link to="/single" state={{file}}>
+      <ImageListItem>
+        <img
+          src={
+            file.media_type !== 'audio'
+              ? mediaUrl + file.thumbnails?.w640
+              : 'vite.svg'
+          }
+          alt={file.title}
+        />
+        <ImageListItemBar
+          title={file.title}
+          subtitle={file.description}
+          actionIcon={
+            <ButtonGroup>
+              <Button
+                component={Link}
+                variant="contained"
+                to="/single"
+                state={{file}}
+              >
+                View
+              </Button>
+              {file.user_id === user?.user_id && (
+                <>
+                  <Button
+                    component={Link}
+                    variant="contained"
+                    to="/update"
+                    state={{file}}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    component={Link}
+                    variant="contained"
+                    onClick={doDelete}
+                  >
+                    Delete
+                  </Button>
+                </>
+              )}
+            </ButtonGroup>
+          }
+        />
+      </ImageListItem>
+    </Link>
   );
 };
 
