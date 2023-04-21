@@ -133,7 +133,7 @@ const Single = () => {
           title={file.title}
           sx={{
             width: {md: '600px', sm: '70%', xs: '100%'},
-            padding: {md: '20px', xs: '0px'},
+            height: {md: '450px', sm: '450px', xs: 'fit-content'},
             boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           }}
         />
