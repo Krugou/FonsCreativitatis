@@ -9,7 +9,7 @@ const MediaTable = ({myFilesOnly = false}) => {
   const windowSize = useWindowSize();
 
   return (
-    <ImageList cols={windowSize.width > 768 ? 4 : 2} gap={16}>
+    <ImageList cols={windowSize.width > 768 ? 4 : 2} gap={24}>
       {mediaArray.map((item, index) => {
         console.log(item);
         try {
