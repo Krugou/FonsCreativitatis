@@ -122,7 +122,7 @@ const Single = () => {
       <Card
         sx={{
           display: 'flex',
-          flexDirection: {xs: 'column', md: 'row'},
+          flexDirection: {xs: 'column', sm: 'row'},
         }}
       >
         <CardMedia
@@ -132,23 +132,24 @@ const Single = () => {
           src={mediaUrl + file.filename}
           title={file.title}
           sx={{
-            width: '60%',
-            padding: '20px',
+            width: {md: '600px', sm: '70%', xs: '100%'},
+            padding: {md: '20px', xs: '0px'},
             boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           }}
         />
         <CardContent
           sx={{
             display: 'flex',
-            flexDirection: {xs: 'row', md: 'column'},
-            gap: '4em',
+            flexDirection: 'column',
+            gap: {xs: '1.5em', sm: '3em'},
             justifyContent: 'center',
-            paddingLeft: {xs: '0em', md: '5em'},
+            paddingLeft: {xs: '2em', md: '2em'},
+            alignItems: {md: 'unset', sm: 'unset', xs: 'center'},
           }}
         >
           <Typography
             sx={{
-              fontSize: {xs: '20px', md: '35px'},
+              fontSize: {xs: '20px', md: '30px'},
             }}
             variant="body1"
           >
@@ -156,7 +157,7 @@ const Single = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: {xs: '20px', md: '35px'},
+              fontSize: {xs: '20px', md: '30px'},
             }}
             variant="body2"
           >
@@ -164,7 +165,7 @@ const Single = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: {xs: '20px', md: '35px'},
+              fontSize: {xs: '20px', md: '30px'},
             }}
             variant="body2"
           >
@@ -173,7 +174,7 @@ const Single = () => {
 
           <Rating
             sx={{
-              fontSize: {xs: '20px', md: '35px'},
+              fontSize: {xs: '20px', md: '30px'},
             }}
             name="restaurant-rating"
             value={allData.stars}
@@ -195,7 +196,7 @@ const Single = () => {
       </Card>
       <Typography
         sx={{
-          fontSize: '30px',
+          fontSize: '20px',
           marginTop: '1em',
           boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           padding: '20px',
