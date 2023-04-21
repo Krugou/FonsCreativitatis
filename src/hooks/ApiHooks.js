@@ -1,7 +1,6 @@
-import {useEffect, useState} from 'react';
-import {appId, baseUrl} from '../utils/variables';
-import {useContext} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
+import {appId, baseUrl} from '../utils/variables';
 
 const doFetch = async (url, options) => {
   const response = await fetch(url, options);
@@ -185,5 +184,29 @@ const useFavourite = () => {
 
   return {postFavourite, getFavourites, deleteFavourite};
 };
+const useSearch = () => {
+  const searchMedia = async (title, description) => {
+    const url = `${BASE_URL}/media/search`;
+    const token = getToken();
 
-export {useMedia, useUser, useAuthentication, useTags, useFavourite};
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify({title, description}),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+
+    const result = await response.json();
+    return result;
+  };
+  
+};
+
+export {useAuthentication, useFavourite, useMedia, useTags, useUser};
