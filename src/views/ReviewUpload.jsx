@@ -164,12 +164,12 @@ const ReviewUpload = (props) => {
             component="label"
             sx={{ml: 2, height: 'fit-content'}}
           >
-            Upload File
+            Upload Image
             <input
               onChange={handleFileChange}
               type="file"
               name="file"
-              accept="image/*,video/*,audio/*"
+              accept="image/*"
               hidden
             />
           </Button>
