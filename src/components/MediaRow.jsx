@@ -1,21 +1,15 @@
-import {
-  Button,
-  ButtonGroup,
-  ImageListItem,
-  ImageListItemBar,
-} from '@mui/material';
+import {ImageListItem, ImageListItemBar} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {useAuthentication, useUser} from '../hooks/apiHooks';
-import {generalUser, mediaUrl} from '../utils/variables';
+import {useUser} from '../hooks/apiHooks';
+import {mediaUrl} from '../utils/variables';
 
-const MediaRow = ({file, deleteMedia}) => {
+const MediaRow = ({file, deleteMedia, defaultUserToken}) => {
   const {user, update, setUpdate} = useContext(MediaContext);
   const [owner, setOwner] = useState({username: ''});
   const {getUser} = useUser();
-  const {postLogin} = useAuthentication();
   const doDelete = async () => {
     try {
       const sure = confirm('Are you sure?');
@@ -31,11 +25,9 @@ const MediaRow = ({file, deleteMedia}) => {
   };
   const fetchOwner = async () => {
     try {
-      // general user for functions that require user to be logged in backend side
-      const generalUserLog = await postLogin(generalUser);
       const userToken = user
         ? localStorage.getItem('userToken')
-        : generalUserLog.token;
+        : defaultUserToken;
       const ownerInfo = await getUser(file.user_id, userToken);
       setOwner(ownerInfo);
     } catch (error) {
@@ -91,6 +83,7 @@ Delete
 MediaRow.propTypes = {
   file: PropTypes.object.isRequired,
   deleteMedia: PropTypes.func.isRequired,
+  defaultUserToken: PropTypes.any,
 };
 
 export default MediaRow;
