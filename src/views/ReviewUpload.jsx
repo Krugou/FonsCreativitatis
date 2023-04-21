@@ -146,12 +146,33 @@ const ReviewUpload = (props) => {
   return (
     <ValidatorForm onSubmit={handleSubmit}>
       <Grid container justifyContent="center">
-        <Grid item xs={12} container justifyContent="center" mt={3}>
+        <Grid
+          item
+          xs={12}
+          container
+          justifyContent="center"
+          alignItems="center"
+          mt={3}
+        >
           <img
             src={selectedImage}
             alt="preview"
             style={{width: '30%', border: '1px solid black'}}
           />
+          <Button
+            variant="outlined"
+            component="label"
+            sx={{ml: 2, height: 'fit-content'}}
+          >
+            Upload File
+            <input
+              onChange={handleFileChange}
+              type="file"
+              name="file"
+              accept="image/*,video/*,audio/*"
+              hidden
+            />
+          </Button>
         </Grid>
         <Grid item container direction="column" xs={12} md={8} lg={6}>
           <TextValidator
@@ -202,20 +223,9 @@ const ReviewUpload = (props) => {
             precision={0.5}
             value={restaurantRating}
           />
-
-          <Button variant="outlined" component="label" sx={{mt: 2}}>
-            Upload File
-            <input
-              onChange={handleFileChange}
-              type="file"
-              name="file"
-              accept="image/*,video/*,audio/*"
-              hidden
-            />
-          </Button>
-          <FormControl sx={{m: 1, width: 300}}>
+          <FormControl sx={{mt: 2, width: 300}}>
             <InputLabel id="demo-multiple-checkbox-label">
-              Choose Tags
+              Add Categories
             </InputLabel>
             <Select
               labelId="demo-multiple-checkbox-label"
