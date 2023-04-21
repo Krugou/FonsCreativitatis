@@ -26,7 +26,11 @@ import {
   Menu as MenuIcon,
   Search,
 } from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LoginIcon from '@mui/icons-material/Login';
+import RestoreIcon from '@mui/icons-material/Restore';
+import {BottomNavigation, BottomNavigationAction} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import FetchWeather from '../components/FetchWeather';
@@ -39,6 +43,7 @@ const Layout = () => {
   const {getUserByToken} = useUser();
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [value, setValue] = React.useState(0);
 
   const getUserInfo = async () => {
     const userToken = localStorage.getItem('userToken');
@@ -152,8 +157,6 @@ const Layout = () => {
             </Drawer>
             <FetchWeather />
             <Box sx={{mr: 2}}>
-
-
               <Button
                 sx={{
                   color: 'white',
@@ -191,6 +194,28 @@ const Layout = () => {
           <Outlet />
         </main>
       </Container>
+      <Box
+        sx={{
+          width: '100%',
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          display: {xs: 'block', md: 'none'},
+        }}
+      >
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        </BottomNavigation>
+      </Box>
       <footer className="main-footer">© MoneyTeam LLC JAK Productions</footer>
     </ThemeProvider>
   );
