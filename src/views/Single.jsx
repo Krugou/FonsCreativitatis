@@ -155,7 +155,7 @@ const Single = () => {
         >
           <Typography
             sx={{
-              fontSize: {xs: '20px', md: '30px'},
+              fontSize: {xs: '20px', xl: '30px', md: '25px'},
             }}
             variant="body1"
           >
@@ -163,7 +163,7 @@ const Single = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: {xs: '20px', md: '30px'},
+              fontSize: {xs: '20px', xl: '30px', md: '25px'},
             }}
             variant="body2"
           >
@@ -171,7 +171,7 @@ const Single = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: {xs: '20px', md: '30px'},
+              fontSize: {xs: '20px', xl: '30px', md: '25px'},
             }}
             variant="body2"
           >
@@ -180,7 +180,7 @@ const Single = () => {
 
           <Rating
             sx={{
-              fontSize: {xs: '20px', md: '30px'},
+              fontSize: {xs: '20px', xl: '30px', md: '25px'},
             }}
             name="restaurant-rating"
             value={allData.stars}
@@ -189,7 +189,7 @@ const Single = () => {
           />
           <FavoriteIcon
             sx={{
-              fontSize: {xs: '20px', md: '35px'},
+              fontSize: {xs: '20px', xl: '30px', md: '25px'},
             }}
             onClick={userLike ? deleteLike : doLike}
             style={
@@ -203,9 +203,10 @@ const Single = () => {
       <Typography
         sx={{
           fontSize: '20px',
-          marginTop: '1em',
           boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           padding: '20px',
+          width: '75%',
+          marginTop: '1em',
         }}
       >
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet
