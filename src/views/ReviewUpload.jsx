@@ -160,7 +160,7 @@ const ReviewUpload = (props) => {
             name="title"
             fullWidth
             margin="normal"
-            label="Review Title"
+            label="Restaurant's Name"
             validators={reviewValidators.title}
             errorMessages={reviewForm.title}
             value={inputs.title}
@@ -175,6 +175,7 @@ const ReviewUpload = (props) => {
             errorMessages={reviewForm.review}
             multiline
             value={inputs.review}
+            minRows={6}
           />
           <TextField
             onChange={handleInputChange}
