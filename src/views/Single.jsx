@@ -132,8 +132,14 @@ const Single = () => {
           src={mediaUrl + file.filename}
           title={file.title}
           sx={{
-            width: {md: '600px', sm: '70%', xs: '100%'},
-            height: {md: '450px', sm: '450px', xs: 'fit-content'},
+            width: {md: '500px', sm: '70%', xs: '100%'},
+            height: {
+              lg: '400px',
+              md: '400px',
+              sm: '400px',
+              xs: 'fit-content',
+              xl: 'auto',
+            },
             boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
           }}
         />
