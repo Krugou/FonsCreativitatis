@@ -1,6 +1,7 @@
 button:focus {
   outline: none !important;
 }
+
 form {
   display: flex;
   flex-direction: column;
@@ -8,6 +9,7 @@ form {
   align-items: center;
   margin-bottom: 0.5em;
 }
+
 .main-footer {
   height: 3em;
   border-top: 1px solid black;
@@ -15,9 +17,17 @@ form {
   display: flex;
   align-items: center;
 }
+
 @media only screen and (min-width: 768px) {
   .main-footer {
     display: block;
+  }
+
+  .weather-report {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
   }
 }
 
@@ -27,4 +37,10 @@ form {
     display: none;
   }
 
+  .weather-report {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+  }
 }
