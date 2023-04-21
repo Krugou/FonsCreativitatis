@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {mediaUrl} from '../utils/variables';
 import {Link} from 'react-router-dom';
@@ -10,9 +10,12 @@ import {
 } from '@mui/material';
 import {useContext} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
+import {useUser} from '../hooks/apiHooks';
 
 const MediaRow = ({file, deleteMedia}) => {
   const {user, update, setUpdate} = useContext(MediaContext);
+  const [owner, setOwner] = useState({username: ''});
+  const {getUser} = useUser();
   const doDelete = async () => {
     try {
       const sure = confirm('Are you sure?');
@@ -26,7 +29,18 @@ const MediaRow = ({file, deleteMedia}) => {
       console.error(error.message);
     }
   };
-
+  const fetchOwner = async () => {
+    try {
+      const userToken = localStorage.getItem('userToken');
+      const ownerInfo = await getUser(file.user_id, userToken);
+      setOwner(ownerInfo);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  useEffect(() => {
+    fetchOwner();
+  }, []); // jos taulukko tyhjä, ajetaan vain kerran, kun sivu ladata
   return (
     <Link to="/single" state={{file}}>
       <ImageListItem>
@@ -40,17 +54,10 @@ const MediaRow = ({file, deleteMedia}) => {
         />
         <ImageListItemBar
           title={file.title}
-          subtitle={file.description}
+          subtitle={'By:' + owner.username}
+          /*
           actionIcon={
             <ButtonGroup>
-              <Button
-                component={Link}
-                variant="contained"
-                to="/single"
-                state={{file}}
-              >
-                View
-              </Button>
               {file.user_id === user?.user_id && (
                 <>
                   <Button
@@ -72,6 +79,7 @@ const MediaRow = ({file, deleteMedia}) => {
               )}
             </ButtonGroup>
           }
+          */
         />
       </ImageListItem>
     </Link>
