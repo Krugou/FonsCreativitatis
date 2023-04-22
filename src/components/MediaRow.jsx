@@ -49,7 +49,8 @@ const MediaRow = ({file, deleteMedia, defaultUserToken}) => {
       />
       <ImageListItemBar
         title={file.title}
-        subtitle={'By:' + owner.username}
+        subtitle={owner.username ? 'By: ' + owner.username : ''}
+
       /*
 actionIcon={
 <ButtonGroup>
