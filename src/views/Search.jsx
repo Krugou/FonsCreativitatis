@@ -3,7 +3,7 @@ import {Box, TextField, Typography} from '@mui/material';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import MediaTable from '../components/Mediatable';
 import {MediaContext} from '../contexts/MediaContext';
 import {useAuthentication, useMedia} from '../hooks/ApiHooks';
@@ -22,10 +22,7 @@ const Search = () => {
   const searchMedia = async (title, description) => {
     const url = `${baseUrl}media/search`;
     const generalUserLog = await postLogin(generalUser);
-    console.log(
-      '🚀 ~ file: Search.jsx:26 ~ searchMedia ~ generalUserLog:',
-      generalUserLog
-    );
+
     const token = user
       ? localStorage.getItem('userToken')
       : generalUserLog.token;
@@ -76,8 +73,17 @@ const Search = () => {
     event.preventDefault();
     // Handle form submission here
   };
-  const randomImageUrl =
-    imageUrls.home[Math.floor(Math.random() * imageUrls.home.length)];
+  const [randomImageUrl, setRandomImageUrl] = useState('');
+
+  useEffect(() => {
+    const getRandomImageUrl = () => {
+      const randomIndex = Math.floor(Math.random() * imageUrls.home.length);
+      return imageUrls.home[randomIndex];
+    };
+
+    setRandomImageUrl(getRandomImageUrl());
+  }, []);
+
   return (
     <>
       <Box
