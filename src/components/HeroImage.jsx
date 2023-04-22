@@ -4,17 +4,17 @@ import React, {useEffect, useState} from 'react';
 import imageUrls from '../utils/auxiliaryContent';
 
 const HeroImage = ({heroText}) => {
-  console.log('🚀 ~ file: HeroImage.jsx:7 ~ HeroImage ~ heroText:', heroText);
   const [randomImageUrl, setRandomImageUrl] = useState('');
 
   useEffect(() => {
-    const getRandomImageUrl = () => {
-      const randomIndex = Math.floor(Math.random() * imageUrls.home.length);
-      return imageUrls.home[randomIndex];
+    const getRandomImageUrl = (imageUrlsArray) => {
+      const randomIndex = Math.floor(Math.random() * imageUrlsArray.length);
+      return imageUrlsArray[randomIndex];
     };
 
-    setRandomImageUrl(getRandomImageUrl());
-  }, []);
+    const imageUrlsArray = imageUrls[heroText.toLowerCase()] || imageUrls.default;
+    setRandomImageUrl(getRandomImageUrl(imageUrlsArray));
+  }, [heroText]);
   return (
     <>
       <Box

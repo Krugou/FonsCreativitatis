@@ -1,5 +1,6 @@
 import {Avatar, Box} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
+import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
 import {useTags} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
@@ -26,6 +27,8 @@ const Profile = () => {
   }, [user]); // jos taulukko tyhjä, ajetaan vain kerran
   return (
     <>
+      <HeroImage heroText="Profile" />
+
       {user && (
         <>
           <div
