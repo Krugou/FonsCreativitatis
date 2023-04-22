@@ -5,8 +5,9 @@ import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
 import React, {useContext, useEffect, useState} from 'react';
 import MediaTable from '../components/Mediatable';
+import SearchTable from '../components/SearchTable';
 import {MediaContext} from '../contexts/MediaContext';
-import {useAuthentication, useMedia, useTags} from '../hooks/ApiHooks';
+import {doFetch, useAuthentication, useMedia, useTags} from '../hooks/ApiHooks';
 import imageUrls from '../utils/auxiliaryContent';
 import {appId, baseUrl, generalUser} from '../utils/variables';
 const Search = () => {
@@ -58,12 +59,14 @@ const Search = () => {
     filteredResult.forEach((item) => {
       item.tags = item.tags.filter((tag) => tag.tag !== appId);
     });
-    console.log(
-      '🚀 ~ file: Search.jsx:65 ~ searchMedia ~ filteredResult:',
-      filteredResult
+    const filteredResultWithThumbnail = await Promise.all(
+      filteredResult.map(async (file) => {
+        return await doFetch(baseUrl + 'media/' + file.file_id);
+      })
     );
-
-    return filteredResult;
+    // invert order of filteredResult
+    filteredResultWithThumbnail.reverse();
+    return filteredResultWithThumbnail;
   };
 
   const handleSearch = async (event) => {
@@ -78,6 +81,7 @@ const Search = () => {
       setIsLoading(false);
     }
   };
+
   const [typingTimeout, setTypingTimeout] = useState(0);
 
   const handleInputChange = (e) => {
@@ -197,22 +201,7 @@ const Search = () => {
       >
         {isLoading && <p>Loading...</p>}
         {error && <p>Error: {error.message}</p>}
-        {media.length > 0 && (
-          <ul>
-            {media.map((item, index) => (
-              <li key={index}>
-                <h3>{item.title}</h3>
-                <p>{item.file_id}</p>
-                <img
-                  src={`https://media.mw.metropolia.fi/wbma/uploads/${item.filename}`}
-                  alt={item.title}
-                  width={200}
-                  height={200}
-                />
-              </li>
-            ))}
-          </ul>
-        )}
+        <SearchTable files={media} />
       </Box>
     </>
   );

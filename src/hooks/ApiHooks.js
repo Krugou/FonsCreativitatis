@@ -194,4 +194,4 @@ const useFavourite = () => {
   return {postFavourite, getFavourites, deleteFavourite};
 };
 
-export {useAuthentication, useFavourite, useMedia, useTags, useUser};
+export {doFetch, useAuthentication, useFavourite, useMedia, useTags, useUser};
