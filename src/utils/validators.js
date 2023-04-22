@@ -16,4 +16,3 @@ const reviewValidators = {
   review: ['required', 'minStringLength:2'],
 };
 export {loginValidators, registerValidators, reviewValidators};
-

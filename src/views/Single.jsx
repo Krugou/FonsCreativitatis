@@ -1,13 +1,5 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardContent,
-  CardMedia,
-  Rating,
-  Typography,
-} from '@mui/material';
+import {Card, CardContent, CardMedia, Rating, Typography} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
