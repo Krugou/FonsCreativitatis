@@ -1,14 +1,13 @@
-import React, {useContext} from 'react';
+import {Button, TextField, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
-import useForm from '../hooks/FormHooks';
-import {useAuthentication} from '../hooks/apiHooks';
+import React, {useContext} from 'react';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {Button, TextField, Typography} from '@mui/material';
-import {loginValidators} from '../utils/validators';
+import useForm from '../hooks/FormHooks';
+import {useAuthentication} from '../hooks/apiHooks';
 import {loginForm} from '../utils/errorMessages';
-import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
-
+import {loginValidators} from '../utils/validators';
 
 const LoginForm = (props) => {
   const {setUser} = useContext(MediaContext);
@@ -67,7 +66,11 @@ const LoginForm = (props) => {
           sx={{
             borderRadius: '20px',
             width: '10em',
-        }} fullWidth type="submit" variant="contained">
+          }}
+          fullWidth
+          type="submit"
+          variant="contained"
+        >
           {' '}
           Login
         </Button>

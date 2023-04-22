@@ -15,4 +15,5 @@ const reviewValidators = {
   title: ['required', 'minStringLength:3'],
   review: ['required', 'minStringLength:2'],
 };
-export {registerValidators, loginValidators, reviewValidators};
+export {loginValidators, registerValidators, reviewValidators};
+

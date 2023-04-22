@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 const WeatherReport = ({lat, lon, hoursFromNow}) => {
@@ -99,6 +100,11 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
       <p>{getWeatherDescription(weatherSymbol)}</p>
     </div>
   );
+};
+WeatherReport.propTypes = {
+  lat: PropTypes.number.isRequired,
+  lon: PropTypes.number.isRequired,
+  hoursFromNow: PropTypes.number.isRequired,
 };
 
 export default WeatherReport;

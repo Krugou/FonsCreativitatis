@@ -10,19 +10,19 @@ const MediaRow = ({file, deleteMedia, defaultUserToken}) => {
   const {user, update, setUpdate} = useContext(MediaContext);
   const [owner, setOwner] = useState({username: ''});
   const {getUser} = useUser();
-  const doDelete = async () => {
-    try {
-      const sure = confirm('Are you sure?');
-      if (sure) {
-        const token = localStorage.getItem('userToken');
-        const deleteResult = await deleteMedia(file.file_id, token);
-        console.log(deleteResult);
-        setUpdate(!update);
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+  // const doDelete = async () => {
+  //   try {
+  //     const sure = confirm('Are you sure?');
+  //     if (sure) {
+  //       const token = localStorage.getItem('userToken');
+  //       const deleteResult = await deleteMedia(file.file_id, token);
+  //       console.log(deleteResult);
+  //       setUpdate(!update);
+  //     }
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   }
+  // };
   const fetchOwner = async () => {
     try {
       const userToken = user

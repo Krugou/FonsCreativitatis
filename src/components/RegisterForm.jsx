@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import {Button, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
+import React, {useEffect} from 'react';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import useForm from '../hooks/FormHooks';
 import {useUser} from '../hooks/apiHooks';
-import {Button, Typography} from '@mui/material';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {registerForm} from '../utils/errorMessages';
 import {registerValidators} from '../utils/validators';
 
