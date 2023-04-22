@@ -19,7 +19,7 @@ const Single = () => {
 
   const {state} = useLocation();
   const file = state.file;
-  console.log(file);
+  // console.log(file);
   let allData = {
     desc: file.description,
     filters: {
@@ -31,7 +31,7 @@ const Single = () => {
   };
   try {
     allData = JSON.parse(file.description);
-    console.log(allData, 'Alldata');
+    // console.log(allData, 'Alldata');
   } catch (error) {
     /* Empty */
   }
@@ -64,7 +64,7 @@ const Single = () => {
   const fetchLikes = async () => {
     try {
       const likeInfo = await getFavourites(file.file_id);
-      console.log(likeInfo);
+      // console.log(likeInfo);
       setLikes(likeInfo.length);
       likeInfo.forEach((like) => {
         like.user_id === user.user_id && setUserLike(true);
@@ -105,7 +105,7 @@ const Single = () => {
     fetchLikes();
   }, [userLike]); // Ajetaan useEffect, kun userLike arvo muuttuu
 
-  return (
+  return owner.username ? (
     <>
       <Typography
         sx={{
@@ -215,7 +215,7 @@ const Single = () => {
         earum magnam quo sit.
       </Typography>
     </>
-  );
+  ) : null;
 };
 
 // TODO in the next task: add propType for location
