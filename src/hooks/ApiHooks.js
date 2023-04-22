@@ -32,6 +32,7 @@ const useMedia = (myFilesOnly = false) => {
           return await doFetch(baseUrl + 'media/' + file.file_id);
         })
       );
+
       setMediaArray(filesWithThumbnail);
     } catch (error) {
       console.log('getMedia', error.message);
@@ -152,7 +153,15 @@ const useTags = () => {
     return await doFetch(baseUrl + 'tags', fetchOptions);
   };
 
-  return {getTag, postTag};
+  const getTagsByFileId = async (id) => {
+    const tags = await doFetch(baseUrl + 'tags/file/' + id);
+    if (!tags.length > 0) {
+      return [{tag_id: 0, file_id: id, tag: 'no tags'}];
+    } else {
+      return tags;
+    }
+  };
+  return {getTag, postTag, getTagsByFileId};
 };
 
 const useFavourite = () => {
