@@ -3,10 +3,12 @@ import {Card, CardContent, CardMedia, Rating, Typography} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
+import {useAuthentication} from '../hooks/ApiHooks';
 import {useFavourite, useUser} from '../hooks/apiHooks';
-import {mediaUrl} from '../utils/variables';
+import {generalUser, mediaUrl} from '../utils/variables';
 
 const Single = () => {
+  const {postLogin} = useAuthentication();
   const [owner, setOwner] = useState({username: ''});
   const [likes, setLikes] = useState(0);
   const [userLike, setUserLike] = useState(false);
@@ -47,7 +49,11 @@ const Single = () => {
 
   const fetchUser = async () => {
     try {
-      const userToken = localStorage.getItem('userToken');
+      // general user for functions that require user to be logged in backend side
+      const generalUserLog = await postLogin(generalUser);
+      const userToken = user
+        ? localStorage.getItem('userToken')
+        : generalUserLog.token;
       const ownerInfo = await getUser(file.user_id, userToken);
       setOwner(ownerInfo);
     } catch (error) {
