@@ -29,9 +29,9 @@ const MediaTable = ({myFilesOnly = false}) => {
     >
       {mediaArray.map((item, index) => {
         // console.log(item);
-        try {
-          // console.log(JSON.parse(item.description));
-        } catch (error) {}
+        // try {
+        // console.log(JSON.parse(item.description));
+        // } catch (error) {}
 
         // console.log(item.description);
 
