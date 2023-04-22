@@ -3,12 +3,11 @@ import {Box, TextField, Typography} from '@mui/material';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
-import React, {useContext, useEffect, useState} from 'react';
-import MediaTable from '../components/Mediatable';
+import React, {useContext, useState} from 'react';
+import HeroImage from '../components/HeroImage';
 import SearchTable from '../components/SearchTable';
 import {MediaContext} from '../contexts/MediaContext';
-import {doFetch, useAuthentication, useMedia, useTags} from '../hooks/ApiHooks';
-import imageUrls from '../utils/auxiliaryContent';
+import {doFetch, useAuthentication, useTags} from '../hooks/ApiHooks';
 import {appId, baseUrl, generalUser} from '../utils/variables';
 const Search = () => {
   const {user, update, setUpdate} = useContext(MediaContext);
@@ -106,52 +105,10 @@ const Search = () => {
     event.preventDefault();
     // Handle form submission here
   };
-  const [randomImageUrl, setRandomImageUrl] = useState('');
-
-  useEffect(() => {
-    const getRandomImageUrl = () => {
-      const randomIndex = Math.floor(Math.random() * imageUrls.home.length);
-      return imageUrls.home[randomIndex];
-    };
-
-    setRandomImageUrl(getRandomImageUrl());
-  }, []);
 
   return (
     <>
-      <Box
-        sx={{
-          backgroundImage: `url('./heroimages/${randomImageUrl}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          height: 400,
-          padding: '100px 0',
-          display: {xs: 'none', md: 'block'},
-          position: 'relative',
-        }}
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            textAlign: 'center',
-            width: '100%',
-          }}
-        >
-          <Typography component="h1" variant="h2" sx={{color: 'white'}}>
-            Search
-          </Typography>
-        </Box>
-      </Box>
-      <Typography
-        component="h1"
-        variant="h2"
-        sx={{display: {xs: 'block', md: 'none'}}}
-      >
-        Search
-      </Typography>
+      <HeroImage heroText="Search" />
       <Box
         sx={{
           display: 'flex',
