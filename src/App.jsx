@@ -7,6 +7,7 @@ import Layout from './views/Layout';
 import Login from './views/Login';
 import Logout from './views/Logout';
 import MyFiles from './views/MyFiles';
+import NotFound from './views/NotFound';
 import Profile from './views/Profile';
 import ReviewUpload from './views/ReviewUpload';
 import Search from './views/Search';
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/myfiles" element={<MyFiles />} />
             <Route path="/update" element={<Update />} />
             <Route path="/search" element={<Search />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </MediaProvider>
