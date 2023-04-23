@@ -1,6 +1,7 @@
 import {Button, Grid, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import HeroImage from '../components/HeroImage';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 
@@ -11,33 +12,36 @@ const Login = (props) => {
   };
 
   return (
-    <Grid
-      sx={{
-        marginTop: '5em',
-      }}
-      container
-      direction={'column'}
-      alignItems="center"
-    >
+    <>
+      <HeroImage heroText="Login" />
       <Grid
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '4em',
-          textAlign: 'center',
+          marginTop: '5em',
         }}
-        item
-        xs={6}
+        container
+        direction={'column'}
+        alignItems="center"
       >
-        {formToggle ? <LoginForm /> : <RegisterForm toggle={toggle} />}
+        <Grid
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4em',
+            textAlign: 'center',
+          }}
+          item
+          xs={6}
+        >
+          {formToggle ? <LoginForm /> : <RegisterForm toggle={toggle} />}
+        </Grid>
+        <Grid item xs={6}>
+          <p>{formToggle ? 'First time here?' : 'or'}</p>
+        </Grid>
+        <Grid item xs={12}>
+          <Button onClick={toggle}> {formToggle ? 'Register' : 'Login'}</Button>
+        </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <p>{formToggle ? 'First time here?' : 'or'}</p>
-      </Grid>
-      <Grid item xs={12}>
-        <Button onClick={toggle}> {formToggle ? 'Register' : 'Login'}</Button>
-      </Grid>
-    </Grid>
+    </>
   );
 };
 

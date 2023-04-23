@@ -3,10 +3,12 @@ import {Card, CardContent, CardMedia, Rating, Typography} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
+import {useAuthentication} from '../hooks/ApiHooks';
 import {useFavourite, useUser} from '../hooks/apiHooks';
-import {mediaUrl} from '../utils/variables';
+import {generalUser, mediaUrl} from '../utils/variables';
 
 const Single = () => {
+  const {postLogin} = useAuthentication();
   const [owner, setOwner] = useState({username: ''});
   const [likes, setLikes] = useState(0);
   const [userLike, setUserLike] = useState(false);
@@ -17,7 +19,7 @@ const Single = () => {
 
   const {state} = useLocation();
   const file = state.file;
-  console.log(file);
+  // console.log(file);
   let allData = {
     desc: file.description,
     filters: {
@@ -29,7 +31,7 @@ const Single = () => {
   };
   try {
     allData = JSON.parse(file.description);
-    console.log(allData, 'Alldata');
+    // console.log(allData, 'Alldata');
   } catch (error) {
     /* Empty */
   }
@@ -47,7 +49,11 @@ const Single = () => {
 
   const fetchUser = async () => {
     try {
-      const userToken = localStorage.getItem('userToken');
+      // general user for functions that require user to be logged in backend side
+      const generalUserLog = await postLogin(generalUser);
+      const userToken = user
+        ? localStorage.getItem('userToken')
+        : generalUserLog.token;
       const ownerInfo = await getUser(file.user_id, userToken);
       setOwner(ownerInfo);
     } catch (error) {
@@ -58,7 +64,7 @@ const Single = () => {
   const fetchLikes = async () => {
     try {
       const likeInfo = await getFavourites(file.file_id);
-      console.log(likeInfo);
+      // console.log(likeInfo);
       setLikes(likeInfo.length);
       likeInfo.forEach((like) => {
         like.user_id === user.user_id && setUserLike(true);
@@ -99,7 +105,7 @@ const Single = () => {
     fetchLikes();
   }, [userLike]); // Ajetaan useEffect, kun userLike arvo muuttuu
 
-  return (
+  return owner.username ? (
     <>
       <Typography
         sx={{
@@ -209,7 +215,7 @@ const Single = () => {
         earum magnam quo sit.
       </Typography>
     </>
-  );
+  ) : null;
 };
 
 // TODO in the next task: add propType for location

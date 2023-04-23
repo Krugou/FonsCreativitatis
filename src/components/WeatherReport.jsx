@@ -87,10 +87,7 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
   if (temp === null || wind === null || weatherSymbol === null) {
     return <p>Loading weather data...</p>;
   }
-  console.log(
-    '🚀 ~ file: WeatherReport.jsx:7 ~ WeatherReport ~ weatherSymbol:',
-    weatherSymbol
-  );
+
   return (
     <div className="weather-report">
       {!Number.isNaN(wind) && (
