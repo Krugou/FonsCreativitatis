@@ -57,9 +57,10 @@ const ReviewUpload = (props) => {
         stars: restaurantRating,
         website: inputs.website,
         address: inputs.address,
+        tags: [...selectedTags, appId],
         // filters: filterInputs,
       };
-
+      console.log(mediaData);
       data.append('description', JSON.stringify(mediaData));
       data.append('file', file);
       const userToken = localStorage.getItem('userToken');
