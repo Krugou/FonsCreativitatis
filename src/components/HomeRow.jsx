@@ -66,6 +66,12 @@ const HomeRow = ({file, deleteMedia, defaultUserToken}) => {
               value={stars}
               readOnly
               precision={0.5}
+              sx={{
+                '& .MuiRating-iconEmpty': {
+                  color: '#fff',
+                },
+                mr: 1,
+              }}
             />
           </Box>
         }
