@@ -44,6 +44,9 @@ const HomeTable = ({myFilesOnly = false}) => {
           {sortOption} Reviews:
         </Typography>
         <FormControl>
+          <Typography variant="sort-by" sx={{ml: 1}}>
+            Sort By:
+          </Typography>
           <Select value={sortOption} onChange={handleChange}>
             <MenuItem value="Latest">Latest</MenuItem>
             <MenuItem value="Oldest">Oldest</MenuItem>
