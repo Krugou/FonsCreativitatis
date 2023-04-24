@@ -58,11 +58,18 @@ const Search = () => {
     filteredResult.forEach((item) => {
       item.tags = item.tags.filter((tag) => tag.tag !== appId);
     });
+
     const filteredResultWithThumbnail = await Promise.all(
       filteredResult.map(async (file) => {
-        return await doFetch(baseUrl + 'media/' + file.file_id);
+        const data = await doFetch(baseUrl + 'media/' + file.file_id);
+        return {
+          ...file,
+          thumbnails: data.thumbnails,
+        };
       })
     );
+    
+
     // invert order of filteredResult
     filteredResultWithThumbnail.reverse();
     return filteredResultWithThumbnail;
