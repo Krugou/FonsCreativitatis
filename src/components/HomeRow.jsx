@@ -1,4 +1,4 @@
-import {ImageListItem, ImageListItemBar} from '@mui/material';
+import {Box, ImageListItem, ImageListItemBar, Rating} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
@@ -23,6 +23,14 @@ const HomeRow = ({file, deleteMedia, defaultUserToken}) => {
   //     console.error(error.message);
   //   }
   // };
+  let stars;
+  try {
+    const allData = JSON.parse(file.description);
+    stars = allData.stars;
+    // console.log(allData, 'Alldata');
+  } catch (error) {
+    /* Empty */
+  }
   const fetchOwner = async () => {
     try {
       const userToken = user
@@ -34,6 +42,7 @@ const HomeRow = ({file, deleteMedia, defaultUserToken}) => {
       console.error(error.message);
     }
   };
+
   useEffect(() => {
     fetchOwner();
   }, []); // jos taulukko tyhjä, ajetaan vain kerran, kun sivu ladata
@@ -50,32 +59,16 @@ const HomeRow = ({file, deleteMedia, defaultUserToken}) => {
       <ImageListItemBar
         title={file.title}
         subtitle={owner.username ? 'By: ' + owner.username : ''}
-
-        /*
-actionIcon={
-<ButtonGroup>
-{file.user_id === user?.user_id && (
-<>
-<Button
-component={Link}
-variant="contained"
-to="/update"
-state={{file}}
->
-Update
-</Button>
-<Button
-component={Link}
-variant="contained"
-onClick={doDelete}
->
-Delete
-</Button>
-</>
-)}
-</ButtonGroup>
-}
-*/
+        actionIcon={
+          <Box>
+            <Rating
+              name="review rating"
+              value={stars}
+              readOnly
+              precision={0.5}
+            />
+          </Box>
+        }
       />
     </ImageListItem>
   );
