@@ -1,4 +1,4 @@
-import {Box, ImageList} from '@mui/material';
+import {Box, ImageList, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import {useAuthentication, useMedia} from '../hooks/ApiHooks';
@@ -21,30 +21,35 @@ const MediaTable = ({myFilesOnly = false}) => {
   }, [postLogin]);
 
   return (
-    <ImageList
-      cols={windowSize.width > 768 ? 4 : 2}
-      gap={24}
-      component={Box}
-      mt={3}
-    >
-      {mediaArray.map((item, index) => {
-        // console.log(item);
-        // try {
-        // console.log(JSON.parse(item.description));
-        // } catch (error) {}
+    <>
+      <Typography variant="h3" component="h2" sx={{mt: 4}}>
+        Latest Reviews:
+      </Typography>
+      <ImageList
+        cols={windowSize.width > 768 ? 4 : 2}
+        gap={24}
+        component={Box}
+        mt={3}
+      >
+        {mediaArray.map((item, index) => {
+          // console.log(item);
+          // try {
+          // console.log(JSON.parse(item.description));
+          // } catch (error) {}
 
-        // console.log(item.description);
+          // console.log(item.description);
 
-        return (
-          <MediaRow
-            key={index}
-            file={item}
-            deleteMedia={deleteMedia}
-            defaultUserToken={token}
-          />
-        );
-      })}
-    </ImageList>
+          return (
+            <MediaRow
+              key={index}
+              file={item}
+              deleteMedia={deleteMedia}
+              defaultUserToken={token}
+            />
+          );
+        })}
+      </ImageList>
+    </>
   );
 };
 
