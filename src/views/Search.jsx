@@ -69,10 +69,6 @@ const Search = () => {
         };
       })
     );
-    // convert whats inside filteredResultWithThumbnail.description from string to json
-    filteredResultWithThumbnail.forEach((item) => {
-      item.description = JSON.parse(item.description);
-    });
 
     // console log stringify filteredResultWithThumbnail
     console.log(JSON.stringify(filteredResultWithThumbnail));
