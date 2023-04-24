@@ -39,6 +39,7 @@ const ReviewUpload = (props) => {
     review: '',
     website: '',
     address: '',
+    city: '',
   };
   /*
   const filterInitValues = {
@@ -57,6 +58,7 @@ const ReviewUpload = (props) => {
         stars: restaurantRating,
         website: inputs.website,
         address: inputs.address,
+        city: inputs.city,
         tags: [...selectedTags, appId],
         // filters: filterInputs,
       };
@@ -206,6 +208,14 @@ const ReviewUpload = (props) => {
             margin="normal"
             multiline
             value={inputs.address}
+          />
+          <TextField
+            onChange={handleInputChange}
+            name="city"
+            label="Restaurant's City"
+            margin="normal"
+            multiline
+            value={inputs.city}
           />
           <TextField
             onChange={handleInputChange}
