@@ -1,12 +1,12 @@
 import React from 'react';
 import HeroImage from '../components/HeroImage';
-import MediaTable from '../components/Mediatable';
+import HomeTable from '../components/HomeTable';
 
 const Home = () => {
   return (
     <>
       <HeroImage heroText="Home" />
-      <MediaTable />
+      <HomeTable />
     </>
   );
 };

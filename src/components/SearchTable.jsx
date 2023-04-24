@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {useAuthentication} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
-import MediaRow from './MediaRow';
+import HomeRow from './HomeRow';
 
 const SearchTable = ({myFilesOnly = false, files}) => {
   const windowSize = useWindowSize();
@@ -32,7 +32,7 @@ const SearchTable = ({myFilesOnly = false, files}) => {
           // console.log(JSON.parse(item.description));
         } catch (error) {}
 
-        return <MediaRow key={index} file={item} defaultUserToken={token} />;
+        return <HomeRow key={index} file={item} defaultUserToken={token} />;
       })}
     </ImageList>
   );
