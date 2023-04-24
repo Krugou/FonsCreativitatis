@@ -54,6 +54,7 @@ const Search = () => {
     const filteredResult = result.filter(
       (item) => item.tags.filter((tag) => tag.tag === appId).length > 0
     );
+
     // remove tag "mastersoftheuniverse" String from filteredResult
     filteredResult.forEach((item) => {
       item.tags = item.tags.filter((tag) => tag.tag !== appId);
@@ -68,7 +69,13 @@ const Search = () => {
         };
       })
     );
-    
+    // convert whats inside filteredResultWithThumbnail.description from string to json
+    filteredResultWithThumbnail.forEach((item) => {
+      item.description = JSON.parse(item.description);
+    });
+
+    // console log stringify filteredResultWithThumbnail
+    console.log(JSON.stringify(filteredResultWithThumbnail));
 
     // invert order of filteredResult
     filteredResultWithThumbnail.reverse();
