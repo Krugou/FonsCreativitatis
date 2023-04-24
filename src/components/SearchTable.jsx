@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {useAuthentication} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
-import HomeRow from './HomeRow';
+import ReviewCard from './ReviewCard';
 
 const SearchTable = ({myFilesOnly = false, files}) => {
   const windowSize = useWindowSize();
@@ -32,7 +32,7 @@ const SearchTable = ({myFilesOnly = false, files}) => {
           // console.log(JSON.parse(item.description));
         } catch (error) {}
 
-        return <HomeRow key={index} file={item} defaultUserToken={token} />;
+        return <ReviewCard key={index} file={item} defaultUserToken={token} />;
       })}
     </ImageList>
   );

@@ -11,8 +11,8 @@ import React, {useEffect, useState} from 'react';
 import {useAuthentication, useMedia} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
-import HomeRow from './HomeRow';
-const HomeTable = ({myFilesOnly = false}) => {
+import ReviewCard from './ReviewCard';
+const ReviewTable = ({myFilesOnly = false}) => {
   const {mediaArray, deleteMedia} = useMedia(myFilesOnly);
   const windowSize = useWindowSize();
   const {postLogin} = useAuthentication();
@@ -69,7 +69,7 @@ const HomeTable = ({myFilesOnly = false}) => {
           // console.log(item.description);
 
           return (
-            <HomeRow
+            <ReviewCard
               key={index}
               file={item}
               deleteMedia={deleteMedia}
@@ -82,8 +82,8 @@ const HomeTable = ({myFilesOnly = false}) => {
   );
 };
 
-HomeTable.propTypes = {
+ReviewTable.propTypes = {
   myFilesOnly: PropTypes.bool,
 };
 
-export default HomeTable;
+export default ReviewTable;

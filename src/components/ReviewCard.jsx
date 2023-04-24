@@ -6,9 +6,10 @@ import {MediaContext} from '../contexts/MediaContext';
 import {useUser} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
 
-const HomeRow = ({file, deleteMedia, defaultUserToken}) => {
+const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
   const {user, update, setUpdate} = useContext(MediaContext);
   const [owner, setOwner] = useState({username: ''});
+
   const {getUser} = useUser();
   // const doDelete = async () => {
   //   try {
@@ -80,10 +81,10 @@ const HomeRow = ({file, deleteMedia, defaultUserToken}) => {
   );
 };
 
-HomeRow.propTypes = {
+ReviewCard.propTypes = {
   file: PropTypes.object.isRequired,
   deleteMedia: PropTypes.func.isRequired,
   defaultUserToken: PropTypes.any,
 };
 
-export default HomeRow;
+export default ReviewCard;
