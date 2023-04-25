@@ -35,6 +35,7 @@ import {BottomNavigation, BottomNavigationAction} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import FetchWeather from '../components/FetchWeather';
+import OurFooter from '../components/OurFooter';
 import {MediaContext} from '../contexts/MediaContext';
 import {useUser} from '../hooks/apiHooks';
 import {themeOptions} from '../theme/themeOptions';
@@ -223,7 +224,7 @@ const Layout = () => {
           <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
         </BottomNavigation>
       </Box>
-      <footer className="main-footer">© MoneyTeam LLC JAK Productions</footer>
+      <OurFooter />
     </ThemeProvider>
   );
 };
