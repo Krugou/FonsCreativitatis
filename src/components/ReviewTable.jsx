@@ -30,7 +30,6 @@ const ReviewTable = ({myFilesOnly = false}) => {
     };
     fetchDefaultUserToken();
   }, [postLogin]);
-
   const handleChange = (event) => {
     const value = event ? event.target.value : 'Latest';
     if (value === 'Oldest') {
@@ -39,7 +38,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
     } else if (value === 'Latest') {
       const sortedMedia = [...mediaArray].sort((a, b) => b.file_id - a.file_id);
       setMediaFiles(sortedMedia);
-    } else if (value === 'Highest star') {
+    } else if (value === 'Highest Star') {
       const sortedMedia = [...mediaArray].sort((a, b) => {
         try {
           return (
@@ -50,6 +49,8 @@ const ReviewTable = ({myFilesOnly = false}) => {
         }
       });
       setMediaFiles(sortedMedia);
+    }
+    if (value === 'Most Favorited') {
     }
     setSortOption(value);
   };
@@ -78,7 +79,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
           <Select value={sortOption} onChange={handleChange}>
             <MenuItem value="Latest">Latest</MenuItem>
             <MenuItem value="Oldest">Oldest</MenuItem>
-            <MenuItem value="Highest star">Highest Star</MenuItem>
+            <MenuItem value="Highest Star">Highest Star</MenuItem>
           </Select>
         </FormControl>
       </Box>
