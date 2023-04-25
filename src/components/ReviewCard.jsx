@@ -108,7 +108,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
             position: 'absolute',
             top: 0,
             right: 0,
-            backgroundColor: 'white', // set background color to red
+            backgroundColor: 'white',
           }}
           onClick={(event) => {
             event.stopPropagation();
