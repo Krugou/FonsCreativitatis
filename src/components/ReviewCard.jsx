@@ -11,24 +11,11 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
   const [owner, setOwner] = useState({username: ''});
 
   const {getUser} = useUser();
-  // const doDelete = async () => {
-  //   try {
-  //     const sure = confirm('Are you sure?');
-  //     if (sure) {
-  //       const token = localStorage.getItem('userToken');
-  //       const deleteResult = await deleteMedia(file.file_id, token);
-  //       console.log(deleteResult);
-  //       setUpdate(!update);
-  //     }
-  //   } catch (error) {
-  //     console.error(error.message);
-  //   }
-  // };
+
   let stars;
   try {
     const allData = JSON.parse(file.description);
     stars = allData.stars;
-    // console.log(allData, 'Alldata');
   } catch (error) {
     /* Empty */
   }
@@ -43,10 +30,9 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
       console.error(error.message);
     }
   };
-
   useEffect(() => {
     fetchOwner();
-  }, []); // jos taulukko tyhjä, ajetaan vain kerran, kun sivu ladata
+  }, [file]);
   return (
     <ImageListItem component={Link} to="/single" state={{file}}>
       <img
@@ -64,7 +50,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
           <Box>
             <Rating
               name="review rating"
-              value={stars}
+              value={stars ? stars : 0}
               readOnly
               precision={0.5}
               sx={{

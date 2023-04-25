@@ -79,7 +79,7 @@ const useMedia = (myFilesOnly = false) => {
     };
     return await doFetch(baseUrl + 'media/' + id, options);
   };
-  return {mediaArray, postMedia, deleteMedia, putMedia};
+  return {mediaArray, setMediaArray, postMedia, deleteMedia, putMedia};
 };
 
 const useUser = () => {

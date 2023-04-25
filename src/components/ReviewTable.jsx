@@ -12,12 +12,15 @@ import {useAuthentication, useMedia} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
+
 const ReviewTable = ({myFilesOnly = false}) => {
-  const {mediaArray, deleteMedia} = useMedia(myFilesOnly);
+  const {mediaArray, setMediaArray, deleteMedia} = useMedia(myFilesOnly);
   const windowSize = useWindowSize();
   const {postLogin} = useAuthentication();
   const [token, setToken] = useState(null);
   const [sortOption, setSortOption] = useState('Latest');
+  const [loading, setLoading] = useState(true);
+  const [mediaFiles, setMediaFiles] = useState([]);
 
   useEffect(() => {
     const fetchDefaultUserToken = async () => {
@@ -27,9 +30,26 @@ const ReviewTable = ({myFilesOnly = false}) => {
     };
     fetchDefaultUserToken();
   }, [postLogin]);
+
   const handleChange = (event) => {
-    setSortOption(event.target.value);
+    const value = event ? event.target.value : 'Latest';
+    if (value === 'Oldest') {
+      const sortedMedia = [...mediaArray].sort((a, b) => a.file_id - b.file_id);
+      setMediaFiles(sortedMedia);
+    } else if (value === 'Latest') {
+      const sortedMedia = [...mediaArray].sort((a, b) => b.file_id - a.file_id);
+      setMediaFiles(sortedMedia);
+    } else if (value === 'Most-liked') {
+      const sortedMedia = [...mediaArray].sort((a, b) => b.likes - a.likes);
+      setMediaFiles(sortedMedia);
+    }
+    setSortOption(value);
   };
+
+  useEffect(() => {
+    handleChange();
+  }, [mediaArray]);
+
   return (
     <>
       <Box
@@ -60,14 +80,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
         component={Box}
         mt={3}
       >
-        {mediaArray.map((item, index) => {
-          // console.log(item);
-          // try {
-          // console.log(JSON.parse(item.description));
-          // } catch (error) {}
-
-          // console.log(item.description);
-
+        {mediaFiles.map((item, index) => {
           return (
             <ReviewCard
               key={index}
