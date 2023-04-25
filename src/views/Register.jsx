@@ -33,11 +33,21 @@ const Register = () => {
         >
           <RegisterForm toggle={toggle} />
         </Grid>
-        <Grid item xs={6}>
-          <p>First time here?</p>
-        </Grid>
+
         <Grid item xs={12}>
-          <Button onClick={toggle}>Login</Button>
+          <Button
+            fullWidth
+            sx={{
+              borderRadius: '20px',
+              width: '15em',
+            }}
+            type="submit"
+            variant="contained"
+            onClick={toggle}
+          >
+            {' '}
+            or go to Login page
+          </Button>
         </Grid>
       </Grid>
     </>

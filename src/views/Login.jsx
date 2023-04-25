@@ -27,9 +27,6 @@ const Login = (props) => {
         >
           <LoginForm />
         </Grid>
-        <Grid item xs={12}>
-          <Button> Login </Button>
-        </Grid>
       </Grid>
     </>
   );
