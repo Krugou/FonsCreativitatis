@@ -26,7 +26,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
 
   const {getUser} = useUser();
 
-  const doDelete = async (event) => {
+  const doDelete = async () => {
     try {
       const token = localStorage.getItem('userToken');
       const deleteResult = await deleteMedia(file.file_id, token);
@@ -37,7 +37,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
     }
   };
 
-  const toggleDelete = () => {
+  const toggleDelete = (event) => {
     setShowDelete(!showDelete);
   };
   let stars;
@@ -90,7 +90,11 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   }
 
   return (
-    <ImageListItem>
+    <ImageListItem
+      component={Link}
+      to={showDelete ? null : '/ReviewView'}
+      state={{file}}
+    >
       {showDelete && (
         <DeleteModal
           toggleDelete={toggleDelete}
@@ -106,7 +110,11 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
             right: 0,
             backgroundColor: 'white', // set background color to red
           }}
-          onClick={toggleDelete}
+          onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            toggleDelete();
+          }}
         >
           <DeleteIcon
             sx={{
