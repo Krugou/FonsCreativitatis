@@ -191,7 +191,16 @@ const useFavourite = () => {
     return await doFetch(baseUrl + 'favourites/file/' + id, options);
   };
 
-  return {postFavourite, getFavourites, deleteFavourite};
+  const getLikes = async (fileid) => {
+    try {
+      const likeInfo = await getFavourites(fileid);
+      return likeInfo;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  return {postFavourite, getFavourites, deleteFavourite, getLikes};
 };
 
 export {doFetch, useAuthentication, useFavourite, useMedia, useTags, useUser};

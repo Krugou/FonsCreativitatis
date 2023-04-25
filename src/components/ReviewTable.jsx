@@ -8,20 +8,19 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
-import {useAuthentication, useMedia} from '../hooks/ApiHooks';
+import {useAuthentication, useFavourite, useMedia} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
 
 const ReviewTable = ({myFilesOnly = false}) => {
-  const {mediaArray, setMediaArray, deleteMedia} = useMedia(myFilesOnly);
+  const {mediaArray, deleteMedia} = useMedia(myFilesOnly);
   const windowSize = useWindowSize();
   const {postLogin} = useAuthentication();
   const [token, setToken] = useState(null);
   const [sortOption, setSortOption] = useState('Latest');
-  const [loading, setLoading] = useState(true);
   const [mediaFiles, setMediaFiles] = useState([]);
-
+  const {getLikes} = useFavourite();
   useEffect(() => {
     const fetchDefaultUserToken = async () => {
       const defaultUser = await postLogin(generalUser);
@@ -51,6 +50,12 @@ const ReviewTable = ({myFilesOnly = false}) => {
       setMediaFiles(sortedMedia);
     }
     if (value === 'Most Favorited') {
+      mediaArray.forEach(async (file) => {
+        const likeInfo = await getLikes(file.file_id);
+        file['likes'] = likeInfo.length;
+        const sortedMedia = [...mediaArray].sort((a, b) => b.likes - a.likes);
+        setMediaFiles(sortedMedia);
+      });
     }
     setSortOption(value);
   };
@@ -80,6 +85,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
             <MenuItem value="Latest">Latest</MenuItem>
             <MenuItem value="Oldest">Oldest</MenuItem>
             <MenuItem value="Highest Star">Highest Star</MenuItem>
+            <MenuItem value="Most Favorited">Most Favorited</MenuItem>
           </Select>
         </FormControl>
       </Box>

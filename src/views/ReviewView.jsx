@@ -21,9 +21,9 @@ const ReviewView = () => {
   const [likes, setLikes] = useState(0);
   const [userLike, setUserLike] = useState(false);
   const {user} = useContext(MediaContext);
-
   const {getUser} = useUser();
-  const {getFavourites, postFavourite, deleteFavourite} = useFavourite();
+  const {getFavourites, postFavourite, deleteFavourite, getLikes} =
+    useFavourite();
 
   const {state} = useLocation();
   const file = state.file;
@@ -39,7 +39,6 @@ const ReviewView = () => {
   };
   try {
     allData = JSON.parse(file.description);
-    console.log(allData, 'Alldata');
   } catch (error) {
     /* Empty */
   }
@@ -70,16 +69,11 @@ const ReviewView = () => {
   };
 
   const fetchLikes = async () => {
-    try {
-      const likeInfo = await getFavourites(file.file_id);
-      // console.log(likeInfo);
-      setLikes(likeInfo.length);
-      likeInfo.forEach((like) => {
-        like.user_id === user.user_id && setUserLike(true);
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
+    const likeInfo = await getLikes(file.file_id);
+    setLikes(likeInfo.length);
+    likeInfo.forEach((like) => {
+      like.user_id === user.user_id && setUserLike(true);
+    });
   };
 
   const doLike = async () => {
@@ -185,7 +179,7 @@ const ReviewView = () => {
             }}
             name="restaurant-rating"
             value={allData.stars}
-            precision="0.5"
+            precision={0.5}
             readOnly
           />
           <FavoriteIcon
