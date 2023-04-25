@@ -39,7 +39,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
     } else if (value === 'Latest') {
       const sortedMedia = [...mediaArray].sort((a, b) => b.file_id - a.file_id);
       setMediaFiles(sortedMedia);
-    } else if (value === 'Most-liked') {
+    } else if (value === 'Highest star') {
       const sortedMedia = [...mediaArray].sort((a, b) => {
         try {
           return (
@@ -78,7 +78,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
           <Select value={sortOption} onChange={handleChange}>
             <MenuItem value="Latest">Latest</MenuItem>
             <MenuItem value="Oldest">Oldest</MenuItem>
-            <MenuItem value="Most-liked">Most Liked</MenuItem>
+            <MenuItem value="Highest star">Highest Star</MenuItem>
           </Select>
         </FormControl>
       </Box>
