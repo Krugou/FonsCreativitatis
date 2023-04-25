@@ -26,9 +26,7 @@ const ReviewUpload = (props) => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [restaurantRating, setRestaurantRating] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(
-    'https://media.mw.metropolia.fi/wbma/uploads/81656b38be55c675abac021df9186eb2.png'
-  );
+  const [selectedImage, setSelectedImage] = useState('./valtteri.png');
   const [selectedTags, setSelectedTags] = useState([]);
 
   // https://placehold.co/600x400?text=Choose+Media
