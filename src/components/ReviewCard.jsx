@@ -1,4 +1,5 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
   Box,
   Button,
@@ -17,13 +18,15 @@ import {MediaContext} from '../contexts/MediaContext';
 import {useUser} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
 
-const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
+const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   const {user, update, setUpdate} = useContext(MediaContext);
   const [owner, setOwner] = useState({username: ''});
 
   const {getUser} = useUser();
-  /*
-  const doDelete = async () => {
+
+  const doDelete = async (event) => {
+    event.stopPropagation(); // prevents event bubbling
+    event.preventDefault(); // prevents default link behavior
     try {
       const sure = confirm('Are you sure?');
       if (sure) {
@@ -36,7 +39,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
       console.error(error.message);
     }
   };
-  */
+
   let stars;
   try {
     const allData = JSON.parse(file.description);
@@ -88,6 +91,23 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
 
   return (
     <ImageListItem component={Link} to="/ReviewView" state={{file}}>
+      {myFilesOnly && (
+        <IconButton
+          sx={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            backgroundColor: 'white', // set background color to red
+          }}
+          onClick={doDelete}
+        >
+          <DeleteIcon
+            sx={{
+              color: 'black',
+            }}
+          />
+        </IconButton>
+      )}
       <Box
         sx={{
           position: 'absolute',
