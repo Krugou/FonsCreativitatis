@@ -40,7 +40,15 @@ const ReviewTable = ({myFilesOnly = false}) => {
       const sortedMedia = [...mediaArray].sort((a, b) => b.file_id - a.file_id);
       setMediaFiles(sortedMedia);
     } else if (value === 'Most-liked') {
-      const sortedMedia = [...mediaArray].sort((a, b) => b.likes - a.likes);
+      const sortedMedia = [...mediaArray].sort((a, b) => {
+        try {
+          return (
+            JSON.parse(b.description).stars - JSON.parse(a.description).stars
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      });
       setMediaFiles(sortedMedia);
     }
     setSortOption(value);
