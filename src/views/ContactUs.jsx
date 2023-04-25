@@ -9,7 +9,6 @@ const Alert = (props) => {
 };
 
 const ContactUs = () => {
-  const classes = useStyles();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -36,7 +35,6 @@ const ContactUs = () => {
         maxWidth: '400px',
         margin: '0 auto',
       }}
-      className={classes.form}
       onSubmit={handleSubmit}
     >
       <TextField
@@ -65,13 +63,12 @@ const ContactUs = () => {
         variant="contained"
         color="primary"
         type="submit"
-        className={classes.submitButton}
       >
         Submit
       </Button>
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={5000}
+        autoHideDuration={50000}
         onClose={handleSnackbarClose}
       >
         <Alert onClose={handleSnackbarClose} severity="success">

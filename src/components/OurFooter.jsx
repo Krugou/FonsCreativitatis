@@ -1,12 +1,15 @@
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import {Container, Grid, IconButton, Link, Typography} from '@mui/material';
+import {Button, Container, Grid, IconButton, Typography} from '@mui/material';
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
 const OurFooter = () => {
+  const navigate = useNavigate();
+
   return (
-    <footer style={{bgcolor: 'background.paper', py: 3}}>
+    <footer style={{backgroundColor: 'background.paper', padding: '24px'}}>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
@@ -15,16 +18,24 @@ const OurFooter = () => {
             </Typography>
             <ul>
               <li>
-                <Link href="#">Who We Are</Link>
+                <Button onClick={() => navigate('/aboutus')} color="inherit">
+                  Who We Are
+                </Button>
               </li>
               <li>
-                <Link href="#">Our Team</Link>
+                <Button onClick={() => navigate('/ourteam')} color="inherit">
+                  Our Team
+                </Button>
               </li>
               <li>
-                <Link href="#">Contact Us</Link>
+                <Button onClick={() => navigate('/contactus')} color="inherit">
+                  Contact Us
+                </Button>
               </li>
               <li>
-                <Link href="#">Careers</Link>
+                <Button onClick={() => navigate('/careers')} color="inherit">
+                  Careers
+                </Button>
               </li>
             </ul>
           </Grid>
@@ -34,13 +45,25 @@ const OurFooter = () => {
             </Typography>
             <ul>
               <li>
-                <Link href="#">Privacy Policy</Link>
+                <Button
+                  onClick={() => navigate('/privacypolicy')}
+                  color="inherit"
+                >
+                  Privacy Policy
+                </Button>
               </li>
               <li>
-                <Link href="#">Terms of Service</Link>
+                <Button
+                  onClick={() => navigate('/termsofservice')}
+                  color="inherit"
+                >
+                  Terms of Service
+                </Button>
               </li>
               <li>
-                <Link href="#">Site Map</Link>
+                <Button onClick={() => navigate('/sitemap')} color="inherit">
+                  Site Map
+                </Button>
               </li>
             </ul>
           </Grid>
