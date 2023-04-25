@@ -1,4 +1,10 @@
-import {Box, ImageListItem, ImageListItemBar, Rating} from '@mui/material';
+import {
+  Box,
+  Button,
+  ImageListItem,
+  ImageListItemBar,
+  Rating,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
@@ -11,7 +17,21 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
   const [owner, setOwner] = useState({username: ''});
 
   const {getUser} = useUser();
-
+  /*
+  const doDelete = async () => {
+    try {
+      const sure = confirm('Are you sure?');
+      if (sure) {
+        const token = localStorage.getItem('userToken');
+        const deleteResult = await deleteMedia(file.file_id, token);
+        console.log(deleteResult);
+        setUpdate(!update);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  */
   let stars;
   try {
     const allData = JSON.parse(file.description);
@@ -33,6 +53,11 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
   useEffect(() => {
     fetchOwner();
   }, [file]);
+  /*
+   <Button component={Link} variant="contained" onClick={doDelete}>
+        Delete
+      </Button>
+  */
   return (
     <ImageListItem component={Link} to="/ReviewView" state={{file}}>
       <img
