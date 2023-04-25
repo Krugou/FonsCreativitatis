@@ -14,12 +14,13 @@ import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
 
 const ReviewTable = ({myFilesOnly = false}) => {
-  const {mediaArray, deleteMedia} = useMedia(myFilesOnly);
+  const {mediaArray, setMediaArray, deleteMedia} = useMedia(myFilesOnly);
   const windowSize = useWindowSize();
   const {postLogin} = useAuthentication();
   const [token, setToken] = useState(null);
   const [sortOption, setSortOption] = useState('Latest');
   const [mediaFiles, setMediaFiles] = useState([]);
+  const [loading, setLoading] = useState(false);
   const {getLikes} = useFavourite();
   useEffect(() => {
     const fetchDefaultUserToken = async () => {
@@ -30,6 +31,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
     fetchDefaultUserToken();
   }, [postLogin]);
   const handleChange = (event) => {
+    console.log(mediaFiles);
     const value = event ? event.target.value : 'Latest';
     if (value === 'Oldest') {
       const sortedMedia = [...mediaArray].sort((a, b) => a.file_id - b.file_id);
@@ -51,8 +53,6 @@ const ReviewTable = ({myFilesOnly = false}) => {
     }
     if (value === 'Most Favorited') {
       mediaArray.forEach(async (file) => {
-        const likeInfo = await getLikes(file.file_id);
-        file['likes'] = likeInfo.length;
         const sortedMedia = [...mediaArray].sort((a, b) => b.likes - a.likes);
         setMediaFiles(sortedMedia);
       });
@@ -61,6 +61,10 @@ const ReviewTable = ({myFilesOnly = false}) => {
   };
 
   useEffect(() => {
+    mediaArray.forEach(async (file) => {
+      const likeInfo = await getLikes(file.file_id);
+      file['likes'] = likeInfo.length;
+    });
     handleChange();
   }, [mediaArray]);
 

@@ -2,10 +2,14 @@ import {
   Box,
   Button,
   CircularProgress,
+  IconButton,
   ImageListItem,
   ImageListItemBar,
   Rating,
+  Typography,
 } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
@@ -84,6 +88,29 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
 
   return (
     <ImageListItem component={Link} to="/ReviewView" state={{file}}>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+
+          borderRadius: '50%',
+          color: '#fff',
+          fontWeight: 'bold',
+          fontSize: '1.2rem',
+          backgroundColor: 'white',
+        }}
+      >
+        <IconButton disabled>
+          <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
+          <Typography fontSize="1rem" color="black">
+            {file.likes}
+          </Typography>
+        </IconButton>
+      </Box>
       <img
         src={
           file.media_type !== 'audio'
