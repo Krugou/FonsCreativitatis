@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   ImageListItem,
   ImageListItemBar,
   Rating,
@@ -74,7 +75,11 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
   }, [file.media_type, file.thumbnails]);
 
   if (!isImageLoaded) {
-    return null; // or you can return a spinner or placeholder
+    return (
+      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
