@@ -14,6 +14,7 @@ import Profile from './views/Profile';
 import Register from './views/Register';
 import ReviewUpload from './views/ReviewUpload';
 import ReviewView from './views/ReviewView';
+import ReviewerProfile from './views/ReviewerProfile';
 import Search from './views/Search';
 import TermsOfService from './views/TermsOfService';
 import Update from './views/Update';
@@ -38,6 +39,7 @@ const App = () => {
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/termsofservice" element={<TermsOfService />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/reviewerprofile/:id" element={<ReviewerProfile />} />
           </Route>
         </Routes>
       </MediaProvider>
