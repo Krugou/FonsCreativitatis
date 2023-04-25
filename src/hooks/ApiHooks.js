@@ -47,14 +47,6 @@ const useMedia = (myFilesOnly = false) => {
     }
   }, [update]); // Aina kun update muuttuu, ajaa useEffectin
 
-  useEffect(() => {
-    try {
-      getMedia();
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, [user]); // Aina kun user muuttuu, ajaa useEffectin
-
   const postMedia = async (data, token) => {
     const options = {
       method: 'POST',
