@@ -34,7 +34,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
     fetchOwner();
   }, [file]);
   return (
-    <ImageListItem component={Link} to="/single" state={{file}}>
+    <ImageListItem component={Link} to="/ReviewView" state={{file}}>
       <img
         src={
           file.media_type !== 'audio'

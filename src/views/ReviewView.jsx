@@ -15,7 +15,7 @@ import {useAuthentication} from '../hooks/ApiHooks';
 import {useFavourite, useUser} from '../hooks/apiHooks';
 import {generalUser, mediaUrl} from '../utils/variables';
 
-const Single = () => {
+const ReviewView = () => {
   const {postLogin} = useAuthentication();
   const [owner, setOwner] = useState({username: ''});
   const [likes, setLikes] = useState(0);
@@ -231,4 +231,4 @@ const Single = () => {
 
 // TODO in the next task: add propType for location
 
-export default Single;
+export default ReviewView;

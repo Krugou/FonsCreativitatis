@@ -10,8 +10,8 @@ import MyFiles from './views/MyFiles';
 import NotFound from './views/NotFound';
 import Profile from './views/Profile';
 import ReviewUpload from './views/ReviewUpload';
+import ReviewView from './views/ReviewView';
 import Search from './views/Search';
-import Single from './views/Single';
 import Update from './views/Update';
 
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/single" element={<Single />} />
+            <Route path="/ReviewView" element={<ReviewView />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/reviewupload" element={<ReviewUpload />} />
             <Route path="/logout" element={<Logout />} />
