@@ -41,7 +41,16 @@ const Search = () => {
     }
 
     const result = await response.json();
-
+    // string to json result.description
+    result.forEach((item) => {
+      try {
+        const parsedDescription = JSON.parse(item.description);
+        Object.assign(item, parsedDescription); // merge parsedDescription with item
+      } catch (error) {
+        // If JSON parsing fails, assume it's a simple string and copy it to `description`
+        item.description = {description: item.description};
+      }
+    });
     const tagsList = await Promise.all(
       result.map(async (item) => {
         const tags = await getTagsByFileId(item.file_id);
@@ -70,11 +79,9 @@ const Search = () => {
       })
     );
 
-    // console log stringify filteredResultWithThumbnail
-    console.log(JSON.stringify(filteredResultWithThumbnail));
-
     // invert order of filteredResult
     filteredResultWithThumbnail.reverse();
+
     return filteredResultWithThumbnail;
   };
 
@@ -115,7 +122,51 @@ const Search = () => {
     event.preventDefault();
     // Handle form submission here
   };
+  const filterByTag = (event) => {
+    // innertext to lowercase and first uppercase letter
+    let innertext = event.target.innerText.toLowerCase();
+    innertext = innertext.charAt(0).toUpperCase() + innertext.slice(1);
+    console.log('Target text:', innertext);
+    const filtered = media.filter((item) =>
+      item.tags.some((tag) => {
+        console.log('Item tag:', tag.tag);
+        return tag.tag === innertext;
+      })
+    );
+    console.log('Filtered media:', filtered);
+    setMedia(filtered);
+  };
+  const filterByCity = (event) => {
+    // innertext to lowercase and first uppercase letter
+    let innertext = event.target.innerText.toLowerCase();
+    innertext = innertext.charAt(0).toUpperCase() + innertext.slice(1);
+    console.log('Target text:', innertext);
+    const filtered = media.filter((item) => item.city === innertext);
+    console.log('Filtered media:', filtered);
+    setMedia(filtered);
+  };
+  const filterByRestaurants = (event) => {
+    const innertext = event.target.innerText
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    console.log('Target text:', innertext);
+    const filtered = media.filter((item) => item.title === innertext);
+    console.log('Filtered media:', filtered);
+    setMedia(filtered);
+  };
 
+  const resetMedia = () => {
+    searchMedia(title, description).then((result) => {
+      setMedia(result);
+    });
+  };
+  const uniqueTags = [
+    ...new Set(media.flatMap((item) => item.tags.map((tag) => tag.tag))),
+  ];
+  const uniqueCities = [...new Set(media.map((item) => item.city))];
+  const uniqueRestaurants = [...new Set(media.map((item) => item.title))];
   return (
     <>
       <HeroImage heroText="Search" />
@@ -148,19 +199,62 @@ const Search = () => {
         </Button>
       </Box>
       <Modal open={open} onClose={handleClose}>
-        <Box sx={{p: 3, backgroundColor: 'white'}}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            backgroundColor: 'white',
+          }}
+        >
+          {' '}
           <Typography variant="h5" gutterBottom>
-            Filter Results
+            Filter by restaurants
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <Stack spacing={2}>
-              <TextField name="search" label="Search" variant="outlined" />
-              <TextField name="category" label="Category" variant="outlined" />
-              <Button type="submit" variant="contained">
-                Apply Filters
+          <Box
+            sx={{
+              marginRight: '10px',
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            {uniqueRestaurants.map((tag) => (
+              <Button onClick={filterByRestaurants} key={tag}>
+                {tag}
               </Button>
-            </Stack>
-          </form>
+            ))}
+          </Box>
+          <Typography variant="h5" gutterBottom>
+            Filter by Tags
+          </Typography>
+          <Box
+            sx={{
+              marginRight: '10px',
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            {uniqueTags.map((tag) => (
+              <Button onClick={filterByTag} key={tag}>
+                {tag}
+              </Button>
+            ))}
+          </Box>
+          <Typography variant="h5" gutterBottom>
+            Filter by Cities
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            {uniqueCities.map((city) => (
+              <Button onClick={filterByCity} key={city}>
+                {city}
+              </Button>
+            ))}
+          </Box>
+          <Button onClick={resetMedia}>Reset</Button>
         </Box>
       </Modal>
       <Box
