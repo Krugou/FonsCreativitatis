@@ -1,5 +1,13 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import {Card, CardContent, CardMedia, Rating, Typography} from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Rating,
+  Typography,
+} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
@@ -31,7 +39,7 @@ const Single = () => {
   };
   try {
     allData = JSON.parse(file.description);
-    // console.log(allData, 'Alldata');
+    console.log(allData, 'Alldata');
   } catch (error) {
     /* Empty */
   }
@@ -153,19 +161,14 @@ const Single = () => {
         >
           <Typography
             sx={{
-              fontSize: {xs: '20px', xl: '30px', md: '25px'},
+              fontSize: '20px',
+              boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
+              padding: '20px',
+              width: {xs: '100%', sm: '75%'},
+              marginTop: '1em',
             }}
-            variant="body1"
           >
-            {allData.review}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {xs: '20px', xl: '30px', md: '25px'},
-            }}
-            variant="body2"
-          >
-            By: {owner.username}
+            {allData.tags}
           </Typography>
           <Typography
             sx={{
@@ -198,22 +201,30 @@ const Single = () => {
           ></FavoriteIcon>
         </CardContent>
       </Card>
-      <Typography
-        sx={{
-          fontSize: '20px',
-          boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
-          padding: '20px',
-          width: {xs: '100%', sm: '75%'},
-          marginTop: '1em',
-        }}
-      >
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet
-        delectus doloribus ducimus esse et expedita maiores minima, molestiae
-        natus necessitatibus nesciunt nulla placeat reprehenderit sapiente
-        suscipit veniam, veritatis. Commodi dolorem doloremque expedita facere
-        harum illo ipsam maiores quis. A esse facere harum nesciunt vero? Cum
-        earum magnam quo sit.
-      </Typography>
+      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <Typography
+          sx={{
+            fontSize: '20px',
+            boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
+            padding: '20px',
+            width: {xs: '100%', sm: '75%'},
+            marginTop: '1em',
+          }}
+        >
+          {allData.review}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: {xs: '20px', xl: '30px', md: '25px'},
+          }}
+          variant="body2"
+        >
+          By: {owner.username}
+        </Typography>
+        <Button variant="contained" onClick={() => history.goBack()}>
+          Back
+        </Button>
+      </Box>
     </>
   ) : null;
 };
