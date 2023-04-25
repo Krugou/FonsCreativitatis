@@ -1,3 +1,4 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   Box,
   Button,
@@ -8,7 +9,6 @@ import {
   Rating,
   Typography,
 } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
@@ -104,12 +104,21 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
           backgroundColor: 'white',
         }}
       >
-        <IconButton disabled>
-          <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
-          <Typography fontSize="1rem" color="black">
-            {file.likes}
-          </Typography>
-        </IconButton>
+        {file.likes ? (
+          <IconButton disabled>
+            <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
+            <Typography fontSize="1rem" color="black">
+              {file.likes}
+            </Typography>
+          </IconButton>
+        ) : (
+          <IconButton disabled>
+            <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
+            <Typography fontSize="1rem" color="black">
+              0
+            </Typography>
+          </IconButton>
+        )}
       </Box>
       <img
         src={
