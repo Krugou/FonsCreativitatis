@@ -13,6 +13,7 @@ import ReviewUpload from './views/ReviewUpload';
 import ReviewView from './views/ReviewView';
 import Search from './views/Search';
 import Update from './views/Update';
+import Register from './views/Register';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/update" element={<Update />} />
             <Route path="/search" element={<Search />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/register" element={<Register />} />
           </Route>
         </Routes>
       </MediaProvider>

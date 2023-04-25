@@ -26,6 +26,7 @@ import {
   Menu as MenuIcon,
   Search,
 } from '@mui/icons-material';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LoginIcon from '@mui/icons-material/Login';
@@ -122,6 +123,12 @@ const Layout = () => {
                         <LoginIcon />
                       </ListItemIcon>
                       <ListItemText primary="Login" />
+                    </ListItemButton>
+                    <ListItemButton component={Link} to="/register">
+                      <ListItemIcon>
+                        <AppRegistrationIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Register" />
                     </ListItemButton>
                   </>
                 )}

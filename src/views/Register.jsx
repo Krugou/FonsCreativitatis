@@ -1,12 +1,18 @@
 import {Button, Grid} from '@mui/material';
-import React from 'react';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import HeroImage from '../components/HeroImage';
-import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 
-const Login = (props) => {
+const Register = () => {
+  const navigate = useNavigate();
+  const toggle = () => {
+    navigate('/login');
+  };
+
   return (
     <>
-      <HeroImage heroText="Login" />
+      <HeroImage heroText="Register" />
       <Grid
         sx={{
           marginTop: '5em',
@@ -25,14 +31,17 @@ const Login = (props) => {
           item
           xs={6}
         >
-          <LoginForm />
+          <RegisterForm toggle={toggle} />
+        </Grid>
+        <Grid item xs={6}>
+          <p>First time here?</p>
         </Grid>
         <Grid item xs={12}>
-          <Button> Login </Button>
+          <Button onClick={toggle}>Login</Button>
         </Grid>
       </Grid>
     </>
   );
 };
 
-export default Login;
+export default Register;
