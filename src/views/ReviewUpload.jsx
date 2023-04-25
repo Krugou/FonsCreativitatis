@@ -59,7 +59,7 @@ const ReviewUpload = (props) => {
         website: inputs.website,
         address: inputs.address,
         city: inputs.city,
-        tags: [...selectedTags, appId],
+        tags: [...selectedTags],
         // filters: filterInputs,
       };
       console.log(mediaData);
