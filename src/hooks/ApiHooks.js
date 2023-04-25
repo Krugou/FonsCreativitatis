@@ -19,8 +19,8 @@ const useMedia = (myFilesOnly = false) => {
   const {user, update} = useContext(MediaContext);
   const getMedia = async () => {
     try {
+      console.log(user);
       let files = await useTags().getTag(appId);
-
       if (myFilesOnly) {
         files = files.filter((file) => {
           return file.user_id === user.user_id;
@@ -46,6 +46,14 @@ const useMedia = (myFilesOnly = false) => {
       console.log(error.message);
     }
   }, [update]); // Aina kun update muuttuu, ajaa useEffectin
+
+  useEffect(() => {
+    try {
+      getMedia();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [user]); // Aina kun user muuttuu, ajaa useEffectin
 
   const postMedia = async (data, token) => {
     const options = {

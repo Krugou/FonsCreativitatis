@@ -161,6 +161,7 @@ ReviewCard.propTypes = {
   file: PropTypes.object.isRequired,
   deleteMedia: PropTypes.func.isRequired,
   defaultUserToken: PropTypes.any,
+  myFilesOnly: PropTypes.bool.isRequired,
 };
 
 export default ReviewCard;

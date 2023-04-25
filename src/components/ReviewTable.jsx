@@ -31,7 +31,6 @@ const ReviewTable = ({myFilesOnly = false}) => {
     fetchDefaultUserToken();
   }, [postLogin]);
   const handleChange = (event) => {
-    console.log(mediaFiles);
     const value = event ? event.target.value : 'Latest';
     if (value === 'Oldest') {
       const sortedMedia = [...mediaArray].sort((a, b) => a.file_id - b.file_id);
@@ -105,6 +104,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
               key={index}
               file={item}
               deleteMedia={deleteMedia}
+              myFilesOnly={myFilesOnly}
               defaultUserToken={token}
             />
           );
