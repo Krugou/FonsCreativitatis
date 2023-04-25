@@ -58,6 +58,25 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken}) => {
         Delete
       </Button>
   */
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const image = new Image();
+    if (file.media_type !== 'audio') {
+      image.src = mediaUrl + file.thumbnails?.w640;
+    } else {
+      image.src = 'vite.svg';
+    }
+    image.onload = () => setIsImageLoaded(true);
+    return () => {
+      image.onload = null;
+    };
+  }, [file.media_type, file.thumbnails]);
+
+  if (!isImageLoaded) {
+    return null; // or you can return a spinner or placeholder
+  }
+
   return (
     <ImageListItem component={Link} to="/ReviewView" state={{file}}>
       <img

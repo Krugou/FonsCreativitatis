@@ -1,46 +1,77 @@
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import {Container, IconButton} from '@mui/material';
+import {Container, Grid, IconButton, Link, Typography} from '@mui/material';
 import React from 'react';
 
-const Footer = () => {
+const OurFooter = () => {
   return (
-    <footer className="bg-dark text-black">
-      <Container sx={{display: 'flex', justifyContent: 'space-between'}}>
-        <div>
-          <ul>
-            <li>About Us</li>
-            <li>Contact Us</li>
-            <li>Careers</li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li>Privacy Policy</li>
-            <li>Terms of Service</li>
-            <li>Site Map</li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li>Connect with Us:</li>
-            <li>
-              <IconButton aria-label="Facebook">
-                <FacebookIcon sx={{color: 'black'}} />
+    <footer style={{bgcolor: 'background.paper', py: 3}}>
+      <Container maxWidth="lg">
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={4}>
+            <Typography variant="h6" component="h2" gutterBottom>
+              About Us
+            </Typography>
+            <ul>
+              <li>
+                <Link href="#">Who We Are</Link>
+              </li>
+              <li>
+                <Link href="#">Our Team</Link>
+              </li>
+              <li>
+                <Link href="#">Contact Us</Link>
+              </li>
+              <li>
+                <Link href="#">Careers</Link>
+              </li>
+            </ul>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Typography variant="h6" component="h2" gutterBottom>
+              Legal
+            </Typography>
+            <ul>
+              <li>
+                <Link href="#">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link href="#">Terms of Service</Link>
+              </li>
+              <li>
+                <Link href="#">Site Map</Link>
+              </li>
+            </ul>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Typography variant="h6" component="h2" gutterBottom>
+              Connect with Us
+            </Typography>
+            <div>
+              <IconButton aria-label="Facebook" size="large">
+                <FacebookIcon />
               </IconButton>
-              <IconButton aria-label="Twitter">
-                <TwitterIcon sx={{color: 'black'}} />
+              <IconButton aria-label="Twitter" size="large">
+                <TwitterIcon />
               </IconButton>
-              <IconButton aria-label="Instagram">
-                <InstagramIcon sx={{color: 'black'}} />
+              <IconButton aria-label="Instagram" size="large">
+                <InstagramIcon />
               </IconButton>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </Grid>
+        </Grid>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          align="center"
+          sx={{mt: 3}}
+        >
+          © MoneyTeam LLC JAK Productions
+        </Typography>
       </Container>
     </footer>
   );
 };
 
-export default Footer;
+export default OurFooter;

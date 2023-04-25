@@ -12,7 +12,8 @@ const HeroImage = ({heroText}) => {
       return imageUrlsArray[randomIndex];
     };
 
-    const imageUrlsArray = imageUrls[heroText.toLowerCase()] || imageUrls.default;
+    const imageUrlsArray =
+      imageUrls[heroText.toLowerCase()] || imageUrls.default;
     setRandomImageUrl(getRandomImageUrl(imageUrlsArray));
   }, [heroText]);
   return (
