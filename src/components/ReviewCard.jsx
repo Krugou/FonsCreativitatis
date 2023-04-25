@@ -17,29 +17,29 @@ import {Link} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import {useUser} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
+import DeleteModal from './DeleteModal';
 
 const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
+  const [showDelete, setShowDelete] = useState(false);
   const {user, update, setUpdate} = useContext(MediaContext);
   const [owner, setOwner] = useState({username: ''});
 
   const {getUser} = useUser();
 
   const doDelete = async (event) => {
-    event.stopPropagation(); // prevents event bubbling
-    event.preventDefault(); // prevents default link behavior
     try {
-      const sure = confirm('Are you sure?');
-      if (sure) {
-        const token = localStorage.getItem('userToken');
-        const deleteResult = await deleteMedia(file.file_id, token);
-        console.log(deleteResult);
-        setUpdate(!update);
-      }
+      const token = localStorage.getItem('userToken');
+      const deleteResult = await deleteMedia(file.file_id, token);
+      console.log(deleteResult);
+      setUpdate(!update);
     } catch (error) {
       console.error(error.message);
     }
   };
 
+  const toggleDelete = () => {
+    setShowDelete(!showDelete);
+  };
   let stars;
   try {
     const allData = JSON.parse(file.description);
@@ -90,7 +90,14 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   }
 
   return (
-    <ImageListItem component={Link} to="/ReviewView" state={{file}}>
+    <ImageListItem>
+      {showDelete && (
+        <DeleteModal
+          toggleDelete={toggleDelete}
+          title={file.title}
+          onDelete={doDelete}
+        />
+      )}
       {myFilesOnly && (
         <IconButton
           sx={{
@@ -99,7 +106,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
             right: 0,
             backgroundColor: 'white', // set background color to red
           }}
-          onClick={doDelete}
+          onClick={toggleDelete}
         >
           <DeleteIcon
             sx={{
