@@ -1,6 +1,6 @@
+import {Box, Typography} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
-
 const WeatherReport = ({lat, lon, hoursFromNow}) => {
   const [temp, setTemp] = useState(null);
   const [wind, setWind] = useState(null);
@@ -80,22 +80,33 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
         return '';
     }
   };
+
   if (error) {
-    return <p>Failed to fetch weather data: {error}</p>;
+    return (
+      <Typography variant="body1">
+        Failed to fetch weather data: {error}
+      </Typography>
+    );
   }
 
   if (temp === null || wind === null || weatherSymbol === null) {
-    return <p>Loading weather data...</p>;
+    return <Typography variant="body1">Loading weather data...</Typography>;
   }
 
   return (
-    <div className="weather-report">
+    <Box className="weather-report">
       {!Number.isNaN(wind) && (
-        <p className="wind-info">{wind.toFixed(1)} m/s</p>
+        <Typography variant="body1" className="wind-info">
+          {wind.toFixed(1)} m/s
+        </Typography>
       )}
-      <p className="temp-info">{temp.toFixed(1)} °C</p>
-      <p>{getWeatherDescription(weatherSymbol)}</p>
-    </div>
+      <Typography variant="body1" className="temp-info">
+        {temp.toFixed(1)} °C
+      </Typography>
+      <Typography variant="body1">
+        {getWeatherDescription(weatherSymbol)}
+      </Typography>
+    </Box>
   );
 };
 WeatherReport.propTypes = {
