@@ -124,6 +124,7 @@ const ReviewView = () => {
         sx={{
           display: 'flex',
           flexDirection: {xs: 'column', sm: 'row'},
+          marginBottom: '1em',
         }}
       >
         <CardMedia
@@ -155,6 +156,40 @@ const ReviewView = () => {
           }}
         >
           {' '}
+          <Typography
+            sx={{
+              fontSize: {xs: '14px', sm: '16px', md: '18px'},
+              fontWeight: 'bold',
+              marginBottom: '0.25em',
+            }}
+          >
+            City: {allData.city}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: {xs: '14px', sm: '16px', md: '18px'},
+              fontWeight: 'bold',
+              marginBottom: '0.25em',
+            }}
+          >
+            Address: {allData.address}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: {xs: '14px', sm: '16px', md: '18px'},
+              fontWeight: 'bold',
+              marginBottom: '0.25em',
+            }}
+          >
+            Website:{' '}
+            <Link
+              href={allData.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {allData.website}
+            </Link>
+          </Typography>
           <Box
             sx={{
               fontSize: '20px',
@@ -165,7 +200,19 @@ const ReviewView = () => {
             }}
           >
             {allData.tags.map((tag) => (
-              <Typography key={tag}>{tag}</Typography>
+              <Typography
+                key={tag}
+                sx={{
+                  backgroundColor: 'black',
+                  color: 'white',
+                  borderRadius: '4px',
+                  padding: '0.2em 0.5em',
+                  margin: '0.2em',
+                  display: 'inline-block',
+                }}
+              >
+                {tag}
+              </Typography>
             ))}
           </Box>
           <Typography
@@ -198,7 +245,14 @@ const ReviewView = () => {
           ></FavoriteIcon>
         </CardContent>
       </Card>
-      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: {xs: 'column', sm: 'row'},
+          justifyContent: 'center',
+          gap: {xs: '1em', sm: '0'},
+        }}
+      >
         <Typography
           sx={{
             fontSize: '20px',
@@ -210,19 +264,24 @@ const ReviewView = () => {
         >
           {allData.review}
         </Typography>
-        <Typography
+        <Box
           sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+            gap: '8px',
             fontSize: {xs: '20px', xl: '30px', md: '25px'},
             boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
             padding: '20px',
             width: {xs: '100%', sm: '25%'},
             marginTop: '1em',
           }}
-          variant="body2"
         >
-          By: {owner.username}
-        </Typography>
-        <Link href={`/reviewerprofile/${file.user_id}`}>View User</Link>
+          <Typography variant="body2">By: {owner.username}</Typography>
+          <Link variant="body2" href={`/reviewerprofile/${file.user_id}`}>
+            Reviewer Profile
+          </Link>
+        </Box>
       </Box>
     </>
   ) : null;
