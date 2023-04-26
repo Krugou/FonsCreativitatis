@@ -145,7 +145,7 @@ const Layout = () => {
                       <ListItemIcon>
                         <CloudUpload />
                       </ListItemIcon>
-                      <ListItemText primary="Reviewupload" />
+                      <ListItemText primary="Write A Review" />
                     </ListItemButton>
                     <ListItemButton component={Link} to="/myfiles">
                       <ListItemIcon>

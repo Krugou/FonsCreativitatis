@@ -20,7 +20,6 @@ const ReviewTable = ({myFilesOnly = false}) => {
   const [token, setToken] = useState(null);
   const [sortOption, setSortOption] = useState('Latest');
   const [mediaFiles, setMediaFiles] = useState([]);
-  const [loading, setLoading] = useState(false);
   const {getLikes} = useFavourite();
   useEffect(() => {
     const fetchDefaultUserToken = async () => {
