@@ -12,6 +12,8 @@ import {MediaContext} from '../contexts/MediaContext';
 import {doFetch, useAuthentication, useTags} from '../hooks/ApiHooks';
 import {appId, baseUrl, generalUser} from '../utils/variables';
 const Search = () => {
+  const [searchError, setSearchError] = useState(false);
+
   const [showGifAlert, setShowGifAlert] = useState(false);
   const {user, update, setUpdate} = useContext(MediaContext);
   const [title, setTitle] = useState('');
@@ -88,29 +90,45 @@ const Search = () => {
     return filteredResultWithThumbnail;
   };
 
-  const handleSearch = async (event) => {
-    setIsLoading(true);
-
-    try {
-      const result = await searchMedia(title, description);
-      setMedia(result);
-      setIsLoading(false);
-    } catch (error) {
-      setError(error);
-      setIsLoading(false);
-    }
-  };
-
   const [typingTimeout, setTypingTimeout] = useState(0);
 
-  const handleInputChange = (e) => {
+  const handleSearch = async (event) => {
+    const inputValue = event?.target?.value || title;
+    console.log(
+      '🚀 ~ file: Search.jsx:97 ~ handleSearch ~ inputValue:',
+      inputValue
+    );
+    if (event) {
+      setTitle(inputValue);
+    }
+
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }
-    setTitle(e.target.value);
-    // Start searching after 0.5 seconds
-    setTypingTimeout(setTimeout(handleSearch(e), 800));
+
+    // Start searching after 0.8 seconds
+    setTypingTimeout(
+      setTimeout(async () => {
+        // Check for input length inside the debounce function
+        if (inputValue.length >= 2) {
+          setSearchError(false);
+
+          setIsLoading(true);
+          try {
+            const result = await searchMedia(inputValue, description);
+            setMedia(result);
+            setIsLoading(false);
+          } catch (error) {
+            setError(error);
+            setIsLoading(false);
+          }
+        } else {
+          setSearchError(true);
+        }
+      }, 800)
+    );
   };
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -127,10 +145,6 @@ const Search = () => {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission here
-  };
   const filterByTag = (event) => {
     // innertext to lowercase and first uppercase letter
     let innertext = event.target.innerText.toLowerCase();
@@ -142,7 +156,6 @@ const Search = () => {
         return tag.tag === innertext;
       })
     );
-    console.log('Filtered media:', filtered);
     setMedia(filtered);
   };
   const filterByCity = (event) => {
@@ -198,12 +211,20 @@ const Search = () => {
             name="search"
             label="search"
             margin="normal"
-            onChange={handleInputChange}
+            onChange={handleSearch}
+            error={searchError}
+            helperText={searchError ? 'Please enter at least 2 characters' : ''}
           />
-          <Button sx={{m: 2}} variant="contained " onClick={handleSearch}>
+
+          <Button
+            sx={{m: 2}}
+            variant="contained"
+            onClick={() => handleSearch()}
+          >
             Search
           </Button>
         </Box>
+
         <Button sx={{m: 2}} onClick={handleOpen} variant="contained">
           <TuneIcon />
         </Button>
