@@ -1,13 +1,18 @@
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import {Button, Container, Grid, IconButton, Typography} from '@mui/material';
+import {
+  Container,
+  Grid,
+  IconButton,
+  List,
+  ListItem,
+  Typography,
+} from '@mui/material';
 import React from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 
 const OurFooter = () => {
-  const navigate = useNavigate();
-
   return (
     <footer style={{backgroundColor: 'background.paper', padding: '24px'}}>
       <Container maxWidth="lg">
@@ -16,69 +21,84 @@ const OurFooter = () => {
             <Typography variant="h6" component="h2" gutterBottom>
               About Us
             </Typography>
-            <ul>
-              <li>
-                <Button onClick={() => navigate('/aboutus')} color="inherit">
+            <List>
+              <ListItem disableGutters>
+                <RouterLink to="/aboutus" style={{textDecoration: 'none'}}>
                   Who We Are
-                </Button>
-              </li>
-              <li>
-                <Button onClick={() => navigate('/ourteam')} color="inherit">
+                </RouterLink>
+              </ListItem>
+              <ListItem disableGutters>
+                <RouterLink to="/ourteam" style={{textDecoration: 'none'}}>
                   Our Team
-                </Button>
-              </li>
-              <li>
-                <Button onClick={() => navigate('/contactus')} color="inherit">
+                </RouterLink>
+              </ListItem>
+              <ListItem disableGutters>
+                <RouterLink to="/contactus" style={{textDecoration: 'none'}}>
                   Contact Us
-                </Button>
-              </li>
-              <li>
-                <Button onClick={() => navigate('/careers')} color="inherit">
+                </RouterLink>
+              </ListItem>
+              <ListItem disableGutters>
+                <RouterLink to="/careers" style={{textDecoration: 'none'}}>
                   Careers
-                </Button>
-              </li>
-            </ul>
+                </RouterLink>
+              </ListItem>
+            </List>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Typography variant="h6" component="h2" gutterBottom>
               Legal
             </Typography>
-            <ul>
-              <li>
-                <Button
-                  onClick={() => navigate('/privacypolicy')}
-                  color="inherit"
+            <List>
+              <ListItem disableGutters>
+                <RouterLink
+                  to="/privacypolicy"
+                  style={{textDecoration: 'none'}}
                 >
                   Privacy Policy
-                </Button>
-              </li>
-              <li>
-                <Button
-                  onClick={() => navigate('/termsofservice')}
-                  color="inherit"
+                </RouterLink>
+              </ListItem>
+              <ListItem disableGutters>
+                <RouterLink
+                  to="/termsofservice"
+                  style={{textDecoration: 'none'}}
                 >
                   Terms of Service
-                </Button>
-              </li>
-              <li>
-                <Button onClick={() => navigate('/sitemap')} color="inherit">
+                </RouterLink>
+              </ListItem>
+              <ListItem disableGutters>
+                <RouterLink to="/sitemap" style={{textDecoration: 'none'}}>
                   Site Map
-                </Button>
-              </li>
-            </ul>
+                </RouterLink>
+              </ListItem>
+            </List>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Typography variant="h6" component="h2" gutterBottom>
               Connect with Us
             </Typography>
             <div>
-              <IconButton aria-label="Facebook" size="large">
+              <IconButton
+                aria-label="Facebook"
+                size="large"
+                component="a"
+                href="https://www.facebook.com/jakreviews"
+              >
                 <FacebookIcon />
               </IconButton>
-              <IconButton aria-label="Twitter" size="large">
+              <IconButton
+                aria-label="Twitter"
+                size="large"
+                component="a"
+                href="https://twitter.com/jakreviews"
+              >
                 <TwitterIcon />
               </IconButton>
-              <IconButton aria-label="Instagram" size="large">
+              <IconButton
+                aria-label="Instagram"
+                size="large"
+                component="a"
+                href="https://www.instagram.com/jakreviews"
+              >
                 <InstagramIcon />
               </IconButton>
             </div>
