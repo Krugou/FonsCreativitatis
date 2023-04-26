@@ -1,10 +1,13 @@
-import {Divider, Typography} from '@mui/material';
-import React from 'react';
+import {Container, Divider, Typography} from '@mui/material';
+import React, {useEffect} from 'react';
 
 const TermsOfService = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <>
-      <Typography variant="h4" sx={{mb: 2}}>
+    <Container maxWidth="md">
+      <Typography variant="h4" sx={{mt: 2, mb: 2}}>
         Terms of Service
       </Typography>
       <Divider sx={{mb: 2}} />
@@ -64,7 +67,7 @@ const TermsOfService = () => {
         continued use of our website after any such changes will constitute your
         acceptance of the revised terms of service.
       </Typography>
-    </>
+    </Container>
   );
 };
 

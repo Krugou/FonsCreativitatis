@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
-import React, {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -16,7 +16,9 @@ const ContactUs = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
     // TODO: implement logic to send form data to backend
