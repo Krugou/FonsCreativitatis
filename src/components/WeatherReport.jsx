@@ -1,4 +1,4 @@
-import {Box, Typography} from '@material-ui/core';
+import {Box, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 const WeatherReport = ({lat, lon, hoursFromNow}) => {
