@@ -164,7 +164,6 @@ const Layout = () => {
                 )}
               </List>
             </Drawer>
-            <CheckRestaurantsPrompt />
             <FetchWeather />
             <Box sx={{mr: 2}}>
               <Button

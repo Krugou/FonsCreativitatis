@@ -10,6 +10,7 @@ import Layout from './views/Layout';
 import Login from './views/Login';
 import Logout from './views/Logout';
 import MyFiles from './views/MyFiles';
+import NearbyRestaurants from './views/NearbyRestaurants';
 import NotFound from './views/NotFound';
 import OurTeam from './views/OurTeam';
 import PrivacyPolicy from './views/PrivacyPolicy';
@@ -53,6 +54,7 @@ const App = () => {
               <Route path="/careers" element={<Careers />} />
               <Route path="/aboutus" element={<WhoWeAre />} />
               <Route path="/reviewerprofile/" element={<ReviewerProfile />} />
+              <Route path="nearbyrestaurants" element={<NearbyRestaurants />} />
             </Route>
           </Routes>
         </UserIdContext.Provider>

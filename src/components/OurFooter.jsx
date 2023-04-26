@@ -70,6 +70,14 @@ const OurFooter = () => {
                   Site Map
                 </RouterLink>
               </ListItem>
+              <ListItem disableGutters>
+                <RouterLink
+                  to="/nearbyrestaurants"
+                  style={{textDecoration: 'none'}}
+                >
+                  Site Map
+                </RouterLink>
+              </ListItem>
             </List>
           </Grid>
           <Grid item xs={12} sm={4}>
