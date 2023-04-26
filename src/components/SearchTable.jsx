@@ -40,6 +40,7 @@ const SearchTable = ({myFilesOnly = false, files}) => {
 
 SearchTable.propTypes = {
   files: PropTypes.array.isRequired,
+  myFilesOnly: PropTypes.bool,
 };
 
 export default SearchTable;
