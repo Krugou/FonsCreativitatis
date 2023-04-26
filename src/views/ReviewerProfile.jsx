@@ -8,13 +8,14 @@ import {
   Typography,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
 import {doFetch, useAuthentication} from '../hooks/ApiHooks';
 import {baseUrl, generalUser} from '../utils/variables';
 const ReviewerProfile = () => {
   const {id} = useContext(UserIdContext);
-  console.log('🚀 ~ file: ReviewerProfile.jsx ~ ReviewerProfile ~ id', id);
+
   const {user, update, setUpdate} = useContext(MediaContext);
 
   const {postLogin} = useAuthentication();
@@ -78,7 +79,7 @@ const ReviewerProfile = () => {
 
   return (
     <Container>
-      <Box textAlign="center" my={4}>
+      <Box textAlign="center" my={{xs: 2, sm: 4, md: 6}}>
         <Typography variant="h3" component="h1" gutterBottom>
           Reviewer Profile
         </Typography>
@@ -87,16 +88,17 @@ const ReviewerProfile = () => {
             <Typography variant="h4" component="h2" gutterBottom>
               {userData.username}
             </Typography>
-            <Box mt={2}>
+            <Box mt={{xs: 1, sm: 2, md: 3}} px={{xs: 2, sm: 4, md: 6}}>
               {userData.userMedia.map((item) => (
-                <Typography
-                  key={item.title}
-                  variant="h6"
-                  component="p"
-                  gutterBottom
-                >
-                  {item.title}
-                </Typography>
+                <Box key={item.title} mb={{xs: 1, sm: 2, md: 3}}>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{textDecoration: 'none', color: 'inherit'}}
+                  >
+                    {item.title}
+                  </Typography>
+                </Box>
               ))}
             </Box>
           </>
