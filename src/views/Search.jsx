@@ -170,6 +170,7 @@ const Search = () => {
     searchMedia(title, description).then((result) => {
       setMedia(result);
     });
+    handleClose();
   };
   const uniqueTags = [
     ...new Set(media.flatMap((item) => item.tags.map((tag) => tag.tag))),
