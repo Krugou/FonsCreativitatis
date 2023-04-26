@@ -1,4 +1,4 @@
-import {Avatar, Box, Button, Modal, TextField} from '@mui/material';
+import {Avatar, Box, Button, Modal, TextField, Typography} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
@@ -100,7 +100,27 @@ const Profile = () => {
                 p: 4,
               }}
             >
-              <h2>Edit Profile</h2>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderBottom: '1px solid black',
+                  mb: 4,
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="error"
+                  // onClick={() => handleDeleteProfile(user.user_id)}
+                  sx={{
+                    mb: 4,
+                  }}
+                >
+                  Delete My Profile
+                </Button>
+              </Box>
+              <Typography variant="h4">Edit Profile</Typography>
               <form onSubmit={handleSubmit}>
                 <TextField
                   label="Username"
