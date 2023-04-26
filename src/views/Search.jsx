@@ -94,10 +94,7 @@ const Search = () => {
 
   const handleSearch = async (event) => {
     const inputValue = event?.target?.value || title;
-    console.log(
-      '🚀 ~ file: Search.jsx:97 ~ handleSearch ~ inputValue:',
-      inputValue
-    );
+
     if (event) {
       setTitle(inputValue);
     }
