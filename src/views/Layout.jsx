@@ -34,6 +34,7 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import {BottomNavigation, BottomNavigationAction} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
+import CheckRestaurantsPrompt from '../components/CheckRestaurantsPrompt';
 import FetchWeather from '../components/FetchWeather';
 import OurFooter from '../components/OurFooter';
 import {MediaContext} from '../contexts/MediaContext';
@@ -163,6 +164,7 @@ const Layout = () => {
                 )}
               </List>
             </Drawer>
+            <CheckRestaurantsPrompt />
             <FetchWeather />
             <Box sx={{mr: 2}}>
               <Button
