@@ -1,6 +1,8 @@
 import TuneIcon from '@mui/icons-material/Tune';
 import {Box, TextField, Typography} from '@mui/material';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
 import React, {useContext, useState} from 'react';
@@ -10,6 +12,7 @@ import {MediaContext} from '../contexts/MediaContext';
 import {doFetch, useAuthentication, useTags} from '../hooks/ApiHooks';
 import {appId, baseUrl, generalUser} from '../utils/variables';
 const Search = () => {
+  const [showGifAlert, setShowGifAlert] = useState(false);
   const {user, update, setUpdate} = useContext(MediaContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -111,9 +114,15 @@ const Search = () => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    setOpen(true);
+    if (media.length === 0) {
+      setShowGifAlert(true);
+    } else {
+      setOpen(true);
+    }
   };
-
+  const handleCloseGifAlert = () => {
+    setShowGifAlert(false);
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -198,27 +207,63 @@ const Search = () => {
           <TuneIcon />
         </Button>
       </Box>
+      <Dialog open={showGifAlert} onClose={handleCloseGifAlert}>
+        <DialogContent>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '1em',
+            }}
+          >
+            <Typography variant="h6">Search first please!</Typography>
+            <img
+              src="https://media.tenor.com/0InFXdWzxpQAAAAi/no-way-dislike.gif"
+              alt="Jurassic Park Gif"
+              style={{width: '100%', maxWidth: '300px'}}
+            />
+          </Box>
+        </DialogContent>
+      </Dialog>
+
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: 'white',
+            padding: '1em',
+            maxWidth: {xs: '95%', md: '50%'},
+            maxHeight: '95%',
+            width: '100%',
+            overflowY: 'auto',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
           }}
         >
-          {' '}
           <Typography variant="h5" gutterBottom>
             Filter by restaurants
           </Typography>
           <Box
             sx={{
-              marginRight: '10px',
+              marginBottom: '1em',
               display: 'flex',
               flexDirection: 'row',
+              flexWrap: 'wrap',
+              gap: '0.5em',
             }}
           >
             {uniqueRestaurants.map((tag) => (
-              <Button onClick={filterByRestaurants} key={tag}>
+              <Button
+                onClick={filterByRestaurants}
+                key={tag}
+                variant="outlined"
+                color="primary"
+                size="small"
+              >
                 {tag}
               </Button>
             ))}
@@ -228,13 +273,21 @@ const Search = () => {
           </Typography>
           <Box
             sx={{
-              marginRight: '10px',
+              marginBottom: '1em',
               display: 'flex',
               flexDirection: 'row',
+              flexWrap: 'wrap',
+              gap: '0.5em',
             }}
           >
             {uniqueTags.map((tag) => (
-              <Button onClick={filterByTag} key={tag}>
+              <Button
+                onClick={filterByTag}
+                key={tag}
+                variant="outlined"
+                color="secondary"
+                size="small"
+              >
                 {tag}
               </Button>
             ))}
@@ -244,19 +297,31 @@ const Search = () => {
           </Typography>
           <Box
             sx={{
+              marginBottom: '1em',
               display: 'flex',
               flexDirection: 'row',
+              flexWrap: 'wrap',
+              gap: '0.5em',
             }}
           >
             {uniqueCities.map((city) => (
-              <Button onClick={filterByCity} key={city}>
+              <Button
+                onClick={filterByCity}
+                key={city}
+                variant="outlined"
+                color="primary"
+                size="small"
+              >
                 {city}
               </Button>
             ))}
           </Box>
-          <Button onClick={resetMedia}>Reset</Button>
+          <Button onClick={resetMedia} color="error" variant="contained">
+            Reset
+          </Button>
         </Box>
       </Modal>
+
       <Box
         sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
       >
