@@ -10,8 +10,9 @@ import {
   Typography,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
+import UserIdContext from '../contexts/UserIdContext';
 import {useAuthentication} from '../hooks/ApiHooks';
 import {useFavourite, useUser} from '../hooks/apiHooks';
 import {generalUser, mediaUrl} from '../utils/variables';
@@ -23,9 +24,7 @@ const ReviewView = () => {
   const [userLike, setUserLike] = useState(false);
   const {user} = useContext(MediaContext);
   const {getUser} = useUser();
-  const {getFavourites, postFavourite, deleteFavourite, getLikes} =
-    useFavourite();
-
+  const {postFavourite, deleteFavourite, getLikes} = useFavourite();
   const {state} = useLocation();
   const file = state.file;
   // console.log(file);
@@ -107,6 +106,14 @@ const ReviewView = () => {
   useEffect(() => {
     fetchLikes();
   }, [userLike]); // Ajetaan useEffect, kun userLike arvo muuttuu
+  const {setId} = useContext(UserIdContext);
+
+  const navigate = useNavigate();
+
+  const reviewerProfile = () => {
+    setId(file.user_id);
+    navigate(`/reviewerprofile`);
+  };
 
   return owner.username ? (
     <>
@@ -278,9 +285,9 @@ const ReviewView = () => {
           }}
         >
           <Typography variant="body2">By: {owner.username}</Typography>
-          <Link variant="body2" href={`/reviewerprofile/${file.user_id}`}>
+          <Button variant="text" onClick={reviewerProfile}>
             Reviewer Profile
-          </Link>
+          </Button>
         </Box>
       </Box>
     </>

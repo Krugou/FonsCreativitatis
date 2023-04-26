@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import './App.scss';
 import {MediaProvider} from './contexts/MediaContext';
+import UserIdContext from './contexts/UserIdContext';
 import Careers from './views/Careers';
 import ContactUs from './views/ContactUs';
 import Home from './views/Home';
@@ -21,38 +22,40 @@ import Search from './views/Search';
 import TermsOfService from './views/TermsOfService';
 import Update from './views/Update';
 import WhoWeAre from './views/WhoWeAre';
-
 // q: is it possible to use less space for the imports?
 // a: yes, but it's not recommended
 // q: why?
 // a: because it's harder to read and maintain
 
 const App = () => {
+  const [id, setId] = useState(null);
   return (
     <Router basename={import.meta.env.BASE_URL}>
       <MediaProvider>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/reviewView" element={<ReviewView />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/reviewupload" element={<ReviewUpload />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/myfiles" element={<MyFiles />} />
-            <Route path="/update" element={<Update />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/contactus" element={<ContactUs />} />
-            <Route path="/termsofservice" element={<TermsOfService />} />
-            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-            <Route path="/reviewerprofile/:id" element={<ReviewerProfile />} />
-            <Route path="/ourteam" element={<OurTeam />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/aboutus" element={<WhoWeAre />} />
-          </Route>
-        </Routes>
+        <UserIdContext.Provider value={{id, setId}}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="*" element={<NotFound />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/reviewView" element={<ReviewView />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/reviewupload" element={<ReviewUpload />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/myfiles" element={<MyFiles />} />
+              <Route path="/update" element={<Update />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/termsofservice" element={<TermsOfService />} />
+              <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+              <Route path="/ourteam" element={<OurTeam />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/aboutus" element={<WhoWeAre />} />
+              <Route path="/reviewerprofile/" element={<ReviewerProfile />} />
+            </Route>
+          </Routes>
+        </UserIdContext.Provider>
       </MediaProvider>
     </Router>
   );
