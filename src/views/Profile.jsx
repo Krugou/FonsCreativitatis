@@ -1,10 +1,22 @@
-import {Avatar, Box, Button, Modal, TextField, Typography} from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Modal,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
 import {useTags} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
 import useForm from '../hooks/FormHooks';
+import DeleteModal from '../components/DeleteModal';
 
 const Profile = () => {
   const {user} = useContext(MediaContext);
@@ -14,6 +26,7 @@ const Profile = () => {
   const [avatar, setAvatar] = useState('https://placekitten.com/300');
   const [selectedImage, setSelectedImage] = useState(avatar);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const getProfilePic = async () => {
     try {
@@ -43,6 +56,11 @@ const Profile = () => {
     alert('submitattu');
     handleModalClose();
   };
+
+  const deleteAccount = () => {
+    alert('account Deleted');
+  };
+
   const {inputs, handleSubmit, handleInputChange} = useForm(doUpload);
 
   const handleFileChange = (event) => {
@@ -112,7 +130,9 @@ const Profile = () => {
                 <Button
                   variant="contained"
                   color="error"
-                  // onClick={() => handleDeleteProfile(user.user_id)}
+                  onClick={() => {
+                    setIsDeleteModalOpen(true);
+                  }}
                   sx={{
                     mb: 4,
                   }}
@@ -177,6 +197,29 @@ const Profile = () => {
           </Modal>
         </>
       )}
+      <Dialog
+        open={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+        }}
+      >
+        <DialogTitle>Delete your account?</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete your account?
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setIsDeleteModalOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button onClick={deleteAccount} color="error">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
