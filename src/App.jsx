@@ -21,6 +21,12 @@ import Search from './views/Search';
 import TermsOfService from './views/TermsOfService';
 import Update from './views/Update';
 import WhoWeAre from './views/WhoWeAre';
+
+// q: is it possible to use less space for the imports?
+// a: yes, but it's not recommended
+// q: why?
+// a: because it's harder to read and maintain
+
 const App = () => {
   return (
     <Router basename={import.meta.env.BASE_URL}>
