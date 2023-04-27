@@ -18,6 +18,9 @@ import {useMedia, useTags, useUser} from '../hooks/ApiHooks';
 import useForm from '../hooks/FormHooks';
 import usePageTitle from '../hooks/usePageTitle';
 import {mediaUrl} from '../utils/variables';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
+import {registerValidators} from '../utils/validators';
+import {registerForm} from '../utils/errorMessages';
 const Profile = () => {
   usePageTitle('Profile');
   const {user} = useContext(MediaContext);
@@ -122,6 +125,15 @@ const Profile = () => {
 
   const {inputs, handleSubmit, handleInputChange} = useForm(doUpload);
 
+  const modifyProfile = () => {
+    const profileData = {
+      username: inputs.username,
+      full_name: inputs.full_name,
+      password: inputs.password,
+      email: inputs.email,
+    };
+  };
+
   const handleFileChange = (event) => {
     console.log(event.target.files);
     event.persist();
@@ -211,8 +223,8 @@ const Profile = () => {
                 </Button>
               </Box>
               <Typography variant="h4">Edit Profile</Typography>
-              <form onSubmit={handleSubmit}>
-                <TextField
+              <ValidatorForm onSubmit={handleSubmit}>
+                <TextValidator
                   label="New username"
                   name="username"
                   value={inputs?.username || ''}
@@ -220,8 +232,34 @@ const Profile = () => {
                   fullWidth
                   margin="normal"
                   sx={{mt: 3}}
+                  validators={registerValidators.username}
+                  errorMessages={registerForm.username}
                 />
-                <TextField
+                <TextValidator
+                  label="New password"
+                  name="password"
+                  type="password"
+                  value={inputs?.password || ''}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                  sx={{mt: 3}}
+                  validators={registerValidators.password}
+                  errorMessages={registerForm.password}
+                />
+                <TextValidator
+                  label="New email"
+                  name="email"
+                  type="email"
+                  value={inputs?.email || ''}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                  validators={registerValidators.email}
+                  errorMessages={registerForm.email}
+                  sx={{mt: 3}}
+                />
+                <TextValidator
                   label="New full name"
                   name="full_name"
                   value={inputs?.full_name || ''}
@@ -229,15 +267,8 @@ const Profile = () => {
                   fullWidth
                   margin="normal"
                   sx={{mt: 3}}
-                />
-                <TextField
-                  label="New email"
-                  name="email"
-                  value={inputs?.email || ''}
-                  onChange={handleInputChange}
-                  fullWidth
-                  margin="normal"
-                  sx={{mt: 3}}
+                  validators={registerValidators.full_name}
+                  errorMessages={registerForm.full_name}
                 />
                 <Box sx={{position: 'relative'}}>
                   <Button
@@ -270,7 +301,12 @@ const Profile = () => {
                   />
                 )}
                 <Box sx={{mt: 3}}>
-                  <Button variant="contained" color="primary" type="submit">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    onClick={modifyProfile}
+                  >
                     Save
                   </Button>
                   <Button
@@ -282,7 +318,7 @@ const Profile = () => {
                     Cancel
                   </Button>
                 </Box>
-              </form>
+              </ValidatorForm>
             </Box>
           </Modal>
         </>
