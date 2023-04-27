@@ -54,7 +54,10 @@ const App = () => {
               <Route path="/careers" element={<Careers />} />
               <Route path="/aboutus" element={<WhoWeAre />} />
               <Route path="/reviewerprofile/" element={<ReviewerProfile />} />
-              <Route path="nearbyrestaurants" element={<NearbyRestaurants />} />
+              <Route
+                path="/nearbyrestaurants"
+                element={<NearbyRestaurants />}
+              />
             </Route>
           </Routes>
         </UserIdContext.Provider>
