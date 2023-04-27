@@ -19,14 +19,14 @@ const SearchTable = ({myFilesOnly = false, files}) => {
     };
     fetchDefaultUserToken();
   }, [postLogin]);
-
+  const columns = () => {
+    if (windowSize.width > 1200) return 4;
+    if (windowSize.width > 768) return 3;
+    if (windowSize.width > 480) return 2;
+    return 1;
+  };
   return (
-    <ImageList
-      cols={windowSize.width > 768 ? 4 : 2}
-      gap={24}
-      component={Box}
-      mt={3}
-    >
+    <ImageList cols={columns()} gap={24} component={Box} mt={3}>
       {files.map((item, index) => {
         try {
           // console.log(JSON.parse(item.description));
