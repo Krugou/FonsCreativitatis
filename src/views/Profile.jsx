@@ -112,8 +112,8 @@ const Profile = () => {
       };
       const modifyAccount = await putUser(data, token);
       console.log(modifyAccount);
-      alert('account Deleted');
       navigate('/logout');
+      alert('account Deleted');
     } catch (error) {
       alert(error.message);
     }
@@ -273,7 +273,7 @@ const Profile = () => {
           >
             Cancel
           </Button>
-          <Button onClick={deleteAccount} color="error">
+          <Button onClick={deleteAccount} color="error" disabled>
             Delete
           </Button>
         </DialogActions>
