@@ -7,8 +7,10 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
+import usePageTitle from '../hooks/usePageTitle';
 
 const Careers = () => {
+  usePageTitle('Careers');
   const jobList = [
     {
       title: 'Full-Stack Developer',

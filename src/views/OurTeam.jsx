@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
+import usePageTitle from '../hooks/usePageTitle';
 
 const teamMembers = [
   {
@@ -23,8 +24,8 @@ const teamMembers = [
     role: 'CMO & Co-founder',
   },
 ];
-
 const OurTeam = () => {
+  usePageTitle('Our Team');
   return (
     <Container maxWidth="lg">
       <Box sx={{my: 4}}>

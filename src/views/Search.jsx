@@ -11,9 +11,10 @@ import SearchTable from '../components/SearchTable';
 import {MediaContext} from '../contexts/MediaContext';
 import {doFetch, useAuthentication, useTags} from '../hooks/ApiHooks';
 import {appId, baseUrl, generalUser} from '../utils/variables';
+import usePageTitle from '../hooks/usePageTitle';
 const Search = () => {
   const [searchError, setSearchError] = useState(false);
-
+  usePageTitle('Search');
   const [showGifAlert, setShowGifAlert] = useState(false);
   const {user, update, setUpdate} = useContext(MediaContext);
   const [title, setTitle] = useState('');

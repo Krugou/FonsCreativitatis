@@ -3,8 +3,9 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import HeroImage from '../components/HeroImage';
 import RegisterForm from '../components/RegisterForm';
-
+import usePageTitle from '../hooks/usePageTitle';
 const Register = () => {
+  usePageTitle('Register');
   const navigate = useNavigate();
   const toggle = () => {
     navigate('/login');

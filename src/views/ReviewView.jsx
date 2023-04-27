@@ -15,8 +15,8 @@ import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
 import {useAuthentication} from '../hooks/ApiHooks';
 import {useFavourite, useUser} from '../hooks/apiHooks';
+import usePageTitle from '../hooks/usePageTitle';
 import {generalUser, mediaUrl} from '../utils/variables';
-
 const ReviewView = () => {
   const {postLogin} = useAuthentication();
   const [owner, setOwner] = useState({username: ''});
@@ -114,7 +114,7 @@ const ReviewView = () => {
     setId(file.user_id);
     navigate(`/reviewerprofile`);
   };
-
+  usePageTitle('Review', file.title);
   return owner.username ? (
     <>
       <Typography

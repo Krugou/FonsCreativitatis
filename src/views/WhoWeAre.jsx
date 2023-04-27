@@ -1,7 +1,8 @@
 import {Box, Container, Typography} from '@mui/material';
 import React from 'react';
-
+import usePageTitle from '../hooks/usePageTitle';
 const WhoWeAre = () => {
+  usePageTitle('Who We Are');
   return (
     <Container maxWidth="md">
       <Box sx={{my: 4}}>

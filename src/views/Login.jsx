@@ -2,8 +2,9 @@ import {Button, Grid} from '@mui/material';
 import React from 'react';
 import HeroImage from '../components/HeroImage';
 import LoginForm from '../components/LoginForm';
-
+import usePageTitle from '../hooks/usePageTitle';
 const Login = (props) => {
+  usePageTitle('Login');
   return (
     <>
       <HeroImage heroText="Login" />

@@ -10,9 +10,10 @@ import {
 } from '@mui/material';
 import React, {useState} from 'react';
 
+import usePageTitle from '../hooks/usePageTitle';
 import mockYelpData from '../utils/mockData';
-
 const NearbyRestaurants = () => {
+  usePageTitle('Nearby Restaurants');
   const {businesses} = mockYelpData[0];
 
   return (

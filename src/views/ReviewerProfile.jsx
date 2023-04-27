@@ -12,8 +12,10 @@ import {Link} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
 import {doFetch, useAuthentication} from '../hooks/ApiHooks';
+import usePageTitle from '../hooks/usePageTitle';
 import {baseUrl, generalUser} from '../utils/variables';
 const ReviewerProfile = () => {
+  usePageTitle('Profile');
   const {id} = useContext(UserIdContext);
 
   const {user, update, setUpdate} = useContext(MediaContext);

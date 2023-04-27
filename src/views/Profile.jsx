@@ -11,14 +11,15 @@ import {
   Typography,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
 import {useMedia, useTags, useUser} from '../hooks/ApiHooks';
-import {mediaUrl} from '../utils/variables';
 import useForm from '../hooks/FormHooks';
-import {useNavigate} from 'react-router-dom';
-
+import usePageTitle from '../hooks/usePageTitle';
+import {mediaUrl} from '../utils/variables';
 const Profile = () => {
+  usePageTitle('Profile');
   const {user} = useContext(MediaContext);
   const {getTag} = useTags();
   const [file, setFile] = useState(null);

@@ -6,12 +6,14 @@ import Grid from '@mui/material/Grid';
 import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
 import {useEffect, useState} from 'react';
+import usePageTitle from '../hooks/usePageTitle';
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
 
 const ContactUs = () => {
+  usePageTitle('Contact Us');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');

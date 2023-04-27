@@ -1,10 +1,11 @@
 import {Container, Divider, Typography} from '@mui/material';
 import React, {useEffect} from 'react';
-
+import usePageTitle from '../hooks/usePageTitle';
 const TermsOfService = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  usePageTitle('Terms of Service');
   return (
     <Container maxWidth="md">
       <Typography variant="h4" sx={{mt: 2, mb: 2}}>

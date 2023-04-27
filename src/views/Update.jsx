@@ -5,13 +5,13 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import useForm from '../hooks/FormHooks';
 import {useMedia} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
-
+import usePageTitle from '../hooks/usePageTitle';
 const Update = (props) => {
   const {putMedia} = useMedia();
   const navigate = useNavigate();
   const {state} = useLocation();
   const file = state.file;
-
+  usePageTitle('Update');
   const selectedImage = mediaUrl + file.filename;
 
   let allData = {

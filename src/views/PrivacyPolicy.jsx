@@ -1,9 +1,11 @@
 import {Box, Container, Typography} from '@mui/material';
 import React, {useEffect} from 'react';
+import usePageTitle from '../hooks/usePageTitle';
 const PrivacyPolicy = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  usePageTitle('Privacy Policy');
   return (
     <Container maxWidth="md">
       <Box sx={{my: 4}}>

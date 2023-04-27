@@ -18,11 +18,12 @@ import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {useNavigate} from 'react-router-dom';
 import useForm from '../hooks/FormHooks';
 import {useMedia, useTags} from '../hooks/apiHooks';
+import usePageTitle from '../hooks/usePageTitle';
 import {reviewForm} from '../utils/errorMessages';
 import {reviewValidators} from '../utils/validators';
 import {appId} from '../utils/variables';
-
 const ReviewUpload = (props) => {
+  usePageTitle('Review Upload');
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [restaurantRating, setRestaurantRating] = useState(null);
