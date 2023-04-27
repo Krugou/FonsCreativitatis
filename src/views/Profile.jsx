@@ -145,13 +145,15 @@ const Profile = () => {
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      console.log(value);
+      console.log(inputs.password);
       /*
       if (value !== inputs.password) {
         return false;
       }
       return true;
       */
-      return value === inputs.password;
+      return value === inputs.password || inputs.password === undefined;
     });
     ValidatorForm.addValidationRule('isUsernameAvailable', async (value) => {
       return await getCheckUser(inputs.username);

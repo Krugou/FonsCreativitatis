@@ -7,7 +7,7 @@ const registerValidators = {
 };
 
 const editValidators = {
-  username: ['minStringLength:3', 'isUsernameAvailable'],
+  username: ['matchRegexp:^(.{3,})?$', 'isUsernameAvailable'],
   password: ['matchRegexp:^(.{5,})?$'],
   confirm: ['isPasswordMatch'],
   email: ['isEmail'],
