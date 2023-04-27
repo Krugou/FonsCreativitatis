@@ -31,7 +31,7 @@ const Profile = () => {
   const [selectedImage, setSelectedImage] = useState(avatar);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const {putUser} = useUser();
+  const {putUser, getCheckUser} = useUser();
   const {getAllFiles, deleteMedia} = useMedia();
   const navigate = useNavigate();
   const getProfilePic = async () => {
@@ -145,6 +145,21 @@ const Profile = () => {
     reader.readAsDataURL(event.target.files[0]);
   };
 
+  useEffect(() => {
+    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      /*
+      if (value !== inputs.password) {
+        return false;
+      }
+      return true;
+      */
+      return value === inputs.password;
+    });
+    ValidatorForm.addValidationRule('isUsernameAvailable', async (value) => {
+      return await getCheckUser(inputs.username);
+    });
+  }, [inputs]); // Päivittää useeffectin kun inputs muuttuu
+
   return (
     <>
       <HeroImage heroText="Profile" />
@@ -246,6 +261,17 @@ const Profile = () => {
                   sx={{mt: 3}}
                   validators={registerValidators.password}
                   errorMessages={registerForm.password}
+                />
+                <TextValidator
+                  fullWidth
+                  margin="normal"
+                  name="confirm"
+                  type="password"
+                  label="Confirm Password"
+                  onChange={handleInputChange}
+                  value={inputs?.confirm || ''}
+                  validators={registerValidators.confirm}
+                  errorMessages={registerForm.confirm}
                 />
                 <TextValidator
                   label="New email"
