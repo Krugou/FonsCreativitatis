@@ -19,7 +19,6 @@ const useMedia = (myFilesOnly = false) => {
   const {user, update} = useContext(MediaContext);
   const getMedia = async () => {
     try {
-      console.log(user);
       let files = await useTags().getTag(appId);
       if (myFilesOnly) {
         files = files.filter((file) => {
@@ -50,7 +49,7 @@ const useMedia = (myFilesOnly = false) => {
   useEffect(() => {
     if (myFilesOnly) {
       try {
-        getMedia();
+        getMedia(myFilesOnly);
       } catch (error) {
         console.log(error.message);
       }
@@ -89,7 +88,26 @@ const useMedia = (myFilesOnly = false) => {
     };
     return await doFetch(baseUrl + 'media/' + id, options);
   };
-  return {mediaArray, setMediaArray, postMedia, deleteMedia, putMedia};
+
+  const getAllFiles = async (id, token) => {
+    alert('OUHJASODUIJ');
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    return await doFetch(baseUrl + 'media/user/' + id, options);
+  };
+
+  return {
+    mediaArray,
+    setMediaArray,
+    postMedia,
+    deleteMedia,
+    putMedia,
+    getAllFiles,
+  };
 };
 
 const useUser = () => {
@@ -127,7 +145,24 @@ const useUser = () => {
     return await doFetch(baseUrl + 'users/' + userid, options);
   };
 
-  return {postUser, getUserByToken, getCheckUser, getUser};
+  const putUser = async (data, token) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    return await doFetch(baseUrl + 'users', options);
+  };
+  return {
+    postUser,
+    getUserByToken,
+    getCheckUser,
+    getUser,
+    putUser,
+  };
 };
 
 const useAuthentication = () => {

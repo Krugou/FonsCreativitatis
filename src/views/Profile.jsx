@@ -13,10 +13,10 @@ import {
 import React, {useContext, useEffect, useState} from 'react';
 import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
-import {useTags} from '../hooks/apiHooks';
+import {useMedia, useTags, useUser} from '../hooks/ApiHooks';
 import {mediaUrl} from '../utils/variables';
 import useForm from '../hooks/FormHooks';
-import DeleteModal from '../components/DeleteModal';
+import {useNavigate} from 'react-router-dom';
 
 const Profile = () => {
   const {user} = useContext(MediaContext);
@@ -27,7 +27,9 @@ const Profile = () => {
   const [selectedImage, setSelectedImage] = useState(avatar);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
+  const {putUser} = useUser();
+  const {getAllFiles, deleteMedia} = useMedia();
+  const navigate = useNavigate();
   const getProfilePic = async () => {
     try {
       if (user) {
@@ -57,8 +59,64 @@ const Profile = () => {
     handleModalClose();
   };
 
-  const deleteAccount = () => {
-    alert('account Deleted');
+  const deleteAccount = async () => {
+    try {
+      const token = localStorage.getItem('userToken');
+
+      // TODO: DELETE AVATAR also
+      // Step 1. Delete all files of the user
+      const allFiles = await getAllFiles(user.user_id, token);
+      console.log(allFiles);
+
+      allFiles.forEach(async (file) => {
+        await deleteMedia(file.file_id, token);
+      });
+      // Step 2. modify user's username and password to random stuff
+      const generateRandomString = (length) => {
+        let result = '';
+        const characters =
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+          );
+        }
+        return result;
+      };
+
+      const generateRandomEmail = () => {
+        const username = generateRandomString(12); // use the previously defined function to generate a random string for the username
+        const domains = [
+          'gmail.com',
+          'yahoo.com',
+          'hotmail.com',
+          'outlook.com',
+        ]; // list of possible domains
+        const domain = domains[Math.floor(Math.random() * domains.length)]; // pick a random domain from the list
+        return `${username}@${domain}`; // return the random email address
+      };
+      // TODO: FIX EMAIL AOWSDJAWOIDJAIWODJAWIODJ
+      const randomUsername = generateRandomString(12);
+      const randomPassword = generateRandomString(12);
+      const randomEmail = generateRandomEmail();
+
+      console.log(randomUsername);
+      console.log(randomPassword);
+      console.log(randomEmail);
+
+      const data = {
+        username: randomUsername,
+        password: randomPassword,
+        email: randomEmail,
+      };
+      const modifyAccount = await putUser(data, token);
+      console.log(modifyAccount);
+      alert('account Deleted');
+      navigate('/logout');
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const {inputs, handleSubmit, handleInputChange} = useForm(doUpload);
