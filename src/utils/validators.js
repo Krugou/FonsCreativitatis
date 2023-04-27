@@ -6,6 +6,14 @@ const registerValidators = {
   full_name: ['matchRegexp:^(.{2,})?$'],
 };
 
+const editValidators = {
+  username: ['minStringLength:3', 'isUsernameAvailable'],
+  password: ['matchRegexp:^(.{5,})?$'],
+  confirm: ['isPasswordMatch'],
+  email: ['isEmail'],
+  full_name: ['matchRegexp:^(.{2,})?$'],
+};
+
 const loginValidators = {
   username: ['required'],
   password: ['required'],
@@ -15,4 +23,4 @@ const reviewValidators = {
   title: ['required', 'minStringLength:3'],
   review: ['required', 'minStringLength:2'],
 };
-export {loginValidators, registerValidators, reviewValidators};
+export {loginValidators, registerValidators, reviewValidators, editValidators};

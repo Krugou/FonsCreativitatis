@@ -10,6 +10,17 @@ const registerForm = {
   full_name: ['full name is invalid '],
 };
 
+const editForm = {
+  username: [
+    'username must be atleast 3 characters',
+    'username is not available',
+  ],
+  password: ['password must be atleast 5 characters'],
+  confirm: ['passwords do not match'],
+  email: ['email is not valid'],
+  full_name: ['full name is invalid '],
+};
+
 const loginForm = {
   username: ['this field is required'],
   password: ['this field is required'],
@@ -19,4 +30,4 @@ const reviewForm = {
   title: ['this field is required', 'Title must be atleast 3 characters'],
   review: ['this field is required', 'Title must be atleast 2 characters'],
 };
-export {loginForm, registerForm, reviewForm};
+export {loginForm, registerForm, reviewForm, editForm};

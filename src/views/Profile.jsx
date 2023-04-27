@@ -19,11 +19,11 @@ import useForm from '../hooks/FormHooks';
 import usePageTitle from '../hooks/usePageTitle';
 import {mediaUrl} from '../utils/variables';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
-import {registerValidators} from '../utils/validators';
-import {registerForm} from '../utils/errorMessages';
+import {editValidators} from '../utils/validators';
+import {editForm} from '../utils/errorMessages';
 const Profile = () => {
   usePageTitle('Profile');
-  const {user} = useContext(MediaContext);
+  const {user, update, setUpdate} = useContext(MediaContext);
   const {getTag} = useTags();
   const [file, setFile] = useState(null);
 
@@ -58,15 +58,8 @@ const Profile = () => {
     setIsModalOpen(false);
   };
 
-  const doUpload = () => {
-    alert('submitattu');
-    handleModalClose();
-  };
-
   const deleteAccount = async () => {
     try {
-      const token = localStorage.getItem('userToken');
-
       // TODO: DELETE AVATAR also
       // Step 1. Delete all files of the user
       const allFiles = await getAllFiles(user.user_id, token);
@@ -114,6 +107,7 @@ const Profile = () => {
         password: randomPassword,
         email: randomEmail,
       };
+      const token = localStorage.getItem('userToken');
       const modifyAccount = await putUser(data, token);
       console.log(modifyAccount);
       navigate('/logout');
@@ -123,16 +117,20 @@ const Profile = () => {
     }
   };
 
-  const {inputs, handleSubmit, handleInputChange} = useForm(doUpload);
-
-  const modifyProfile = () => {
-    const profileData = {
-      username: inputs.username,
-      full_name: inputs.full_name,
-      password: inputs.password,
-      email: inputs.email,
-    };
+  const modifyProfile = async () => {
+    try {
+      const withoutConfirm = {...inputs};
+      delete withoutConfirm.confirm;
+      const token = localStorage.getItem('userToken');
+      const userResult = await putUser(withoutConfirm, token);
+      alert(userResult.message);
+      handleModalClose();
+      setUpdate(!update);
+    } catch (error) {
+      alert(error.message);
+    }
   };
+  const {inputs, handleInputChange} = useForm(modifyProfile);
 
   const handleFileChange = (event) => {
     console.log(event.target.files);
@@ -238,7 +236,7 @@ const Profile = () => {
                 </Button>
               </Box>
               <Typography variant="h4">Edit Profile</Typography>
-              <ValidatorForm onSubmit={handleSubmit}>
+              <ValidatorForm onSubmit={modifyProfile}>
                 <TextValidator
                   label="New username"
                   name="username"
@@ -247,8 +245,8 @@ const Profile = () => {
                   fullWidth
                   margin="normal"
                   sx={{mt: 3}}
-                  validators={registerValidators.username}
-                  errorMessages={registerForm.username}
+                  validators={editValidators.username}
+                  errorMessages={editForm.username}
                 />
                 <TextValidator
                   label="New password"
@@ -259,8 +257,8 @@ const Profile = () => {
                   fullWidth
                   margin="normal"
                   sx={{mt: 3}}
-                  validators={registerValidators.password}
-                  errorMessages={registerForm.password}
+                  validators={editValidators.password}
+                  errorMessages={editForm.password}
                 />
                 <TextValidator
                   fullWidth
@@ -270,8 +268,8 @@ const Profile = () => {
                   label="Confirm Password"
                   onChange={handleInputChange}
                   value={inputs?.confirm || ''}
-                  validators={registerValidators.confirm}
-                  errorMessages={registerForm.confirm}
+                  validators={editValidators.confirm}
+                  errorMessages={editForm.confirm}
                 />
                 <TextValidator
                   label="New email"
@@ -281,8 +279,8 @@ const Profile = () => {
                   onChange={handleInputChange}
                   fullWidth
                   margin="normal"
-                  validators={registerValidators.email}
-                  errorMessages={registerForm.email}
+                  validators={editValidators.email}
+                  errorMessages={editForm.email}
                   sx={{mt: 3}}
                 />
                 <TextValidator
@@ -293,8 +291,8 @@ const Profile = () => {
                   fullWidth
                   margin="normal"
                   sx={{mt: 3}}
-                  validators={registerValidators.full_name}
-                  errorMessages={registerForm.full_name}
+                  validators={editValidators.full_name}
+                  errorMessages={editForm.full_name}
                 />
                 <Box sx={{position: 'relative'}}>
                   <Button
@@ -327,12 +325,7 @@ const Profile = () => {
                   />
                 )}
                 <Box sx={{mt: 3}}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    onClick={modifyProfile}
-                  >
+                  <Button variant="contained" color="primary" type="submit">
                     Save
                   </Button>
                   <Button
