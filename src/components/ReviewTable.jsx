@@ -65,7 +65,12 @@ const ReviewTable = ({myFilesOnly = false}) => {
     });
     handleChange();
   }, [mediaArray]);
-
+  const columns = () => {
+    if (windowSize.width > 1200) return 4;
+    if (windowSize.width > 768) return 3;
+    if (windowSize.width > 480) return 2;
+    return 1;
+  };
   return (
     <>
       <Box
@@ -74,6 +79,8 @@ const ReviewTable = ({myFilesOnly = false}) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexDirection: {xs: 'column', sm: 'row'},
+          gap: {xs: '1rem', sm: '0'},
         }}
       >
         <Typography variant="h3" component="h2">
@@ -91,12 +98,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
           </Select>
         </FormControl>
       </Box>
-      <ImageList
-        cols={windowSize.width > 768 ? 4 : 2}
-        gap={24}
-        component={Box}
-        mt={3}
-      >
+      <ImageList cols={columns()} gap={24} component={Box} mt={3}>
         {mediaFiles.map((item, index) => {
           return (
             <ReviewCard
