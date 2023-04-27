@@ -67,7 +67,7 @@ const OurFooter = () => {
               </ListItem>
               <ListItem disableGutters>
                 <RouterLink to="/sitemap" style={{textDecoration: 'none'}}>
-                  Site Map
+                  404 route test
                 </RouterLink>
               </ListItem>
               <ListItem disableGutters>
@@ -75,7 +75,7 @@ const OurFooter = () => {
                   to="/nearbyrestaurants"
                   style={{textDecoration: 'none'}}
                 >
-                  Site Map
+                  Nearby
                 </RouterLink>
               </ListItem>
             </List>
