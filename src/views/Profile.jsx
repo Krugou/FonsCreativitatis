@@ -174,6 +174,17 @@ const Profile = () => {
                 bgcolor: 'background.paper',
                 boxShadow: 24,
                 p: 4,
+                width: {xs: '80%', sm: '70%', md: '50%'},
+                maxHeight: '90vh',
+                overflowY: 'auto',
+                '&::-webkit-scrollbar': {
+                  width: '6px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                  borderRadius: '6px',
+                },
+                borderRadius: '20px',
               }}
             >
               <Box
@@ -201,51 +212,71 @@ const Profile = () => {
               <Typography variant="h4">Edit Profile</Typography>
               <form onSubmit={handleSubmit}>
                 <TextField
-                  label="Username"
+                  label="New username"
                   name="username"
                   value={inputs?.username || ''}
                   onChange={handleInputChange}
                   fullWidth
                   margin="normal"
+                  sx={{mt: 3}}
                 />
                 <TextField
-                  label="Full Name"
+                  label="New full name"
                   name="full_name"
                   value={inputs?.full_name || ''}
                   onChange={handleInputChange}
                   fullWidth
                   margin="normal"
+                  sx={{mt: 3}}
                 />
                 <TextField
-                  label="Email"
+                  label="New email"
                   name="email"
                   value={inputs?.email || ''}
                   onChange={handleInputChange}
                   fullWidth
                   margin="normal"
+                  sx={{mt: 3}}
                 />
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
+                <Box sx={{position: 'relative'}}>
+                  <Button
+                    variant="outlined"
+                    component="label"
+                    htmlFor="fileInput"
+                    sx={{
+                      borderRadius: '20px',
+                      borderColor: 'primary.main',
+                      '&:hover': {borderColor: 'primary.dark'},
+                    }}
+                  >
+                    Upload Avatar
+                  </Button>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    name="fileInput"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    style={{display: 'none'}}
+                  />
+                </Box>
+
                 {avatar && (
                   <Avatar
                     src={selectedImage}
                     imgProps={{alt: `${user.username}'s profile picture`}}
-                    sx={{width: '5rem', height: '5rem'}}
+                    sx={{width: '5rem', height: '5rem', mt: 3}}
                   />
                 )}
-                <Box sx={{marginTop: '16px'}}>
+                <Box sx={{mt: 3}}>
                   <Button variant="contained" color="primary" type="submit">
                     Save
                   </Button>
                   <Button
                     variant="outlined"
                     color="primary"
-                    style={{marginLeft: '16px'}}
+                    sx={{ml: 2}}
                     onClick={handleModalClose}
-                    // onClick={onClose}
                   >
                     Cancel
                   </Button>
