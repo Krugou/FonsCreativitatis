@@ -16,6 +16,7 @@ const HeroImage = ({heroText}) => {
       imageUrls[heroText.toLowerCase()] || imageUrls.default;
     setRandomImageUrl(getRandomImageUrl(imageUrlsArray));
   }, [heroText]);
+
   return (
     <>
       <Box
@@ -23,9 +24,9 @@ const HeroImage = ({heroText}) => {
           backgroundImage: `url('./heroimages/${randomImageUrl}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          height: 400,
-          padding: '100px 0',
-          display: {xs: 'none', md: 'block'},
+          height: {xs: '11rem', sm: '13.75rem', md: '19.25rem'},
+          padding: {xs: '1.65rem 0', md: '3.3rem 0'},
+          display: 'block',
           position: 'relative',
         }}
       >
@@ -39,21 +40,19 @@ const HeroImage = ({heroText}) => {
             width: '100%',
           }}
         >
-          <Typography component="h1" variant="h2" sx={{color: 'white'}}>
+          <Typography
+            component="h1"
+            variant={{xs: 'h3', md: 'h2'}}
+            sx={{color: 'white'}}
+          >
             {heroText}
           </Typography>
         </Box>
       </Box>
-      <Typography
-        component="h1"
-        variant="h2"
-        sx={{display: {xs: 'block', md: 'none'}}}
-      >
-        {heroText}
-      </Typography>
     </>
   );
 };
+
 HeroImage.propTypes = {
   heroText: PropTypes.string.isRequired,
 };
