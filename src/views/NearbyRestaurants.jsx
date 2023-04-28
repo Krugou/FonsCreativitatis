@@ -19,7 +19,7 @@ import mockYelpData from '../utils/mockData';
 
 const NearbyRestaurants = () => {
   const viewText = 'Nearby Restaurants';
-  
+
   useScrollToTop();
   usePageTitle(viewText);
   const [businesses, setBusinesses] = useState([]);
@@ -30,7 +30,7 @@ const NearbyRestaurants = () => {
       if (!location.latitude || !location.longitude) return;
 
       try {
-        const proxyUrl = 'http://167.71.51.18:3000/yelp';
+        const proxyUrl = 'https://167.71.51.18:3000/yelp';
         const yelpUrl = `/v3/businesses/search?latitude=${location.latitude}&longitude=${location.longitude}&categories=restaurants&limit=50`;
         const response = await doFetch(proxyUrl + yelpUrl);
 
