@@ -1,6 +1,7 @@
-import {Box, Typography} from '@mui/material';
+import {Card, CardContent, Paper, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
+import CheckRestaurantsPrompt from './CheckRestaurantsPrompt';
 const WeatherReport = ({lat, lon, hoursFromNow}) => {
   const [temp, setTemp] = useState(null);
   const [wind, setWind] = useState(null);
@@ -94,19 +95,40 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
   }
 
   return (
-    <Box className="weather-report">
-      {!Number.isNaN(wind) && (
-        <Typography variant="body1" className="wind-info">
-          {wind.toFixed(1)} m/s
-        </Typography>
-      )}
-      <Typography variant="body1" className="temp-info">
-        {temp.toFixed(1)} °C
-      </Typography>
-      <Typography variant="body1">
-        {getWeatherDescription(weatherSymbol)}
-      </Typography>
-    </Box>
+    <Card
+      sx={{
+        minWidth: '200px',
+        textAlign: 'center',
+        boxShadow: 2,
+      }}
+    >
+      <CardContent>
+        <Paper
+          elevation={5}
+          sx={{
+            padding: '0.5rem',
+            cursor: 'pointer',
+            transition: 'all .3s',
+            '&:hover': {
+              transform: 'scale(1.1)',
+            },
+          }}
+        >
+          {!Number.isNaN(wind) && (
+            <Typography variant="body1" className="wind-info">
+              {wind.toFixed(1)} m/s
+            </Typography>
+          )}
+          <Typography variant="body1" className="temp-info">
+            {temp.toFixed(1)} °C
+          </Typography>
+          <Typography variant="body1">
+            {getWeatherDescription(weatherSymbol)}
+          </Typography>
+        </Paper>
+        <CheckRestaurantsPrompt />
+      </CardContent>
+    </Card>
   );
 };
 WeatherReport.propTypes = {

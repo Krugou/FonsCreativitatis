@@ -1,4 +1,4 @@
-import {Box, Typography} from '@mui/material';
+import {Box, Paper, Typography} from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -22,13 +22,24 @@ const CheckRestaurantsPrompt = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      minHeight="100vh"
       visibility={visible ? 'visible' : 'hidden'}
     >
-      <Link to="/nearbyrestaurant" style={{textDecoration: 'none'}}>
-        <Typography variant="h4">
-          Hey, you can check nearby restaurants in here!
-        </Typography>
+      <Link to="/nearbyrestaurants" style={{textDecoration: 'none'}}>
+        <Paper
+          elevation={5}
+          sx={{
+            padding: '0.5rem',
+            cursor: 'pointer',
+            transition: 'all .3s',
+            '&:hover': {
+              transform: 'scale(1.1)',
+            },
+          }}
+        >
+          <Typography variant="body1" fontSize="1.1rem" fontWeight="500">
+            Restaurants
+          </Typography>
+        </Paper>
       </Link>
     </Box>
   );
