@@ -120,21 +120,24 @@ const Profile = () => {
       alert(error.message);
     }
   };
+  const {inputs, setInputs, handleInputChange} = useForm();
 
   const modifyProfile = async () => {
+    console.log(file);
     try {
       const withoutConfirm = {...inputs};
       delete withoutConfirm.confirm;
+      console.log(withoutConfirm);
       const token = localStorage.getItem('userToken');
       await putUser(withoutConfirm, token);
       handleModalClose();
       const user = await getUserByToken(token);
       setUser(user);
+      setInputs({});
     } catch (error) {
       alert(error.message);
     }
   };
-  const {inputs, handleInputChange} = useForm(modifyProfile);
 
   const handleFileChange = (event) => {
     console.log(event.target.files);
@@ -149,14 +152,6 @@ const Profile = () => {
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-      console.log(value);
-      console.log(inputs.password);
-      /*
-      if (value !== inputs.password) {
-        return false;
-      }
-      return true;
-      */
       return value === inputs.password || inputs.password === undefined;
     });
     ValidatorForm.addValidationRule('isUsernameAvailable', async (value) => {

@@ -18,7 +18,7 @@ const useForm = (callback, initState) => {
       };
     });
   };
-  return {inputs, handleSubmit, handleInputChange};
+  return {inputs, handleSubmit, handleInputChange, setInputs};
 };
 
 export default useForm;
