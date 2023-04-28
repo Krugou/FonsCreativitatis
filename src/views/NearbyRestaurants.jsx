@@ -30,7 +30,7 @@ const NearbyRestaurants = () => {
       if (!location.latitude || !location.longitude) return;
 
       try {
-        const proxyUrl = 'https://167.71.51.18:3000/yelp';
+        const proxyUrl = 'https://users.metropolia.fi/~aleksino/proxy.php';
         const yelpUrl = `/v3/businesses/search?latitude=${location.latitude}&longitude=${location.longitude}&categories=restaurants&limit=50`;
         const response = await doFetch(proxyUrl + yelpUrl);
 

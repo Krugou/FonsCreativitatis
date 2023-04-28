@@ -12,15 +12,17 @@
   <meta content="Everyone" name="audience">
   <title>Jak Reviews</title>
   <script>
-  (function () {
-    const urlPathSegments = window.location.pathname.split('/');
-    const lastSegment = urlPathSegments[urlPathSegments.length - 1];
-    if (!lastSegment.includes('.')) {
-      // If there is no file extension in the last segment, rewrite the URL to index.html
-      window.location.replace(window.location.href + 'index.html');
-    }
-  })();
-</script>
+    (function () {
+      const baseUrl = 'https://krugou.github.io/FonsCreativitatis/project/';
+      const urlPathSegments = window.location.pathname.split('/');
+      const lastSegment = urlPathSegments[urlPathSegments.length - 1];
+      if (!lastSegment.includes('.')) {
+        // If there is no file extension in the last segment, rewrite the URL to the desired path
+        window.location.replace(baseUrl);
+      }
+    })();
+  </script>
+
 
 </head>
 
