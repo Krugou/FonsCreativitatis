@@ -3,19 +3,18 @@ import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 const CheckRestaurantsPrompt = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      setVisible((prevState) => !prevState);
+    if (!navigator.geolocation) {
+      return;
+    }
+
+    const handleSuccess = (position) => {
+      setVisible(true);
     };
 
-    const randomInterval = Math.random() * 2000 + 1000;
-    const timer = setInterval(toggleVisibility, randomInterval);
-
-    return () => {
-      clearInterval(timer);
-    };
+    navigator.geolocation.getCurrentPosition(handleSuccess);
   }, []);
 
   return (
