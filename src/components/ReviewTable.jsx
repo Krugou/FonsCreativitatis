@@ -1,17 +1,23 @@
 import {
   Box,
   FormControl,
+  FormControlLabel,
   ImageList,
   MenuItem,
   Select,
+  Switch,
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import StarIcon from '@mui/icons-material/Star';
+
 import React, {useEffect, useState} from 'react';
 import {useAuthentication, useFavourite, useMedia} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
+import {Star} from '@mui/icons-material';
 
 const ReviewTable = ({myFilesOnly = false}) => {
   const {mediaArray, setMediaArray, deleteMedia} = useMedia(myFilesOnly);
@@ -90,11 +96,39 @@ const ReviewTable = ({myFilesOnly = false}) => {
           <Typography variant="sort-by" sx={{ml: 1}}>
             Sort By:
           </Typography>
-          <Select value={sortOption} onChange={handleChange}>
-            <MenuItem value="Latest">Latest</MenuItem>
-            <MenuItem value="Oldest">Oldest</MenuItem>
-            <MenuItem value="Highest Star">Highest Star</MenuItem>
-            <MenuItem value="Most Favorited">Most Favorited</MenuItem>
+          <Select
+            className="favorite-selector"
+            value={sortOption}
+            onChange={handleChange}
+          >
+            <MenuItem value="Latest">
+              <div className="item-selector">
+                <span className="selector-text">Latest</span>
+              </div>
+            </MenuItem>
+            <MenuItem value="Oldest">
+              <div className="item-selector">
+                <span className="selector-text">Oldest</span>
+              </div>
+            </MenuItem>
+            <MenuItem value="Highest Star">
+              <div className="highest-star-selector">
+                <Star
+                  className="highest-star-selector-icon"
+                  sx={{color: 'orange'}}
+                />
+                <span className="highest-star-selector-text">Highest Star</span>
+              </div>
+            </MenuItem>
+            <MenuItem value="Most Favorited">
+              <div className="favorite-selector">
+                <FavoriteIcon
+                  className="favorite-selector-icon"
+                  sx={{color: 'red'}}
+                />
+                <span className="favorite-selector-text">Most Favorited</span>
+              </div>
+            </MenuItem>
           </Select>
         </FormControl>
       </Box>

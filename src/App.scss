@@ -13,6 +13,25 @@ form {
   color: red !important;
 }
 
+.highest-star-selector,
+.favorite-selector,
+.item-selector {
+  display: flex;
+  align-items: center;
+}
+
+.favorite-selector-icon,
+.highest-star-selector-icon {
+  margin-right: 8px;
+}
+
+.favorite-selector-text,
+.highest-star-selector-text,
+.selector-text {
+  font-size: 1em;
+  font-weight: bold;
+}
+
 .main-footer {
   height: 3em;
   border-top: 1px solid black;
