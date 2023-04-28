@@ -33,17 +33,22 @@ const Profile = () => {
 
   const [avatar, setAvatar] = useState('https://placekitten.com/300');
   const [selectedImage, setSelectedImage] = useState(avatar);
+  const [avatarInfo, setAvatarInfo] = useState(avatar);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const {putUser, getCheckUser, getUserByToken} = useUser();
-  const {getAllFiles, deleteMedia} = useMedia();
+  const {getAllFiles, deleteMedia, postMedia} = useMedia();
+  const {postTag} = useTags();
   const navigate = useNavigate();
   const getProfilePic = async () => {
     try {
       if (user) {
-        const file = await getTag('avatar_' + user.user_id);
-        setAvatar(mediaUrl + file.pop().filename);
-        setSelectedImage(mediaUrl + file.pop().filename);
+        const file = await getTag('avatarJAK_' + user.user_id);
+        console.log(file);
+        setAvatar(mediaUrl + file[0].filename);
+        setSelectedImage(mediaUrl + file[0].filename);
+        setAvatarInfo(file[0]);
       }
     } catch (error) {
       console.error(error.message);
@@ -123,19 +128,47 @@ const Profile = () => {
   const {inputs, setInputs, handleInputChange} = useForm();
 
   const modifyProfile = async () => {
-    console.log(file);
-    try {
-      const withoutConfirm = {...inputs};
-      delete withoutConfirm.confirm;
-      console.log(withoutConfirm);
-      const token = localStorage.getItem('userToken');
-      await putUser(withoutConfirm, token);
-      handleModalClose();
-      const user = await getUserByToken(token);
-      setUser(user);
-      setInputs({});
-    } catch (error) {
-      alert(error.message);
+    if (file) {
+      try {
+        const token = localStorage.getItem('userToken');
+        const data = new FormData();
+        data.append('title', 'Profile Avatar');
+        data.append('file', file);
+
+        // DELETE PREVIOUS Avatar before posting new one
+        if (avatarInfo) {
+          const deleteResponse = await deleteMedia(avatarInfo.file_id, token);
+          console.log(deleteResponse);
+        }
+
+        const uploadFile = await postMedia(data, token);
+        await postTag(
+          {
+            file_id: uploadFile.file_id,
+            tag: 'avatarJAK_' + user.user_id,
+          },
+          token
+        );
+        handleModalClose();
+        getProfilePic();
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+    if (inputs) {
+      try {
+        const withoutConfirm = {...inputs};
+        delete withoutConfirm.confirm;
+        console.log(withoutConfirm);
+        const token = localStorage.getItem('userToken');
+        await putUser(withoutConfirm, token);
+        handleModalClose();
+        const user = await getUserByToken(token);
+        setUser(user);
+        setInputs({});
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
 
@@ -152,10 +185,10 @@ const Profile = () => {
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-      return value === inputs.password || inputs.password === undefined;
+      return value === inputs?.password || inputs?.password === undefined;
     });
     ValidatorForm.addValidationRule('isUsernameAvailable', async (value) => {
-      return await getCheckUser(inputs.username);
+      return await getCheckUser(inputs?.username);
     });
   }, [inputs]); // Päivittää useeffectin kun inputs muuttuu
 
