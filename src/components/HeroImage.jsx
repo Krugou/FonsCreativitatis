@@ -42,8 +42,11 @@ const HeroImage = ({heroText}) => {
         >
           <Typography
             component="h1"
-            variant={{xs: 'h3', md: 'h2'}}
-            sx={{color: 'white'}}
+            variant="h3"
+            sx={{
+              color: 'white',
+              fontSize: {xs: 'h3.fontSize', md: 'h2.fontSize'},
+            }}
           >
             {heroText}
           </Typography>
