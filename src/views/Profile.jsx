@@ -160,7 +160,6 @@ const Profile = () => {
       try {
         const withoutConfirm = {...inputs};
         delete withoutConfirm.confirm;
-        console.log(withoutConfirm);
         const token = localStorage.getItem('userToken');
         await putUser(withoutConfirm, token);
         handleModalClose();
