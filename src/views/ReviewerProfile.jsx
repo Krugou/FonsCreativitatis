@@ -12,10 +12,15 @@ import {Link} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
 import {doFetch, useAuthentication} from '../hooks/ApiHooks';
-import usePageTitle from '../hooks/usePageTitle';
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+import HeroImage from '../components/HeroImage';
+
 import {baseUrl, generalUser} from '../utils/variables';
 const ReviewerProfile = () => {
-  usePageTitle('Profile');
+  const viewText = 'Profile';
+  useScrollToTop();
+  usePageTitle(viewText);
   const {id} = useContext(UserIdContext);
 
   const {user, update, setUpdate} = useContext(MediaContext);
@@ -80,39 +85,42 @@ const ReviewerProfile = () => {
   }, [id]);
 
   return (
-    <Container>
-      <Box textAlign="center" my={{xs: 2, sm: 4, md: 6}}>
-        <Typography variant="h3" component="h1" gutterBottom>
-          Reviewer Profile
-        </Typography>
-        {userData ? (
-          <>
-            <Typography variant="h4" component="h2" gutterBottom>
-              {userData.username}
-            </Typography>
-            <Box mt={{xs: 1, sm: 2, md: 3}} px={{xs: 2, sm: 4, md: 6}}>
-              {userData.userMedia.map((item) => (
-                <Box key={item.title} mb={{xs: 1, sm: 2, md: 3}}>
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    style={{textDecoration: 'none', color: 'inherit'}}
-                  >
-                    {item.title}
-                  </Typography>
-                </Box>
-              ))}
+    <>
+    <HeroImage heroText={viewText} />
+      <Container>
+        <Box textAlign="center" my={{xs: 2, sm: 4, md: 6}}>
+          <Typography variant="h3" component="h1" gutterBottom>
+            Reviewer Profile
+          </Typography>
+          {userData ? (
+            <>
+              <Typography variant="h4" component="h2" gutterBottom>
+                {userData.username}
+              </Typography>
+              <Box mt={{xs: 1, sm: 2, md: 3}} px={{xs: 2, sm: 4, md: 6}}>
+                {userData.userMedia.map((item) => (
+                  <Box key={item.title} mb={{xs: 1, sm: 2, md: 3}}>
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{textDecoration: 'none', color: 'inherit'}}
+                    >
+                      {item.title}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            </>
+          ) : (
+            <Box my={2}>
+              <CircularProgress />
+              <Typography>Loading user data...</Typography>
             </Box>
-          </>
-        ) : (
-          <Box my={2}>
-            <CircularProgress />
-            <Typography>Loading user data...</Typography>
-          </Box>
-        )}
-      </Box>
-    </Container>
-  );
+          )}
+        </Box>
+        </Container>
+      </>
+      );
 };
 
-export default ReviewerProfile;
+      export default ReviewerProfile;

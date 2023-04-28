@@ -67,7 +67,6 @@ const Layout = () => {
   }, []); // jos taulukko tyhjä, ajetaan vain kerran
 
   const theme = createTheme(themeOptions);
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

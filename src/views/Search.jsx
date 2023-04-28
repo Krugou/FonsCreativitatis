@@ -10,11 +10,15 @@ import HeroImage from '../components/HeroImage';
 import SearchTable from '../components/SearchTable';
 import {MediaContext} from '../contexts/MediaContext';
 import {doFetch, useAuthentication, useTags} from '../hooks/ApiHooks';
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+
 import {appId, baseUrl, generalUser} from '../utils/variables';
-import usePageTitle from '../hooks/usePageTitle';
 const Search = () => {
   const [searchError, setSearchError] = useState(false);
-  usePageTitle('Search');
+  const viewText = 'Search';
+  useScrollToTop();
+  usePageTitle(viewText);
   const [showGifAlert, setShowGifAlert] = useState(false);
   const {user, update, setUpdate} = useContext(MediaContext);
   const [title, setTitle] = useState('');
@@ -190,7 +194,7 @@ const Search = () => {
   const uniqueRestaurants = [...new Set(media.map((item) => item.title))];
   return (
     <>
-      <HeroImage heroText="Search" />
+      <HeroImage heroText={viewText} />
       <Box
         sx={{
           display: 'flex',

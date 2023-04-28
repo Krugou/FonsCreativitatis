@@ -2,12 +2,16 @@ import {Button, Grid} from '@mui/material';
 import React from 'react';
 import HeroImage from '../components/HeroImage';
 import LoginForm from '../components/LoginForm';
-import usePageTitle from '../hooks/usePageTitle';
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+
 const Login = (props) => {
-  usePageTitle('Login');
+  const viewText = 'Login';
+  useScrollToTop();
+  usePageTitle(viewText);
   return (
     <>
-      <HeroImage heroText="Login" />
+      <HeroImage heroText={viewText} />
       <Grid
         sx={{
           marginTop: '5em',

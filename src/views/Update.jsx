@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import useForm from '../hooks/FormHooks';
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+
+import HeroImage from '../components/HeroImage';
 import {useMedia} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
-import usePageTitle from '../hooks/usePageTitle';
 const Update = (props) => {
+  
   const {putMedia} = useMedia();
   const navigate = useNavigate();
   const {state} = useLocation();
   const file = state.file;
-  usePageTitle('Update');
+  const viewText = 'Update';
+  useScrollToTop();
+  usePageTitle(viewText);
   const selectedImage = mediaUrl + file.filename;
 
   let allData = {
@@ -66,67 +72,70 @@ const Update = (props) => {
   );
 
   return (
-    <Box>
-      <img
-        src={selectedImage}
-        alt="preview"
-        style={{
-          width: 300,
-          height: 200,
-          filter: `brightness(${filterInputs.brightness}%) contrast(${filterInputs.contrast}%) saturate(${filterInputs.saturation}%) sepia(${filterInputs.sepia}%)`,
-        }}
-      />
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleInputChange}
-          type="text"
-          name="title"
-          value={inputs.title}
+    <>
+      <HeroImage heroText={viewText} />
+      <Box>
+        <img
+          src={selectedImage}
+          alt="preview"
+          style={{
+            width: 300,
+            height: 200,
+            filter: `brightness(${filterInputs.brightness}%) contrast(${filterInputs.contrast}%) saturate(${filterInputs.saturation}%) sepia(${filterInputs.sepia}%)`,
+          }}
         />
-        <textarea
-          onChange={handleInputChange}
-          name="description"
-          value={inputs.description}
-        ></textarea>
-        <Button type="submit">Upload</Button>
-      </form>
-      <Slider
-        name="brightness"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        value={filterInputs.brightness}
-        onChange={handleFilterChange}
-      />
-      <Slider
-        name="contrast"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        value={filterInputs.contrast}
-        onChange={handleFilterChange}
-      />
-      <Slider
-        name="saturation"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        value={filterInputs.saturation}
-        onChange={handleFilterChange}
-      />
-      <Slider
-        name="sepia"
-        min={0}
-        max={100}
-        step={1}
-        valueLabelDisplay="auto"
-        value={filterInputs.sepia}
-        onChange={handleFilterChange}
-      />
-    </Box>
+        <form onSubmit={handleSubmit}>
+          <input
+            onChange={handleInputChange}
+            type="text"
+            name="title"
+            value={inputs.title}
+          />
+          <textarea
+            onChange={handleInputChange}
+            name="description"
+            value={inputs.description}
+          ></textarea>
+          <Button type="submit">Upload</Button>
+        </form>
+        <Slider
+          name="brightness"
+          min={0}
+          max={200}
+          step={1}
+          valueLabelDisplay="auto"
+          value={filterInputs.brightness}
+          onChange={handleFilterChange}
+        />
+        <Slider
+          name="contrast"
+          min={0}
+          max={200}
+          step={1}
+          valueLabelDisplay="auto"
+          value={filterInputs.contrast}
+          onChange={handleFilterChange}
+        />
+        <Slider
+          name="saturation"
+          min={0}
+          max={200}
+          step={1}
+          valueLabelDisplay="auto"
+          value={filterInputs.saturation}
+          onChange={handleFilterChange}
+        />
+        <Slider
+          name="sepia"
+          min={0}
+          max={100}
+          step={1}
+          valueLabelDisplay="auto"
+          value={filterInputs.sepia}
+          onChange={handleFilterChange}
+        />
+      </Box>
+    </>
   );
 };
 

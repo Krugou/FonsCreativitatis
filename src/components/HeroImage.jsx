@@ -11,9 +11,9 @@ const HeroImage = ({heroText}) => {
       const randomIndex = Math.floor(Math.random() * imageUrlsArray.length);
       return imageUrlsArray[randomIndex];
     };
-
+    const heroTextSpacesCleared = heroText.replace(/\s/g, '');
     const imageUrlsArray =
-      imageUrls[heroText.toLowerCase()] || imageUrls.default;
+      imageUrls[heroTextSpacesCleared.toLowerCase()] || imageUrls.default;
     setRandomImageUrl(getRandomImageUrl(imageUrlsArray));
   }, [heroText]);
 

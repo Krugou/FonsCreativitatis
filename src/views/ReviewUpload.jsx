@@ -17,13 +17,18 @@ import React, {useState} from 'react';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {useNavigate} from 'react-router-dom';
 import useForm from '../hooks/FormHooks';
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+
+import HeroImage from '../components/HeroImage';
 import {useMedia, useTags} from '../hooks/apiHooks';
-import usePageTitle from '../hooks/usePageTitle';
 import {reviewForm} from '../utils/errorMessages';
 import {reviewValidators} from '../utils/validators';
 import {appId} from '../utils/variables';
 const ReviewUpload = (props) => {
-  usePageTitle('Review Upload');
+  const viewText = 'Review Upload';
+  useScrollToTop();
+  usePageTitle(viewText);
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [restaurantRating, setRestaurantRating] = useState(null);
@@ -146,120 +151,123 @@ const ReviewUpload = (props) => {
   };
 
   return (
-    <ValidatorForm onSubmit={handleSubmit}>
-      <Grid container justifyContent="center">
-        <Grid
-          item
-          xs={12}
-          container
-          justifyContent="center"
-          alignItems="center"
-          mt={3}
-        >
-          <img
-            src={selectedImage}
-            alt="preview"
-            style={{width: '30%', border: '1px solid black'}}
-          />
-          <Button
-            variant="outlined"
-            component="label"
-            sx={{ml: 2, height: 'fit-content'}}
+    <>
+      <HeroImage heroText={viewText} />
+      <ValidatorForm onSubmit={handleSubmit}>
+        <Grid container justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            container
+            justifyContent="center"
+            alignItems="center"
+            mt={3}
           >
-            Upload Image
-            <input
-              onChange={handleFileChange}
-              type="file"
-              name="file"
-              accept="image/*"
-              hidden
+            <img
+              src={selectedImage}
+              alt="preview"
+              style={{width: '30%', border: '1px solid black'}}
             />
-          </Button>
-        </Grid>
-        <Grid item container direction="column" xs={12} md={8} lg={6}>
-          <TextValidator
-            onChange={handleInputChange}
-            type="text"
-            name="title"
-            fullWidth
-            margin="normal"
-            label="Restaurant's Name"
-            validators={reviewValidators.title}
-            errorMessages={reviewForm.title}
-            value={inputs.title}
-          />
-          <TextValidator
-            onChange={handleInputChange}
-            name="review"
-            label="Review"
-            fullWidth
-            margin="normal"
-            validators={reviewValidators.review}
-            errorMessages={reviewForm.review}
-            multiline
-            value={inputs.review}
-            minRows={6}
-          />
-          <TextField
-            onChange={handleInputChange}
-            name="address"
-            label="Restaurant's Address"
-            margin="normal"
-            multiline
-            value={inputs.address}
-          />
-          <TextField
-            onChange={handleInputChange}
-            name="city"
-            label="Restaurant's City"
-            margin="normal"
-            multiline
-            value={inputs.city}
-          />
-          <TextField
-            onChange={handleInputChange}
-            name="website"
-            label="Link to Restaurant's Website"
-            margin="normal"
-            multiline
-            value={inputs.website}
-          />
-          <Typography component="legend">Select rating:</Typography>
-          <Rating
-            name="rating"
-            onChange={(event, value) => {
-              setRestaurantRating(value);
-            }}
-            precision={0.5}
-            value={restaurantRating}
-          />
-          <FormControl sx={{mt: 2, width: 300}}>
-            <InputLabel id="demo-multiple-checkbox-label">
-              Add Categories
-            </InputLabel>
-            <Select
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={selectedTags}
-              onChange={handleChange}
-              input={<OutlinedInput label="Tag" />}
-              renderValue={(selected) => selected.join(', ')}
+            <Button
+              variant="outlined"
+              component="label"
+              sx={{ml: 2, height: 'fit-content'}}
             >
-              {tagNames.map((name) => (
-                <MenuItem key={name} value={name}>
-                  <Checkbox checked={selectedTags.indexOf(name) > -1} />
-                  <ListItemText primary={name} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Button type="submit" variant="contained" fullWidth sx={{mt: 3}}>
-            Add Review
-          </Button>
+              Upload Image
+              <input
+                onChange={handleFileChange}
+                type="file"
+                name="file"
+                accept="image/*"
+                hidden
+              />
+            </Button>
+          </Grid>
+          <Grid item container direction="column" xs={12} md={8} lg={6}>
+            <TextValidator
+              onChange={handleInputChange}
+              type="text"
+              name="title"
+              fullWidth
+              margin="normal"
+              label="Restaurant's Name"
+              validators={reviewValidators.title}
+              errorMessages={reviewForm.title}
+              value={inputs.title}
+            />
+            <TextValidator
+              onChange={handleInputChange}
+              name="review"
+              label="Review"
+              fullWidth
+              margin="normal"
+              validators={reviewValidators.review}
+              errorMessages={reviewForm.review}
+              multiline
+              value={inputs.review}
+              minRows={6}
+            />
+            <TextField
+              onChange={handleInputChange}
+              name="address"
+              label="Restaurant's Address"
+              margin="normal"
+              multiline
+              value={inputs.address}
+            />
+            <TextField
+              onChange={handleInputChange}
+              name="city"
+              label="Restaurant's City"
+              margin="normal"
+              multiline
+              value={inputs.city}
+            />
+            <TextField
+              onChange={handleInputChange}
+              name="website"
+              label="Link to Restaurant's Website"
+              margin="normal"
+              multiline
+              value={inputs.website}
+            />
+            <Typography component="legend">Select rating:</Typography>
+            <Rating
+              name="rating"
+              onChange={(event, value) => {
+                setRestaurantRating(value);
+              }}
+              precision={0.5}
+              value={restaurantRating}
+            />
+            <FormControl sx={{mt: 2, width: 300}}>
+              <InputLabel id="demo-multiple-checkbox-label">
+                Add Categories
+              </InputLabel>
+              <Select
+                labelId="demo-multiple-checkbox-label"
+                id="demo-multiple-checkbox"
+                multiple
+                value={selectedTags}
+                onChange={handleChange}
+                input={<OutlinedInput label="Tag" />}
+                renderValue={(selected) => selected.join(', ')}
+              >
+                {tagNames.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <Checkbox checked={selectedTags.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button type="submit" variant="contained" fullWidth sx={{mt: 3}}>
+              Add Review
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </ValidatorForm>
+      </ValidatorForm>
+    </>
   );
 };
 

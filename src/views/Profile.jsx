@@ -11,18 +11,22 @@ import {
   Typography,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {useNavigate} from 'react-router-dom';
 import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
 import {useMedia, useTags, useUser} from '../hooks/ApiHooks';
 import useForm from '../hooks/FormHooks';
-import usePageTitle from '../hooks/usePageTitle';
-import {mediaUrl} from '../utils/variables';
-import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
-import {editValidators} from '../utils/validators';
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+
 import {editForm} from '../utils/errorMessages';
+import {editValidators} from '../utils/validators';
+import {mediaUrl} from '../utils/variables';
 const Profile = () => {
-  usePageTitle('Profile');
+  const viewText = 'Profile';
+  useScrollToTop();
+  usePageTitle(viewText);
   const {user, update, setUpdate} = useContext(MediaContext);
   const {getTag} = useTags();
   const [file, setFile] = useState(null);
@@ -161,7 +165,7 @@ const Profile = () => {
 
   return (
     <>
-      <HeroImage heroText="Profile" />
+      <HeroImage heroText={viewText} />
 
       {user && (
         <>

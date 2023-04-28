@@ -14,8 +14,11 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
 import {useAuthentication} from '../hooks/ApiHooks';
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+
+import HeroImage from '../components/HeroImage';
 import {useFavourite, useUser} from '../hooks/apiHooks';
-import usePageTitle from '../hooks/usePageTitle';
 import {generalUser, mediaUrl} from '../utils/variables';
 const ReviewView = () => {
   const {postLogin} = useAuthentication();
@@ -114,184 +117,190 @@ const ReviewView = () => {
     setId(file.user_id);
     navigate(`/reviewerprofile`);
   };
-  usePageTitle('Review', file.title);
-  return owner.username ? (
+  const viewText = 'Review View';
+  useScrollToTop();
+  usePageTitle(viewText, file.title);
+  return (
     <>
-      <Typography
-        sx={{
-          marginTop: '0.5em',
-          marginBottom: '0.5em',
-        }}
-        component="h1"
-        variant="h3"
-      >
-        {file.title}
-      </Typography>
-      <Card
-        sx={{
-          display: 'flex',
-          flexDirection: {xs: 'column', sm: 'row'},
-          marginBottom: '1em',
-        }}
-      >
-        <CardMedia
-          controls={true}
-          poster={mediaUrl + file.screenshot}
-          component={componentType}
-          src={mediaUrl + file.filename}
-          title={file.title}
-          sx={{
-            width: {md: '500px', sm: '70%', xs: '100%'},
-            height: {
-              lg: '400px',
-              md: '400px',
-              sm: '400px',
-              xs: 'fit-content',
-              xl: 'auto',
-            },
-            boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
-          }}
-        />
-        <CardContent
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: {xs: '1.5em', sm: '3em'},
-            justifyContent: 'center',
-            paddingLeft: {xs: '2em', md: '2em'},
-            alignItems: {md: 'unset', sm: 'unset', xs: 'center'},
-          }}
-        >
-          {' '}
+      {owner.username ? (
+        <>
+          <HeroImage heroText={viewText} />
           <Typography
             sx={{
-              fontSize: {xs: '14px', sm: '16px', md: '18px'},
-              fontWeight: 'bold',
-              marginBottom: '0.25em',
+              marginTop: '0.5em',
+              marginBottom: '0.5em',
             }}
+            component="h1"
+            variant="h3"
           >
-            City: {allData.city}
+            {file.title}
           </Typography>
-          <Typography
+          <Card
             sx={{
-              fontSize: {xs: '14px', sm: '16px', md: '18px'},
-              fontWeight: 'bold',
-              marginBottom: '0.25em',
+              display: 'flex',
+              flexDirection: {xs: 'column', sm: 'row'},
+              marginBottom: '1em',
             }}
           >
-            Address: {allData.address}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {xs: '14px', sm: '16px', md: '18px'},
-              fontWeight: 'bold',
-              marginBottom: '0.25em',
-            }}
-          >
-            Website:{' '}
-            <Link
-              href={allData.website}
-              target="_blank"
-              rel="noopener noreferrer"
+            <CardMedia
+              controls={true}
+              poster={mediaUrl + file.screenshot}
+              component={componentType}
+              src={mediaUrl + file.filename}
+              title={file.title}
+              sx={{
+                width: {md: '500px', sm: '70%', xs: '100%'},
+                height: {
+                  lg: '400px',
+                  md: '400px',
+                  sm: '400px',
+                  xs: 'fit-content',
+                  xl: 'auto',
+                },
+                boxShadow: '0 3px 10px rgb(0 0 0 / 0.2);',
+              }}
+            />
+            <CardContent
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: {xs: '1.5em', sm: '3em'},
+                justifyContent: 'center',
+                paddingLeft: {xs: '2em', md: '2em'},
+                alignItems: {md: 'unset', sm: 'unset', xs: 'center'},
+              }}
             >
-              {allData.website}
-            </Link>
-          </Typography>
-          <Box
-            sx={{
-              fontSize: '20px',
-              boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
-              padding: '20px',
-              width: {xs: '100%', sm: '75%'},
-              marginTop: '1em',
-            }}
-          >
-            {allData.tags.map((tag) => (
               <Typography
-                key={tag}
                 sx={{
-                  backgroundColor: 'black',
-                  color: 'white',
-                  borderRadius: '4px',
-                  padding: '0.2em 0.5em',
-                  margin: '0.2em',
-                  display: 'inline-block',
+                  fontSize: {xs: '14px', sm: '16px', md: '18px'},
+                  fontWeight: 'bold',
+                  marginBottom: '0.25em',
                 }}
               >
-                {tag}
+                City: {allData.city}
               </Typography>
-            ))}
-          </Box>
-          <Typography
+              <Typography
+                sx={{
+                  fontSize: {xs: '14px', sm: '16px', md: '18px'},
+                  fontWeight: 'bold',
+                  marginBottom: '0.25em',
+                }}
+              >
+                Address: {allData.address}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: {xs: '14px', sm: '16px', md: '18px'},
+                  fontWeight: 'bold',
+                  marginBottom: '0.25em',
+                }}
+              >
+                Website:{' '}
+                <Link
+                  href={allData.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {allData.website}
+                </Link>
+              </Typography>
+              <Box
+                sx={{
+                  fontSize: '20px',
+                  boxShadow: '0 3px 10px rgb(0 0 0 / 0.2);',
+                  padding: '20px',
+                  width: {xs: '100%', sm: '75%'},
+                  marginTop: '1em',
+                }}
+              >
+                {allData.tags.map((tag) => (
+                  <Typography
+                    key={tag}
+                    sx={{
+                      backgroundColor: 'black',
+                      color: 'white',
+                      borderRadius: '4px',
+                      padding: '0.2em 0.5em',
+                      margin: '0.2em',
+                      display: 'inline-block',
+                    }}
+                  >
+                    {tag}
+                  </Typography>
+                ))}
+              </Box>
+              <Typography
+                sx={{
+                  fontSize: {xs: '20px', xl: '30px', md: '25px'},
+                }}
+                variant="body2"
+              >
+                Favorites: {likes}
+              </Typography>
+              <Rating
+                sx={{
+                  fontSize: {xs: '20px', xl: '30px', md: '25px'},
+                }}
+                name="restaurant-rating"
+                value={allData.stars}
+                precision={0.5}
+                readOnly
+              />
+              <FavoriteIcon
+                sx={{
+                  fontSize: {xs: '20px', xl: '30px', md: '25px'},
+                }}
+                onClick={userLike ? deleteLike : doLike}
+                style={
+                  userLike
+                    ? {color: 'red', display: 'block'}
+                    : {color: 'orange', display: 'block'}
+                }
+              ></FavoriteIcon>
+            </CardContent>
+          </Card>
+          <Box
             sx={{
-              fontSize: {xs: '20px', xl: '30px', md: '25px'},
+              display: 'flex',
+              flexDirection: {xs: 'column', sm: 'row'},
+              justifyContent: 'center',
+              gap: {xs: '1em', sm: '0'},
             }}
-            variant="body2"
           >
-            Favorites: {likes}
-          </Typography>
-          <Rating
-            sx={{
-              fontSize: {xs: '20px', xl: '30px', md: '25px'},
-            }}
-            name="restaurant-rating"
-            value={allData.stars}
-            precision={0.5}
-            readOnly
-          />
-          <FavoriteIcon
-            sx={{
-              fontSize: {xs: '20px', xl: '30px', md: '25px'},
-            }}
-            onClick={userLike ? deleteLike : doLike}
-            style={
-              userLike
-                ? {color: 'red', display: 'block'}
-                : {color: 'orange', display: 'block'}
-            }
-          ></FavoriteIcon>
-        </CardContent>
-      </Card>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: {xs: 'column', sm: 'row'},
-          justifyContent: 'center',
-          gap: {xs: '1em', sm: '0'},
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: '20px',
-            boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
-            padding: '20px',
-            width: {xs: '100%', sm: '75%'},
-            marginTop: '1em',
-          }}
-        >
-          {allData.review}
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'column',
-            gap: '8px',
-            fontSize: {xs: '20px', xl: '30px', md: '25px'},
-            boxShadow: ' 0 3px 10px rgb(0 0 0 / 0.2);',
-            padding: '20px',
-            width: {xs: '100%', sm: '25%'},
-            marginTop: '1em',
-          }}
-        >
-          <Typography variant="body2">By: {owner.username}</Typography>
-          <Button variant="text" onClick={reviewerProfile}>
-            Reviewer Profile
-          </Button>
-        </Box>
-      </Box>
+            <Typography
+              sx={{
+                fontSize: '20px',
+                boxShadow: '0 3px 10px rgb(0 0 0 / 0.2);',
+                padding: '20px',
+                width: {xs: '100%', sm: '75%'},
+                marginTop: '1em',
+              }}
+            >
+              {allData.review}
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                gap: '8px',
+                fontSize: {xs: '20px', xl: '30px', md: '25px'},
+                boxShadow: '0 3px 10px rgb(0 0 0 / 0.2);',
+                padding: '20px',
+                width: {xs: '100%', sm: '25%'},
+                marginTop: '1em',
+              }}
+            >
+              <Typography variant="body2">By: {owner.username}</Typography>
+              <Button variant="text" onClick={reviewerProfile}>
+                Reviewer Profile
+              </Button>
+            </Box>
+          </Box>
+        </>
+      ) : null}
     </>
-  ) : null;
+  );
 };
 
 // TODO in the next task: add propType for location

@@ -3,9 +3,13 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import HeroImage from '../components/HeroImage';
 import RegisterForm from '../components/RegisterForm';
-import usePageTitle from '../hooks/usePageTitle';
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+
 const Register = () => {
-  usePageTitle('Register');
+  const viewText = 'Register';
+  useScrollToTop();
+  usePageTitle(viewText);
   const navigate = useNavigate();
   const toggle = () => {
     navigate('/login');
@@ -13,7 +17,7 @@ const Register = () => {
 
   return (
     <>
-      <HeroImage heroText="Register" />
+      <HeroImage heroText={viewText} />
       <Grid
         sx={{
           marginTop: '5em',

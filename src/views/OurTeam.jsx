@@ -8,8 +8,9 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import usePageTitle from '../hooks/usePageTitle';
-
+import usePageTitle from '../hooks/UsePageTitle';
+import useScrollToTop from '../hooks/UseScrollToTop';
+import HeroImage from '../components/HeroImage';
 const teamMembers = [
   {
     name: 'Joonas Lamminmäki',
@@ -25,45 +26,50 @@ const teamMembers = [
   },
 ];
 const OurTeam = () => {
-  usePageTitle('Our Team');
+  const viewText = 'Our Team';
+  useScrollToTop();
+  usePageTitle(viewText);
   return (
-    <Container maxWidth="lg">
-      <Box sx={{my: 4}}>
-        <Typography variant="h4" component="h1" align="center" gutterBottom>
-          Our Team
-        </Typography>
-        <Typography variant="h6" component="p" align="center" gutterBottom>
-          Meet the creators of JAKReviews
-        </Typography>
-        <Grid container spacing={4} justifyContent="center">
-          {teamMembers.map((member, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4}>
-              <Card>
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Avatar sx={{width: 96, height: 96}}>
-                      {member.name[0]}
-                    </Avatar>
-                    <Typography variant="h6" component="h2" gutterBottom>
-                      {member.name}
-                    </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
-                      {member.role}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Container>
+    <>
+      <HeroImage heroText={viewText} />
+      <Container maxWidth="lg">
+        <Box sx={{my: 4}}>
+          <Typography variant="h4" component="h1" align="center" gutterBottom>
+            Our Team
+          </Typography>
+          <Typography variant="h6" component="p" align="center" gutterBottom>
+            Meet the creators of JAKReviews
+          </Typography>
+          <Grid container spacing={4} justifyContent="center">
+            {teamMembers.map((member, index) => (
+              <Grid key={index} item xs={12} sm={6} md={4}>
+                <Card>
+                  <CardContent>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Avatar sx={{width: 96, height: 96}}>
+                        {member.name[0]}
+                      </Avatar>
+                      <Typography variant="h6" component="h2" gutterBottom>
+                        {member.name}
+                      </Typography>
+                      <Typography variant="subtitle1" color="text.secondary">
+                        {member.role}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+    </>
   );
 };
 
