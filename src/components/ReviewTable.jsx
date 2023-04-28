@@ -11,13 +11,12 @@ import {
 import PropTypes from 'prop-types';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarIcon from '@mui/icons-material/Star';
-
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import React, {useEffect, useState} from 'react';
 import {useAuthentication, useFavourite, useMedia} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
-import {Star} from '@mui/icons-material';
 
 const ReviewTable = ({myFilesOnly = false}) => {
   const {mediaArray, setMediaArray, deleteMedia} = useMedia(myFilesOnly);
@@ -103,17 +102,19 @@ const ReviewTable = ({myFilesOnly = false}) => {
           >
             <MenuItem value="Latest">
               <div className="item-selector">
+                <AutorenewIcon className="highest-star-selector-icon" />
                 <span className="selector-text">Latest</span>
               </div>
             </MenuItem>
             <MenuItem value="Oldest">
               <div className="item-selector">
+                <AutorenewIcon className="highest-star-selector-icon" />
                 <span className="selector-text">Oldest</span>
               </div>
             </MenuItem>
             <MenuItem value="Highest Star">
               <div className="highest-star-selector">
-                <Star
+                <StarIcon
                   className="highest-star-selector-icon"
                   sx={{color: 'orange'}}
                 />
