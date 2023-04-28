@@ -151,6 +151,7 @@ const Profile = () => {
         );
         handleModalClose();
         getProfilePic();
+        setFile(null);
       } catch (error) {
         alert(error.message);
       }
@@ -165,7 +166,7 @@ const Profile = () => {
         handleModalClose();
         const user = await getUserByToken(token);
         setUser(user);
-        setInputs({});
+        setInputs(null);
       } catch (error) {
         alert(error.message);
       }
@@ -191,6 +192,13 @@ const Profile = () => {
       return await getCheckUser(inputs?.username);
     });
   }, [inputs]); // Päivittää useeffectin kun inputs muuttuu
+
+  const onCancel = () => {
+    setInputs(null);
+    handleModalClose();
+    setFile(null);
+    setSelectedImage(avatar);
+  };
 
   return (
     <>
@@ -366,7 +374,7 @@ const Profile = () => {
                     variant="outlined"
                     color="primary"
                     sx={{ml: 2}}
-                    onClick={handleModalClose}
+                    onClick={onCancel}
                   >
                     Cancel
                   </Button>
