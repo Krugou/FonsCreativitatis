@@ -136,7 +136,7 @@ const Profile = () => {
         data.append('file', file);
 
         // DELETE PREVIOUS Avatar before posting new one
-        if (avatarInfo) {
+        if (avatarInfo.file_id) {
           const deleteResponse = await deleteMedia(avatarInfo.file_id, token);
           console.log(deleteResponse);
         }
