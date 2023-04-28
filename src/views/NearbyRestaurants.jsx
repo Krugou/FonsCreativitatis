@@ -19,6 +19,7 @@ import mockYelpData from '../utils/mockData';
 
 const NearbyRestaurants = () => {
   const viewText = 'Nearby Restaurants';
+  
   useScrollToTop();
   usePageTitle(viewText);
   const [businesses, setBusinesses] = useState([]);
