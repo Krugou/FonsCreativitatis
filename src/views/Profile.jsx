@@ -27,7 +27,7 @@ const Profile = () => {
   const viewText = 'Profile';
   useScrollToTop();
   usePageTitle(viewText);
-  const {user, update, setUpdate} = useContext(MediaContext);
+  const {user, setUser} = useContext(MediaContext);
   const {getTag} = useTags();
   const [file, setFile] = useState(null);
 
@@ -35,7 +35,7 @@ const Profile = () => {
   const [selectedImage, setSelectedImage] = useState(avatar);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const {putUser, getCheckUser} = useUser();
+  const {putUser, getCheckUser, getUserByToken} = useUser();
   const {getAllFiles, deleteMedia} = useMedia();
   const navigate = useNavigate();
   const getProfilePic = async () => {
@@ -128,7 +128,8 @@ const Profile = () => {
       const token = localStorage.getItem('userToken');
       await putUser(withoutConfirm, token);
       handleModalClose();
-      navigate(0);
+      const user = await getUserByToken(token);
+      setUser(user);
     } catch (error) {
       alert(error.message);
     }
