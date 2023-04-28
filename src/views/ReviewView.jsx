@@ -247,14 +247,15 @@ const ReviewView = () => {
                 readOnly
               />
               <FavoriteIcon
+                className="review-favorite-button"
                 sx={{
                   fontSize: {xs: '20px', xl: '30px', md: '25px'},
                 }}
                 onClick={userLike ? deleteLike : doLike}
                 style={
                   userLike
-                    ? {color: 'red', display: 'block'}
-                    : {color: 'orange', display: 'block'}
+                    ? {color: 'red', display: 'block', cursor: 'pointer'}
+                    : {color: 'pink', display: 'block', cursor: 'pointer'}
                 }
               ></FavoriteIcon>
             </CardContent>
