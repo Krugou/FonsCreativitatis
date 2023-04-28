@@ -34,6 +34,8 @@ const CheckRestaurantsPrompt = () => {
             '&:hover': {
               transform: 'scale(1.1)',
             },
+            backgroundColor: 'primary.main',
+            color: 'white',
           }}
         >
           <Typography variant="body1" fontSize="1.1rem" fontWeight="500">

@@ -95,40 +95,54 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
   }
 
   return (
-    <Card
+    <Paper
+      elevation={5}
       sx={{
-        minWidth: '200px',
-        textAlign: 'center',
-        boxShadow: 2,
+        padding: '0.5rem',
+        cursor: 'pointer',
+        transition: 'all .3s',
+        '&:hover': {
+          transform: 'scale(1.1)',
+        },
+        display: 'flex',
+        flexDirection: {xs: 'column', sm: 'column', md: 'row'},
+        backgroundColor: 'primary.main',
+        color: 'white',
       }}
     >
-      <CardContent>
-        <Paper
-          elevation={5}
+      {!Number.isNaN(wind) && (
+        <Typography
+          variant="body1"
+          className="wind-info"
           sx={{
-            padding: '0.5rem',
-            cursor: 'pointer',
-            transition: 'all .3s',
-            '&:hover': {
-              transform: 'scale(1.1)',
-            },
+            m: {xs: '0rem', sm: '0rem', md: '0.5rem'},
+            textAlign: {xs: 'center', sm: 'center', md: 'left'},
           }}
         >
-          {!Number.isNaN(wind) && (
-            <Typography variant="body1" className="wind-info">
-              {wind.toFixed(1)} m/s
-            </Typography>
-          )}
-          <Typography variant="body1" className="temp-info">
-            {temp.toFixed(1)} °C
-          </Typography>
-          <Typography variant="body1">
-            {getWeatherDescription(weatherSymbol)}
-          </Typography>
-        </Paper>
-        <CheckRestaurantsPrompt />
-      </CardContent>
-    </Card>
+          {wind.toFixed(1)} m/s
+        </Typography>
+      )}
+      <Typography
+        variant="body1"
+        className="temp-info"
+        sx={{
+          m: {xs: '0rem', sm: '0rem', md: '0.5rem'},
+          textAlign: {xs: 'center', sm: 'center', md: 'left'},
+        }}
+      >
+        {temp.toFixed(1)} °C
+      </Typography>
+      <Typography
+        variant="body1"
+        sx={{
+          m: {xs: '0rem', sm: '0rem', md: '0.5rem'},
+          textAlign: {xs: 'center', sm: 'center', md: 'left'},
+        }}
+      >
+        {getWeatherDescription(weatherSymbol)}
+      </Typography>
+      <CheckRestaurantsPrompt />
+    </Paper>
   );
 };
 WeatherReport.propTypes = {
