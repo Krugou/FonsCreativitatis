@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/jakreviewslogo.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="JakReviews" name="application-name">
+  <meta content="JAK ltd" name="copyright">
+  <meta content="Food" name="page-topic">
+  <meta content="Reviews" name="page-type">
+  <meta content="Everyone" name="audience">
+  <title>Jak Reviews</title>
+  <script>
+  (function () {
+    const urlPathSegments = window.location.pathname.split('/');
+    const lastSegment = urlPathSegments[urlPathSegments.length - 1];
+    if (!lastSegment.includes('.')) {
+      // If there is no file extension in the last segment, rewrite the URL to index.html
+      window.location.replace(window.location.href + 'index.html');
+    }
+  })();
+</script>
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>
