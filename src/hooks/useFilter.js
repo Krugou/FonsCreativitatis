@@ -1,7 +1,21 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const useFilter = (media) => {
   const [filteredMedia, setFilteredMedia] = useState(media);
+  const [uniqueCities, setUniqueCities] = useState([]);
+  const [uniqueTags, setUniqueTags] = useState([]);
+  const [uniqueRestaurants, setUniqueRestaurants] = useState([]);
+
+  useEffect(() => {
+    const cities = new Set(media.map((item) => item.city));
+    setUniqueCities([...cities]);
+
+    const tags = new Set(media.flatMap((item) => item.tags.map((t) => t.tag)));
+    setUniqueTags([...tags]);
+
+    const restaurants = new Set(media.map((item) => item.title));
+    setUniqueRestaurants([...restaurants]);
+  }, [media]);
 
   const filterByTag = (tag) => {
     const filtered = media.filter((item) =>
@@ -30,6 +44,9 @@ const useFilter = (media) => {
     filterByCity,
     filterByRestaurants,
     resetMedia,
+    uniqueCities,
+    uniqueTags,
+    uniqueRestaurants,
   };
 };
 
