@@ -11,8 +11,8 @@ import {MediaContext} from '../contexts/MediaContext';
 import {doFetch, useAuthentication, useTags} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
-import useFilter from './hooks/useFilter';
-import useSearch from './hooks/useSearch';
+import useFilter from '../hooks/useFilter';
+import useSearch from '../hooks/useSearch';
 
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
