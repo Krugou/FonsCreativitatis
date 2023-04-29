@@ -1,6 +1,8 @@
 import {
   Box,
+  Button,
   Card,
+  CardActions,
   CardContent,
   CardMedia,
   Chip,
@@ -26,13 +28,23 @@ const NearbyRestaurants = () => {
   const [location, setLocation] = useState({latitude: null, longitude: null});
 
   useEffect(() => {
+    const [fakeRestaurantAdded, setFakeRestaurantAdded] = useState(false);
+
     const fetchData = async () => {
       if (!location.latitude || !location.longitude) return;
 
       try {
-        const proxyUrl = 'https://users.metropolia.fi/~aleksino/proxy.php';
-        const yelpUrl = `/v3/businesses/search?latitude=${location.latitude}&longitude=${location.longitude}&categories=restaurants&limit=50`;
-        const response = await doFetch(proxyUrl + yelpUrl);
+        const proxyUrl = 'https://167.71.51.18:3000/yelp';
+        const yelpApiPath = '/v3/businesses/search';
+        const queryParams = new URLSearchParams({
+          latitude: location.latitude,
+          longitude: location.longitude,
+          categories: 'restaurants',
+          limit: 50,
+        });
+
+        const fullUrl = `${proxyUrl}${yelpApiPath}?${queryParams.toString()}`;
+        const response = await doFetch(fullUrl);
 
         setBusinesses(response.businesses);
       } catch (error) {
@@ -41,6 +53,36 @@ const NearbyRestaurants = () => {
         setBusinesses(mockYelpData[0].businesses);
       }
     };
+
+    useEffect(() => {
+      if (!fakeRestaurantAdded) {
+        const fakeRestaurant = {
+          id: 'fake-restaurant',
+          name: 'API Activation Required',
+          image_url: '',
+          categories: [],
+          rating: 0,
+          price: '',
+          location: {
+            display_address: [],
+          },
+          display_phone: '',
+          website: 'https://167.71.51.18:3000/',
+          description:
+            'To enable the live Yelp data, please visit the provided website link. Once you have done so, refresh the page to see updated restaurant listings.',
+        };
+
+        // Add fake restaurant only once
+        if (
+          !mockYelpData[0].businesses.some(
+            (business) => business.id === fakeRestaurant.id
+          )
+        ) {
+          mockYelpData[0].businesses.unshift(fakeRestaurant);
+          setFakeRestaurantAdded(true);
+        }
+      }
+    }, [fakeRestaurantAdded]);
 
     fetchData();
   }, [location]);
@@ -117,7 +159,25 @@ const NearbyRestaurants = () => {
                   <Typography variant="body2" color="text.secondary">
                     Phone: {restaurant.display_phone}
                   </Typography>
+                  {restaurant.description && (
+                    <Typography variant="body2" color="text.secondary">
+                      {restaurant.description}
+                    </Typography>
+                  )}
                 </CardContent>
+                {restaurant.website && (
+                  <CardActions>
+                    <Button
+                      size="small"
+                      color="primary"
+                      href={restaurant.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Visit Website
+                    </Button>
+                  </CardActions>
+                )}
               </Card>
             </Grid>
           ))}
