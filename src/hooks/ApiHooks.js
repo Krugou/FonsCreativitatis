@@ -164,6 +164,51 @@ const useUser = () => {
     putUser,
   };
 };
+const useComments = () => {
+  const [error, setError] = useState('');
+
+  const getComments = async (fileId) => {
+    try {
+      const response = await doFetch(`/comments/file/${fileId}`);
+      return response.data;
+    } catch (e) {
+      setError(e.message);
+      throw e;
+    }
+  };
+
+  const postComment = async (fileId, comment, userToken) => {
+    try {
+      const response = await doFetch('/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': userToken,
+        },
+        body: JSON.stringify({file_id: fileId, comment: comment}),
+      });
+      return response.data;
+    } catch (e) {
+      setError(e.message);
+      throw e;
+    }
+  };
+
+  const deleteComment = async (commentId, userToken) => {
+    try {
+      const response = await doFetch(`/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {'x-access-token': userToken},
+      });
+      return response.data;
+    } catch (e) {
+      setError(e.message);
+      throw e;
+    }
+  };
+
+  return {getComments, postComment, deleteComment, error};
+};
 
 const useAuthentication = () => {
   const postLogin = async (inputs) => {
@@ -248,4 +293,13 @@ const useFavourite = () => {
   return {postFavourite, getFavourites, deleteFavourite, getLikes};
 };
 
-export {doFetch, useAuthentication, useFavourite, useMedia, useTags, useUser};
+export {
+  doFetch,
+  useAuthentication,
+  useComments,
+  useFavourite,
+  useMedia,
+  useTags,
+  useUser
+};
+
