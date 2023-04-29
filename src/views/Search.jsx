@@ -11,8 +11,6 @@ import {MediaContext} from '../contexts/MediaContext';
 import {doFetch, useAuthentication, useTags} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
-import useFilter from '../hooks/useFilter';
-import useSearch from '../hooks/useSearch';
 
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
@@ -39,7 +37,7 @@ const Search = () => {
       ? localStorage.getItem('userToken')
       : generalUserLog.token;
 
-    let result = await doFetch(url, {
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,17 +46,22 @@ const Search = () => {
       body: JSON.stringify({title, description}),
     });
 
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+
+    const result = await response.json();
     // string to json result.description
-    result = result.map((item) => {
+    result.forEach((item) => {
       try {
         const parsedDescription = JSON.parse(item.description);
-        return {...item, ...parsedDescription}; // merge parsedDescription with item
+        Object.assign(item, parsedDescription); // merge parsedDescription with item
       } catch (error) {
         // If JSON parsing fails, assume it's a simple string and copy it to `description`
-        return {...item, description: item.description};
+        item.description = {description: item.description};
       }
     });
-
     const tagsList = await Promise.all(
       result.map(async (item) => {
         const tags = await getTagsByFileId(item.file_id);
