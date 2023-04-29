@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import Modal from '@mui/material/Modal';
-import Stack from '@mui/material/Stack';
 import React, {useContext, useState} from 'react';
 import HeroImage from '../components/HeroImage';
 import SearchTable from '../components/SearchTable';
@@ -13,6 +12,8 @@ import {doFetch, useAuthentication, useTags} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 import {appId, baseUrl, generalUser} from '../utils/variables';
 const Search = () => {
   const [searchError, setSearchError] = useState(false);
@@ -268,6 +269,18 @@ const Search = () => {
             transform: 'translate(-50%, -50%)',
           }}
         >
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={handleClose}
+            sx={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
           <Typography variant="h5" gutterBottom>
             Filter by restaurants
           </Typography>
