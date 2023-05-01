@@ -18,6 +18,7 @@ import {MediaContext} from '../contexts/MediaContext';
 import {useUser} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
 import DeleteModal from './DeleteModal';
+import {Edit} from '@mui/icons-material';
 
 const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   const [showDelete, setShowDelete] = useState(false);
@@ -90,105 +91,119 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   }
 
   return (
-    <ImageListItem
-      component={Link}
-      to={showDelete ? null : '/ReviewView'}
-      state={{file}}
-    >
-      {showDelete && (
-        <DeleteModal
-          toggleDelete={toggleDelete}
-          title={file.title}
-          onDelete={doDelete}
-        />
-      )}
-      {myFilesOnly && (
-        <IconButton
+    <Box sx={{position: 'relative'}}>
+      <ImageListItem
+        component={Link}
+        to={showDelete ? null : '/ReviewView'}
+        state={{file}}
+      >
+        {showDelete && (
+          <DeleteModal
+            toggleDelete={toggleDelete}
+            title={file.title}
+            onDelete={doDelete}
+          />
+        )}
+
+        <Box
           sx={{
             position: 'absolute',
             top: 0,
-            right: 0,
+            left: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+
+            borderRadius: '50%',
+            color: '#fff',
+            fontWeight: 'bold',
+            fontSize: '1.2rem',
             backgroundColor: 'white',
           }}
-          onClick={(event) => {
-            event.stopPropagation();
-            event.preventDefault();
-            toggleDelete();
-          }}
         >
-          <DeleteIcon
+          {file.likes ? (
+            <IconButton disabled>
+              <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
+              <Typography fontSize="1rem" color="black">
+                {file.likes}
+              </Typography>
+            </IconButton>
+          ) : (
+            <IconButton disabled>
+              <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
+              <Typography fontSize="1rem" color="black">
+                0
+              </Typography>
+            </IconButton>
+          )}
+        </Box>
+        <img
+          src={
+            file.media_type !== 'audio'
+              ? mediaUrl + file.thumbnails?.w640
+              : 'vite.svg'
+          }
+          alt={file.title}
+        />
+        <ImageListItemBar
+          sx={{
+            display: 'flex',
+            flexDirection: {xs: 'column', md: 'row'},
+            justifyContent: 'space-between',
+          }}
+          title={file.title}
+          subtitle={owner.username ? 'By: ' + owner.username : ''}
+          actionIcon={
+            <Box>
+              <Rating
+                name="review rating"
+                value={stars ? stars : 0}
+                readOnly
+                precision={0.5}
+                sx={{
+                  '& .MuiRating-iconEmpty': {
+                    color: '#fff',
+                  },
+                  mr: 1,
+                }}
+              />
+            </Box>
+          }
+        />
+      </ImageListItem>
+      {myFilesOnly && (
+        <Box>
+          <IconButton
             sx={{
-              color: 'black',
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              backgroundColor: 'white',
             }}
-          />
-        </IconButton>
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
+              toggleDelete();
+            }}
+          >
+            <DeleteIcon sx={{color: 'black'}} />
+          </IconButton>
+          <IconButton
+            sx={{
+              position: 'absolute',
+              top: '40px',
+              right: '0',
+              backgroundColor: 'white',
+            }}
+            component={Link}
+            to={'/update'}
+            state={file}
+          >
+            <Edit sx={{color: 'black'}} />
+          </IconButton>
+        </Box>
       )}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-
-          borderRadius: '50%',
-          color: '#fff',
-          fontWeight: 'bold',
-          fontSize: '1.2rem',
-          backgroundColor: 'white',
-        }}
-      >
-        {file.likes ? (
-          <IconButton disabled>
-            <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
-            <Typography fontSize="1rem" color="black">
-              {file.likes}
-            </Typography>
-          </IconButton>
-        ) : (
-          <IconButton disabled>
-            <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
-            <Typography fontSize="1rem" color="black">
-              0
-            </Typography>
-          </IconButton>
-        )}
-      </Box>
-      <img
-        src={
-          file.media_type !== 'audio'
-            ? mediaUrl + file.thumbnails?.w640
-            : 'vite.svg'
-        }
-        alt={file.title}
-      />
-      <ImageListItemBar
-        sx={{
-          display: 'flex',
-          flexDirection: {xs: 'column', md: 'row'},
-          justifyContent: 'space-between',
-        }}
-        title={file.title}
-        subtitle={owner.username ? 'By: ' + owner.username : ''}
-        actionIcon={
-          <Box>
-            <Rating
-              name="review rating"
-              value={stars ? stars : 0}
-              readOnly
-              precision={0.5}
-              sx={{
-                '& .MuiRating-iconEmpty': {
-                  color: '#fff',
-                },
-                mr: 1,
-              }}
-            />
-          </Box>
-        }
-      />
-    </ImageListItem>
+    </Box>
   );
 };
 

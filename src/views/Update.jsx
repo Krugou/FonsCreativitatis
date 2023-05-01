@@ -10,7 +10,6 @@ import HeroImage from '../components/HeroImage';
 import {useMedia} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
 const Update = (props) => {
-  
   const {putMedia} = useMedia();
   const navigate = useNavigate();
   const {state} = useLocation();
@@ -18,10 +17,10 @@ const Update = (props) => {
   const viewText = 'Update';
   useScrollToTop();
   usePageTitle(viewText);
-  const selectedImage = mediaUrl + file.filename;
+  const selectedImage = mediaUrl + file?.filename;
 
   let allData = {
-    desc: file.description,
+    desc: file?.description,
     filters: {
       brightness: 100,
       contrast: 100,
@@ -30,13 +29,13 @@ const Update = (props) => {
     },
   };
   try {
-    allData = JSON.parse(file.description);
+    allData = JSON.parse(file?.description);
   } catch (error) {
     /* Empty */
   }
 
   const initValues = {
-    title: file.title,
+    title: file?.title,
     description: allData.desc,
   };
 
@@ -53,7 +52,7 @@ const Update = (props) => {
         description: JSON.stringify(allData),
       };
       const userToken = localStorage.getItem('userToken');
-      const updateResult = await putMedia(file.file_id, data, userToken);
+      const updateResult = await putMedia(file?.file_id, data, userToken);
       console.log('doUpdate', updateResult);
       navigate('/');
     } catch (error) {
