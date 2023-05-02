@@ -169,7 +169,7 @@ const useComments = () => {
 
   const getComments = async (fileId) => {
     try {
-      const response = await doFetch(`/comments/file/${fileId}`);
+      const response = await doFetch(baseUrl + `/comments/file/${fileId}`);
       return response.data;
     } catch (e) {
       setError(e.message);
@@ -179,7 +179,7 @@ const useComments = () => {
 
   const postComment = async (fileId, comment, userToken) => {
     try {
-      const response = await doFetch('/comments', {
+      const response = await doFetch(baseUrl + '/comments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -196,7 +196,7 @@ const useComments = () => {
 
   const deleteComment = async (commentId, userToken) => {
     try {
-      const response = await doFetch(`/comments/${commentId}`, {
+      const response = await doFetch(baseUrl + `/comments/${commentId}`, {
         method: 'DELETE',
         headers: {'x-access-token': userToken},
       });
