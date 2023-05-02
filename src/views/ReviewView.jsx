@@ -213,7 +213,7 @@ const ReviewView = () => {
                   marginTop: '1em',
                 }}
               >
-                {allData.tags.map((tag) => (
+                {allData.tags?.map((tag) => (
                   <Typography
                     key={tag}
                     sx={{

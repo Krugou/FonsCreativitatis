@@ -61,11 +61,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   useEffect(() => {
     fetchOwner();
   }, [file]);
-  /*
-   <Button component={Link} variant="contained" onClick={doDelete}>
-        Delete
-      </Button>
-  */
+
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
@@ -207,7 +203,9 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
                 },
                 mr: 1,
               }}
-            />
+            >
+              {' '}
+            </Rating>
           </Box>
         }
       />
