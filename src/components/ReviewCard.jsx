@@ -13,7 +13,7 @@ import {
 
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import {useUser} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
@@ -24,7 +24,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   const [showDelete, setShowDelete] = useState(false);
   const {user, update, setUpdate} = useContext(MediaContext);
   const [owner, setOwner] = useState({username: ''});
-
+  const navigate = useNavigate();
   const {getUser} = useUser();
 
   const doDelete = async () => {
@@ -91,86 +91,18 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   }
 
   return (
-    <Box sx={{position: 'relative'}}>
-      <ImageListItem
-        component={Link}
-        to={showDelete ? null : '/ReviewView'}
-        state={{file}}
-      >
-        {showDelete && (
-          <DeleteModal
-            toggleDelete={toggleDelete}
-            title={file.title}
-            onDelete={doDelete}
-          />
-        )}
-
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-
-            borderRadius: '50%',
-            color: '#fff',
-            fontWeight: 'bold',
-            fontSize: '1.2rem',
-            backgroundColor: 'white',
-          }}
-        >
-          {file.likes ? (
-            <IconButton disabled>
-              <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
-              <Typography fontSize="1rem" color="black">
-                {file.likes}
-              </Typography>
-            </IconButton>
-          ) : (
-            <IconButton disabled>
-              <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
-              <Typography fontSize="1rem" color="black">
-                0
-              </Typography>
-            </IconButton>
-          )}
-        </Box>
-        <img
-          src={
-            file.media_type !== 'audio'
-              ? mediaUrl + file.thumbnails?.w640
-              : 'vite.svg'
-          }
-          alt={file.title}
-        />
-        <ImageListItemBar
-          sx={{
-            display: 'flex',
-            flexDirection: {xs: 'column', md: 'row'},
-            justifyContent: 'space-between',
-          }}
+    <ImageListItem
+      component={Link}
+      to={showDelete ? null : '/ReviewView'}
+      state={{file}}
+    >
+      {showDelete && (
+        <DeleteModal
+          toggleDelete={toggleDelete}
           title={file.title}
-          subtitle={owner.username ? 'By: ' + owner.username : ''}
-          actionIcon={
-            <Box>
-              <Rating
-                name="review rating"
-                value={stars ? stars : 0}
-                readOnly
-                precision={0.5}
-                sx={{
-                  '& .MuiRating-iconEmpty': {
-                    color: '#fff',
-                  },
-                  mr: 1,
-                }}
-              />
-            </Box>
-          }
+          onDelete={doDelete}
         />
-      </ImageListItem>
+      )}
       {myFilesOnly && (
         <Box>
           <IconButton
@@ -195,15 +127,82 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
               right: '0',
               backgroundColor: 'white',
             }}
-            component={Link}
-            to={'/update'}
-            state={file}
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
+              navigate('/update', {state: file});
+            }}
           >
             <Edit sx={{color: 'black'}} />
           </IconButton>
         </Box>
       )}
-    </Box>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+
+          borderRadius: '50%',
+          color: '#fff',
+          fontWeight: 'bold',
+          fontSize: '1.2rem',
+          backgroundColor: 'white',
+        }}
+      >
+        {file.likes ? (
+          <IconButton disabled>
+            <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
+            <Typography fontSize="1rem" color="black">
+              {file.likes}
+            </Typography>
+          </IconButton>
+        ) : (
+          <IconButton disabled>
+            <FavoriteIcon fontSize="normal" sx={{color: 'red'}} />
+            <Typography fontSize="1rem" color="black">
+              0
+            </Typography>
+          </IconButton>
+        )}
+      </Box>
+      <img
+        src={
+          file.media_type !== 'audio'
+            ? mediaUrl + file.thumbnails?.w640
+            : 'vite.svg'
+        }
+        alt={file.title}
+      />
+      <ImageListItemBar
+        sx={{
+          display: 'flex',
+          flexDirection: {xs: 'column', md: 'row'},
+          justifyContent: 'space-between',
+        }}
+        title={file.title}
+        subtitle={owner.username ? 'By: ' + owner.username : ''}
+        actionIcon={
+          <Box>
+            <Rating
+              name="review rating"
+              value={stars ? stars : 0}
+              readOnly
+              precision={0.5}
+              sx={{
+                '& .MuiRating-iconEmpty': {
+                  color: '#fff',
+                },
+                mr: 1,
+              }}
+            />
+          </Box>
+        }
+      />
+    </ImageListItem>
   );
 };
 
