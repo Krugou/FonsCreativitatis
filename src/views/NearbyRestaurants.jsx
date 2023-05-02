@@ -19,7 +19,11 @@ import HeroImage from '../components/HeroImage';
 import {doFetch} from '../hooks/ApiHooks';
 import mockYelpData from '../utils/mockData';
 
+const placeholderImage = 'https://via.placeholder.com/140'; // Add a placeholder image URL
+
 const NearbyRestaurants = () => {
+  const [fakeRestaurantAdded, setFakeRestaurantAdded] = useState(false);
+
   const viewText = 'Nearby Restaurants';
 
   useScrollToTop();
@@ -28,8 +32,33 @@ const NearbyRestaurants = () => {
   const [location, setLocation] = useState({latitude: null, longitude: null});
 
   useEffect(() => {
-    const [fakeRestaurantAdded, setFakeRestaurantAdded] = useState(false);
+    if (!fakeRestaurantAdded) {
+      const fakeRestaurant = {
+        id: 'fake-restaurant',
+        name: 'API Activation Required',
+        image_url: '',
+        categories: [],
+        rating: 0,
+        price: '',
+        location: {
+          display_address: [],
+        },
+        display_phone: '',
+        website: 'https://167.71.51.18:3000/',
+        description:
+          'To enable the live Yelp data, please visit the provided website link. Once you have done so, refresh the page to see updated restaurant listings.',
+      };
 
+      // Add fake restaurant only once
+      if (
+        !mockYelpData[0].businesses.some(
+          (business) => business.id === fakeRestaurant.id
+        )
+      ) {
+        mockYelpData[0].businesses.unshift(fakeRestaurant);
+        setFakeRestaurantAdded(true);
+      }
+    }
     const fetchData = async () => {
       if (!location.latitude || !location.longitude) return;
 
@@ -54,40 +83,6 @@ const NearbyRestaurants = () => {
       }
     };
 
-    useEffect(() => {
-      if (!fakeRestaurantAdded) {
-        const fakeRestaurant = {
-          id: 'fake-restaurant',
-          name: 'API Activation Required',
-          image_url: '',
-          categories: [],
-          rating: 0,
-          price: '',
-          location: {
-            display_address: [],
-          },
-          display_phone: '',
-          website: 'https://167.71.51.18:3000/',
-          description:
-            'To enable the live Yelp data, please visit the provided website link. Once you have done so, refresh the page to see updated restaurant listings.',
-        };
-
-        // Add fake restaurant only once
-        if (
-          !mockYelpData[0].businesses.some(
-            (business) => business.id === fakeRestaurant.id
-          )
-        ) {
-          mockYelpData[0].businesses.unshift(fakeRestaurant);
-          setFakeRestaurantAdded(true);
-        }
-      }
-    }, [fakeRestaurantAdded]);
-
-    fetchData();
-  }, [location]);
-
-  useEffect(() => {
     const getGeolocation = () => {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
@@ -107,10 +102,9 @@ const NearbyRestaurants = () => {
       }
     };
 
+    fetchData();
     getGeolocation();
-  }, []);
-
-  const placeholderImage = 'https://via.placeholder.com/140'; // Add a placeholder image URL
+  }, [location, fakeRestaurantAdded]);
 
   return (
     <>
