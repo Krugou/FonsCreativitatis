@@ -9,7 +9,7 @@ import Home from './views/Home';
 import Layout from './views/Layout';
 import Login from './views/Login';
 import Logout from './views/Logout';
-import MyFiles from './views/MyFiles';
+import MyReviews from './views/MyReviews';
 import NearbyRestaurants from './views/NearbyRestaurants';
 import NotFound from './views/NotFound';
 import OurTeam from './views/OurTeam';
@@ -43,7 +43,7 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/reviewupload" element={<ReviewUpload />} />
               <Route path="/logout" element={<Logout />} />
-              <Route path="/myfiles" element={<MyFiles />} />
+              <Route path="/myreviews" element={<MyReviews />} />
               <Route path="/update" element={<Update />} />
               <Route path="/search" element={<Search />} />
               <Route path="/register" element={<Register />} />

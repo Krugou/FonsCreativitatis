@@ -5,19 +5,19 @@ import ReviewTable from '../components/ReviewTable';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 
-const MyFiles = () => {
-  const viewText = 'My Files';
+const MyReviews = () => {
+  const viewText = 'My Reviews';
   useScrollToTop();
   usePageTitle(viewText);
   return (
     <>
       <HeroImage heroText={viewText} />
       <Typography component="h1" variant="h2">
-        My Files
+        My Reviews
       </Typography>
       <ReviewTable myFilesOnly={true} />
     </>
   );
 };
 
-export default MyFiles;
+export default MyReviews;

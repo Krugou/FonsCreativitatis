@@ -147,11 +147,11 @@ const Layout = () => {
                       </ListItemIcon>
                       <ListItemText primary="Write A Review" />
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/myfiles">
+                    <ListItemButton component={Link} to="/myreviews">
                       <ListItemIcon>
                         <Folder />
                       </ListItemIcon>
-                      <ListItemText primary="My Files" />
+                      <ListItemText primary="My Reviews" />
                     </ListItemButton>
                     <ListItemButton component={Link} to="/logout">
                       <ListItemIcon>
