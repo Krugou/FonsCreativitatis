@@ -72,12 +72,15 @@ const ReviewTable = ({myFilesOnly = false}) => {
       setMediaFiles(sortedMedia);
     }
     if (value === 'Most Favorited') {
+      const sortedMedia = [...mediaArray].sort((a, b) => b.likes - a.likes);
+      setMediaFiles(sortedMedia);
+    }
+    if (value === 'My Favorites') {
       mediaArray.forEach(async (file) => {
         const sortedMedia = [...mediaArray].sort((a, b) => b.likes - a.likes);
         setMediaFiles(sortedMedia);
       });
-    }
-    if (value === 'My Favorites') {
+
       console.log(userFavorites);
     }
     setSortOption(value);
