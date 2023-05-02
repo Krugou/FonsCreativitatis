@@ -21,10 +21,8 @@ import {Edit} from '@mui/icons-material';
 
 const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   const [showDelete, setShowDelete] = useState(false);
-  const {user, update, setUpdate} = useContext(MediaContext);
-  const [owner, setOwner] = useState({username: ''});
+  const {update, setUpdate} = useContext(MediaContext);
   const navigate = useNavigate();
-  const {getUser} = useUser();
 
   const doDelete = async () => {
     try {
@@ -47,20 +45,6 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   } catch (error) {
     /* Empty */
   }
-  const fetchOwner = async () => {
-    try {
-      const userToken = user
-        ? localStorage.getItem('userToken')
-        : defaultUserToken;
-      const ownerInfo = await getUser(file.user_id, userToken);
-      setOwner(ownerInfo);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-  useEffect(() => {
-    fetchOwner();
-  }, [file]);
 
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -189,7 +173,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
           justifyContent: 'space-between',
         }}
         title={file.title}
-        subtitle={owner.username ? 'By: ' + owner.username : ''}
+        subtitle={file.owner?.username ? 'By: ' + file.owner?.username : ''}
         actionIcon={
           <Box>
             <Rating

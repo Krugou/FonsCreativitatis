@@ -1,11 +1,9 @@
 import {
   Box,
   FormControl,
-  FormControlLabel,
   ImageList,
   MenuItem,
   Select,
-  Switch,
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -13,27 +11,46 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarIcon from '@mui/icons-material/Star';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import React, {useEffect, useState} from 'react';
-import {useAuthentication, useFavourite, useMedia} from '../hooks/ApiHooks';
+import {
+  useAuthentication,
+  useFavourite,
+  useMedia,
+  useUser,
+} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
 
 const ReviewTable = ({myFilesOnly = false}) => {
-  const {mediaArray, setMediaArray, deleteMedia} = useMedia(myFilesOnly);
+  const {mediaArray, deleteMedia} = useMedia(myFilesOnly);
   const windowSize = useWindowSize();
   const {postLogin} = useAuthentication();
   const [token, setToken] = useState(null);
   const [sortOption, setSortOption] = useState('Latest');
   const [mediaFiles, setMediaFiles] = useState([]);
-  const {getLikes} = useFavourite();
-  useEffect(() => {
-    const fetchDefaultUserToken = async () => {
-      const defaultUser = await postLogin(generalUser);
+  const [userFavorites, setUserFavorites] = useState({});
+  const {getLikes, getFavouritesOfUser} = useFavourite();
+  const {getUser} = useUser();
+  const fetchDefaultUserToken = async () => {
+    const defaultUser = await postLogin(generalUser);
+    setToken(defaultUser.token);
+  };
+  const getUserFavorites = async () => {
+    try {
+      const token = localStorage.getItem('userToken');
+      console.log(token);
+      const userFavorites = await getFavouritesOfUser(token);
+      setUserFavorites(userFavorites);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-      setToken(defaultUser.token);
-    };
+  useEffect(() => {
     fetchDefaultUserToken();
-  }, [postLogin]);
+    getUserFavorites();
+  }, []);
+
   const handleChange = (event) => {
     const value = event ? event.target.value : 'Latest';
     if (value === 'Oldest') {
@@ -60,13 +77,28 @@ const ReviewTable = ({myFilesOnly = false}) => {
         setMediaFiles(sortedMedia);
       });
     }
+    if (value === 'My Favorites') {
+      console.log(userFavorites);
+    }
     setSortOption(value);
   };
-
   useEffect(() => {
     mediaArray.forEach(async (file) => {
       const likeInfo = await getLikes(file.file_id);
       file['likes'] = likeInfo.length;
+    });
+    mediaArray.forEach(async (file) => {
+      try {
+        const userToken = localStorage.getItem('userToken')
+          ? localStorage.getItem('userToken')
+          : token;
+        console.log(userToken);
+        const ownerInfo = await getUser(file.user_id, userToken);
+        file['owner'] = ownerInfo;
+        console.log(file);
+      } catch (error) {
+        console.error(error.message);
+      }
     });
     handleChange();
   }, [mediaArray]);
@@ -128,6 +160,15 @@ const ReviewTable = ({myFilesOnly = false}) => {
                   sx={{color: 'red'}}
                 />
                 <span className="favorite-selector-text">Most Favorited</span>
+              </div>
+            </MenuItem>
+            <MenuItem value="My Favorites">
+              <div className="favorite-selector">
+                <FavoriteIcon
+                  className="favorite-selector-icon"
+                  sx={{color: 'red'}}
+                />
+                <span className="favorite-selector-text">My Favorites</span>
               </div>
             </MenuItem>
           </Select>
