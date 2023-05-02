@@ -12,9 +12,7 @@ const MyReviews = () => {
   return (
     <>
       <HeroImage heroText={viewText} />
-      <Typography component="h1" variant="h2">
-        My Reviews
-      </Typography>
+
       <ReviewTable myFilesOnly={true} />
     </>
   );
