@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarIcon from '@mui/icons-material/Star';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   useAuthentication,
   useFavourite,
@@ -20,6 +20,7 @@ import {
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
+import {MediaContext} from '../contexts/MediaContext';
 
 const ReviewTable = ({myFilesOnly = false}) => {
   const {mediaArray, deleteMedia} = useMedia(myFilesOnly);
@@ -30,6 +31,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
   const [mediaFiles, setMediaFiles] = useState([]);
   const [userFavorites, setUserFavorites] = useState([]);
   const {getLikes, getFavouritesOfUser} = useFavourite();
+  const {user} = useContext(MediaContext);
   const {getUser} = useUser();
   const fetchDefaultUserToken = async () => {
     const defaultUser = await postLogin(generalUser);
@@ -93,9 +95,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
     });
     mediaArray.forEach(async (file) => {
       try {
-        const userToken = localStorage.getItem('userToken')
-          ? localStorage.getItem('userToken')
-          : token;
+        const userToken = user ? localStorage.getItem('userToken') : token;
         const ownerInfo = await getUser(file.user_id, userToken);
         file['owner'] = ownerInfo;
       } catch (error) {

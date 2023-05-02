@@ -14,7 +14,6 @@ import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {useUser} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
 import DeleteModal from './DeleteModal';
 import {Edit} from '@mui/icons-material';
