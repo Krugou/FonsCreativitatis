@@ -300,6 +300,5 @@ export {
   useFavourite,
   useMedia,
   useTags,
-  useUser
+  useUser,
 };
-

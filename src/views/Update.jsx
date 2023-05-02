@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   Grid,
   InputLabel,
@@ -9,7 +10,6 @@ import {
   OutlinedInput,
   Rating,
   Select,
-  Slider,
   TextField,
   Typography,
 } from '@mui/material';
@@ -26,7 +26,6 @@ import {mediaUrl} from '../utils/variables';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {reviewValidators} from '../utils/validators';
 import {reviewForm} from '../utils/errorMessages';
-import {CheckBox} from '@mui/icons-material';
 const Update = (props) => {
   const {putMedia} = useMedia();
   const navigate = useNavigate();
@@ -42,13 +41,10 @@ const Update = (props) => {
   }
   useScrollToTop();
   usePageTitle(viewText);
-  const [imageFile, setImagefile] = useState(null);
   const [restaurantRating, setRestaurantRating] = useState(
     fileDesc.stars ? fileDesc.stars : null
   );
-  const [selectedImage, setSelectedImage] = useState(
-    mediaUrl + file.thumbnails?.w640
-  );
+  const [selectedImage] = useState(mediaUrl + file.thumbnails?.w640);
   const [selectedTags, setSelectedTags] = useState(
     fileDesc.tags ? fileDesc.tags : []
   );
@@ -72,10 +68,13 @@ const Update = (props) => {
         title: inputs.title,
         description: JSON.stringify(allData),
       };
+      console.log(data, allData);
+      /*
       const userToken = localStorage.getItem('userToken');
       const updateResult = await putMedia(file?.file_id, data, userToken);
       console.log('doUpdate', updateResult);
       navigate('/');
+      */
     } catch (error) {
       alert(error.message);
     }
@@ -90,17 +89,6 @@ const Update = (props) => {
       typeof value === 'string' ? value.split(',') : value
     );
     console.log(selectedTags);
-  };
-
-  const handleFileChange = (event) => {
-    console.log(event.target.files);
-    event.persist();
-    setImagefile(event.target.files[0]);
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      setSelectedImage(reader.result);
-    });
-    reader.readAsDataURL(event.target.files[0]);
   };
 
   const {inputs, handleSubmit, handleInputChange} = useForm(
@@ -122,7 +110,7 @@ const Update = (props) => {
     'Vegan food',
     'Vegetarian food',
   ];
-
+  console.log(selectedTags);
   return (
     <>
       <HeroImage heroText={viewText} />
@@ -141,20 +129,6 @@ const Update = (props) => {
               alt="preview"
               style={{width: '30%', border: '1px solid black'}}
             />
-            <Button
-              variant="outlined"
-              component="label"
-              sx={{ml: 2, height: 'fit-content'}}
-            >
-              Upload Image
-              <input
-                onChange={handleFileChange}
-                type="file"
-                name="file"
-                accept="image/*"
-                hidden
-              />
-            </Button>
           </Grid>
           <Grid item container direction="column" xs={12} md={8} lg={6}>
             <TextValidator
@@ -228,14 +202,14 @@ const Update = (props) => {
               >
                 {tagNames.map((name) => (
                   <MenuItem key={name} value={name}>
-                    <CheckBox checked={selectedTags.indexOf(name) > -1} />
+                    <Checkbox checked={selectedTags.indexOf(name) > -1} />
                     <ListItemText primary={name} />
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
             <Button type="submit" variant="contained" fullWidth sx={{mt: 3}}>
-              Add Review
+              Update Review
             </Button>
           </Grid>
         </Grid>
