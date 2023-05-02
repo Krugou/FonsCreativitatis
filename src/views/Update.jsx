@@ -34,22 +34,24 @@ const Update = (props) => {
   const viewText = 'Update';
   const file = state;
   console.log(file);
-  useScrollToTop();
-  usePageTitle(viewText);
-  const [imageFile, setImagefile] = useState(null);
-  const [restaurantRating, setRestaurantRating] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(
-    mediaUrl + file.thumbnails?.w640
-  );
-  const [selectedTags, setSelectedTags] = useState([]);
-
   let fileDesc;
-
   try {
     fileDesc = JSON.parse(file.description);
   } catch (error) {
     /* */
   }
+  useScrollToTop();
+  usePageTitle(viewText);
+  const [imageFile, setImagefile] = useState(null);
+  const [restaurantRating, setRestaurantRating] = useState(
+    fileDesc.stars ? fileDesc.stars : null
+  );
+  const [selectedImage, setSelectedImage] = useState(
+    mediaUrl + file.thumbnails?.w640
+  );
+  const [selectedTags, setSelectedTags] = useState(
+    fileDesc.tags ? fileDesc.tags : []
+  );
 
   console.log(fileDesc);
   const initValues = {
