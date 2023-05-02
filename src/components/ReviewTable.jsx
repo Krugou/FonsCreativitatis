@@ -28,7 +28,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
   const [token, setToken] = useState(null);
   const [sortOption, setSortOption] = useState('Latest');
   const [mediaFiles, setMediaFiles] = useState([]);
-  const [userFavorites, setUserFavorites] = useState({});
+  const [userFavorites, setUserFavorites] = useState([]);
   const {getLikes, getFavouritesOfUser} = useFavourite();
   const {getUser} = useUser();
   const fetchDefaultUserToken = async () => {
@@ -38,7 +38,6 @@ const ReviewTable = ({myFilesOnly = false}) => {
   const getUserFavorites = async () => {
     try {
       const token = localStorage.getItem('userToken');
-      console.log(token);
       const userFavorites = await getFavouritesOfUser(token);
       setUserFavorites(userFavorites);
     } catch (error) {
@@ -76,12 +75,14 @@ const ReviewTable = ({myFilesOnly = false}) => {
       setMediaFiles(sortedMedia);
     }
     if (value === 'My Favorites') {
-      mediaArray.forEach(async (file) => {
-        const sortedMedia = [...mediaArray].sort((a, b) => b.likes - a.likes);
-        setMediaFiles(sortedMedia);
+      let sortedMedia = [];
+      userFavorites.forEach((favorite) => {
+        mediaArray.forEach((file) => {
+          if (file.file_id === favorite.file_id)
+            sortedMedia = [...sortedMedia, file];
+        });
       });
-
-      console.log(userFavorites);
+      setMediaFiles(sortedMedia);
     }
     setSortOption(value);
   };
@@ -95,10 +96,8 @@ const ReviewTable = ({myFilesOnly = false}) => {
         const userToken = localStorage.getItem('userToken')
           ? localStorage.getItem('userToken')
           : token;
-        console.log(userToken);
         const ownerInfo = await getUser(file.user_id, userToken);
         file['owner'] = ownerInfo;
-        console.log(file);
       } catch (error) {
         console.error(error.message);
       }
