@@ -62,19 +62,25 @@ const Update = (props) => {
   const doUpdate = async () => {
     try {
       const allData = {
-        desc: inputs.description,
+        review: inputs.review,
+        stars: restaurantRating,
+        website: inputs.website,
+        address: inputs.address,
+        city: inputs.city,
+        tags: [...selectedTags],
       };
       const data = {
         title: inputs.title,
         description: JSON.stringify(allData),
       };
       console.log(data, allData);
-      /*
+
       const userToken = localStorage.getItem('userToken');
       const updateResult = await putMedia(file?.file_id, data, userToken);
       console.log('doUpdate', updateResult);
-      navigate('/');
-      */
+      setTimeout(() => {
+        navigate('/');
+      }, 500);
     } catch (error) {
       alert(error.message);
     }
