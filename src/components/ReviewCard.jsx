@@ -2,7 +2,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
   Box,
-  Button,
   CircularProgress,
   IconButton,
   ImageListItem,
@@ -106,11 +105,16 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
       {myFilesOnly && (
         <Box>
           <IconButton
+            className="delete-button"
+            title="Delete button"
             sx={{
               position: 'absolute',
               top: 0,
               right: 0,
               backgroundColor: 'white',
+              '&:hover': {
+                backgroundColor: 'grey',
+              },
             }}
             onClick={(event) => {
               event.stopPropagation();
@@ -121,11 +125,16 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
             <DeleteIcon sx={{color: 'black'}} />
           </IconButton>
           <IconButton
+            className="edit-button"
+            title="Edit button"
             sx={{
               position: 'absolute',
               top: '40px',
               right: '0',
               backgroundColor: 'white',
+              '&:hover': {
+                backgroundColor: 'grey',
+              },
             }}
             onClick={(event) => {
               event.stopPropagation();
