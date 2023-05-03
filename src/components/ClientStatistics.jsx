@@ -67,7 +67,7 @@ const ClientStatistics = ({targetId}) => {
           <Typography variant="h4" component="div">
             {mediaCount}
           </Typography>
-          <Typography variant="subtitle1">Media Items</Typography>
+          <Typography variant="subtitle1">Reviews</Typography>
         </Box>
       </Grid>
       {/* Favorites count */}
