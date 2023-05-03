@@ -90,7 +90,6 @@ const useMedia = (myFilesOnly = false) => {
   };
 
   const getAllFiles = async (id, token) => {
-    alert('OUHJASODUIJ');
     const options = {
       method: 'GET',
       headers: {
@@ -169,7 +168,7 @@ const useComments = () => {
 
   const getComments = async (fileId) => {
     try {
-      const response = await doFetch(baseUrl + `/comments/file/${fileId}`);
+      const response = await doFetch(baseUrl + `comments/file/${fileId}`);
       return response.data;
     } catch (e) {
       setError(e.message);
@@ -179,7 +178,7 @@ const useComments = () => {
 
   const postComment = async (fileId, comment, userToken) => {
     try {
-      const response = await doFetch(baseUrl + '/comments', {
+      const response = await doFetch(baseUrl + 'comments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -193,10 +192,25 @@ const useComments = () => {
       throw e;
     }
   };
+  const getAllComments = async (userToken) => {
+    try {
+      const response = await doFetch(baseUrl + 'comments', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': userToken,
+        },
+      });
+      return response.data;
+    } catch (e) {
+      setError(e.message);
+      throw e;
+    }
+  };
 
   const deleteComment = async (commentId, userToken) => {
     try {
-      const response = await doFetch(baseUrl + `/comments/${commentId}`, {
+      const response = await doFetch(baseUrl + `comments/${commentId}`, {
         method: 'DELETE',
         headers: {'x-access-token': userToken},
       });
@@ -207,7 +221,7 @@ const useComments = () => {
     }
   };
 
-  return {getComments, postComment, deleteComment, error};
+  return {getComments, postComment, deleteComment, getAllComments, error};
 };
 
 const useAuthentication = () => {
@@ -316,5 +330,6 @@ export {
   useFavourite,
   useMedia,
   useTags,
-  useUser,
+  useUser
 };
+

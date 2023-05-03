@@ -36,7 +36,7 @@ const ReviewerProfile = () => {
         : generalUserLog.token;
 
       try {
-        const userMediaUrl = `${baseUrl}media/user/${3505}`;
+        const userMediaUrl = `${baseUrl}media/user/${id}`;
         const userMediaOptions = {
           method: 'GET',
           headers: {
