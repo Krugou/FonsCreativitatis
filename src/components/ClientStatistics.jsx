@@ -1,4 +1,4 @@
-import {Box, Grid, Typography} from '@mui/material';
+import {Box, CircularProgress, Grid, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
@@ -7,20 +7,36 @@ import {
   useComments,
   useFavourite,
   useMedia,
+  useTags,
 } from '../hooks/ApiHooks';
-import {generalUser} from '../utils/variables';
+import {appId, generalUser} from '../utils/variables';
 const ClientStatistics = ({targetId}) => {
-  const [mediaCount, setMediaCount] = useState(0);
-  const [favoritesCount, setFavoritesCount] = useState(0);
-  const [commentsCount, setCommentsCount] = useState(0);
+  const [mediaCount, setMediaCount] = useState(null);
+  const [favoritesCount, setFavoritesCount] = useState(null);
+  const [commentsCount, setCommentsCount] = useState(null);
+
   const {getAllFiles} = useMedia();
   const {getFavouritesOfUser} = useFavourite();
   const {postLogin} = useAuthentication();
+  const {getTagsByFileId} = useTags();
   const {user} = useContext(MediaContext);
   const {getAllComments} = useComments();
   useEffect(() => {
     const fetchData = async () => {
-      const files = await getAllFiles(targetId);
+      const reviewFiles = await getAllFiles(targetId);
+      const reviewFilePromises = reviewFiles.map(async (file) => {
+        const tags = await getTagsByFileId(file.file_id);
+        const isReviewFile = tags.some((tag) => tag.tag === appId);
+        if (isReviewFile) {
+          return file;
+        }
+        return null;
+      });
+
+      const filteredReviewFiles = (
+        await Promise.all(reviewFilePromises)
+      ).filter((file) => file !== null);
+
       const generalUserLog = await postLogin(generalUser);
 
       const token = user
@@ -37,7 +53,7 @@ const ClientStatistics = ({targetId}) => {
         ? comments.filter((comment) => comment.user_id === targetId)
         : [];
 
-      setMediaCount(files ? files.length : 0);
+      setMediaCount(filteredReviewFiles ? filteredReviewFiles.length : 0);
       setFavoritesCount(filteredFavourites ? filteredFavourites.length : 0);
       setCommentsCount(filteredComments ? filteredComments.length : 0);
     };
@@ -47,7 +63,7 @@ const ClientStatistics = ({targetId}) => {
 
   return (
     <Grid container justifyContent="center" alignItems="center" spacing={2}>
-      {/* Media count */}
+      {/* Reviews count */}
       <Grid item xs={12} sm={4}>
         <Box
           sx={{
@@ -65,7 +81,11 @@ const ClientStatistics = ({targetId}) => {
           }}
         >
           <Typography variant="h4" component="div">
-            {mediaCount}
+            {mediaCount === null ? (
+              <CircularProgress sx={{color: 'white'}} />
+            ) : (
+              mediaCount
+            )}
           </Typography>
           <Typography variant="subtitle1">Reviews</Typography>
         </Box>
@@ -88,12 +108,16 @@ const ClientStatistics = ({targetId}) => {
           }}
         >
           <Typography variant="h4" component="div">
-            {favoritesCount}
+            {favoritesCount === null ? (
+              <CircularProgress sx={{color: 'white'}} />
+            ) : (
+              favoritesCount
+            )}
           </Typography>
           <Typography variant="subtitle1">Favorites</Typography>
         </Box>
       </Grid>
-      {/* Other data */}
+      ;{/* Comments count */}
       <Grid item xs={12} sm={4}>
         <Box
           sx={{
@@ -111,7 +135,11 @@ const ClientStatistics = ({targetId}) => {
           }}
         >
           <Typography variant="h4" component="div">
-            {commentsCount}
+            {commentsCount === null ? (
+              <CircularProgress sx={{color: 'white'}} />
+            ) : (
+              commentsCount
+            )}
           </Typography>
           <Typography variant="subtitle1">Comments</Typography>
         </Box>
