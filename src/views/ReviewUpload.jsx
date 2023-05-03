@@ -1,6 +1,11 @@
 import {
+  Alert,
   Button,
   Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
   Grid,
   InputLabel,
@@ -25,6 +30,7 @@ import {useMedia, useTags} from '../hooks/apiHooks';
 import {reviewForm} from '../utils/errorMessages';
 import {reviewValidators} from '../utils/validators';
 import {appId} from '../utils/variables';
+import ErrorAlert from '../components/ErrorAlert';
 const ReviewUpload = (props) => {
   const viewText = 'Review Upload';
   useScrollToTop();
@@ -34,7 +40,7 @@ const ReviewUpload = (props) => {
   const [restaurantRating, setRestaurantRating] = useState(null);
   const [selectedImage, setSelectedImage] = useState('./valtteri.png');
   const [selectedTags, setSelectedTags] = useState([]);
-
+  const [alert, setAlert] = useState('');
   // https://placehold.co/600x400?text=Choose+Media
   const {postMedia} = useMedia();
   const {postTag} = useTags();
@@ -95,7 +101,7 @@ const ReviewUpload = (props) => {
         navigate('/');
       }, 500);
     } catch (error) {
-      alert(error.message);
+      setAlert(error.message);
     }
   };
 
@@ -152,6 +158,7 @@ const ReviewUpload = (props) => {
 
   return (
     <>
+      {alert && <ErrorAlert onClose={() => setAlert('')} alert={alert} />}
       <HeroImage heroText={viewText} />
       <ValidatorForm onSubmit={handleSubmit}>
         <Grid container justifyContent="center">

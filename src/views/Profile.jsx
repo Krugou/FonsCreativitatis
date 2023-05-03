@@ -27,6 +27,7 @@ import useScrollToTop from '../hooks/UseScrollToTop';
 import {editForm} from '../utils/errorMessages';
 import {editValidators} from '../utils/validators';
 import {mediaUrl} from '../utils/variables';
+import ErrorAlert from '../components/ErrorAlert';
 const Profile = () => {
   const viewText = 'Profile';
   useScrollToTop();
@@ -38,6 +39,7 @@ const Profile = () => {
   const [avatar, setAvatar] = useState('https://placekitten.com/300');
   const [selectedImage, setSelectedImage] = useState(avatar);
   const [avatarInfo, setAvatarInfo] = useState(avatar);
+  const [alert, setAlert] = useState('');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -76,6 +78,7 @@ const Profile = () => {
     try {
       // TODO: DELETE AVATAR also
       // Step 1. Delete all files of the user
+      const token = localStorage.getItem('userToken');
       const allFiles = await getAllFiles(user.user_id, token);
       console.log(allFiles);
 
@@ -121,13 +124,11 @@ const Profile = () => {
         password: randomPassword,
         email: randomEmail,
       };
-      const token = localStorage.getItem('userToken');
       const modifyAccount = await putUser(data, token);
       console.log(modifyAccount);
       navigate('/logout');
-      alert('account Deleted');
     } catch (error) {
-      alert(error.message);
+      /* */
     }
   };
   const {inputs, setInputs, handleInputChange} = useForm();
@@ -157,7 +158,7 @@ const Profile = () => {
         getProfilePic();
         setFile(null);
       } catch (error) {
-        alert(error.message);
+        setAlert(error.message);
       }
     }
     if (inputs) {
@@ -214,6 +215,8 @@ const Profile = () => {
 
   return (
     <>
+      {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
+
       <HeroImage heroText={viewText} />
 
       {user && (
@@ -458,7 +461,7 @@ const Profile = () => {
           >
             Cancel
           </Button>
-          <Button onClick={deleteAccount} color="error" disabled>
+          <Button onClick={deleteAccount} color="error">
             Delete
           </Button>
         </DialogActions>
