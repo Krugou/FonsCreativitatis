@@ -230,6 +230,7 @@ const Search = () => {
 
         <Button sx={{m: 2}} onClick={handleOpen} variant="contained">
           <TuneIcon />
+          Filter
         </Button>
       </Box>
       <Dialog open={showGifAlert} onClose={handleCloseGifAlert}>
