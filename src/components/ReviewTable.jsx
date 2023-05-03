@@ -22,8 +22,9 @@ import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
 import {MediaContext} from '../contexts/MediaContext';
 
-const ReviewTable = ({myFilesOnly = false}) => {
-  const {mediaArray, deleteMedia} = useMedia(myFilesOnly);
+const ReviewTable = ({myFilesOnly = false, userid}) => {
+  console.log(userid);
+  const {mediaArray, deleteMedia} = useMedia(myFilesOnly, userid);
   const windowSize = useWindowSize();
   const {postLogin} = useAuthentication();
   const [token, setToken] = useState(null);
@@ -195,6 +196,7 @@ const ReviewTable = ({myFilesOnly = false}) => {
 
 ReviewTable.propTypes = {
   myFilesOnly: PropTypes.bool,
+  userid: PropTypes.number,
 };
 
 export default ReviewTable;

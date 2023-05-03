@@ -48,6 +48,7 @@ const Profile = () => {
   const getProfilePic = async () => {
     try {
       if (user) {
+        console.log(user.user_id);
         const file = await getTag('avatarJAK_' + user.user_id);
         console.log(file);
         setAvatar(mediaUrl + file[0].filename);

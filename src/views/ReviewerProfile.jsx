@@ -18,6 +18,7 @@ import {doFetch, useAuthentication, useTags, useUser} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 import {baseUrl, generalUser, mediaUrl} from '../utils/variables';
+import ReviewTable from '../components/ReviewTable';
 const ReviewerProfile = () => {
   const viewText = 'Reviewer Profile';
   useScrollToTop();
@@ -79,12 +80,14 @@ const ReviewerProfile = () => {
         console.error(error.message);
       }
     };
-
     getProfilePic();
   }, [id, getTag]);
   return (
     <>
       <HeroImage heroText={viewText} />
+      {userData && userData.length > 0 && (
+        <ReviewTable userid={userData[0].user_id} />
+      )}
       <Container
         maxWidth="sm"
         sx={{

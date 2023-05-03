@@ -14,7 +14,7 @@ const doFetch = async (url, options) => {
   return json;
 };
 
-const useMedia = (myFilesOnly = false) => {
+const useMedia = (myFilesOnly = false, userid) => {
   const [mediaArray, setMediaArray] = useState([]);
   const {user, update} = useContext(MediaContext);
   const getMedia = async () => {
@@ -23,6 +23,11 @@ const useMedia = (myFilesOnly = false) => {
       if (myFilesOnly) {
         files = files.filter((file) => {
           return file.user_id === user.user_id;
+        });
+      }
+      if (userid) {
+        files = files.filter((file) => {
+          return file.user_id === userid;
         });
       }
 
