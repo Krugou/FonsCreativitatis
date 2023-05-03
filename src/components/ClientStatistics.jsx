@@ -27,10 +27,8 @@ const ClientStatistics = ({targetId}) => {
       const reviewFilePromises = reviewFiles.map(async (file) => {
         const tags = await getTagsByFileId(file.file_id);
         const isReviewFile = tags.some((tag) => tag.tag === appId);
-        if (isReviewFile) {
-          return file;
-        }
-        return null;
+
+        return isReviewFile ? file : null;
       });
 
       const filteredReviewFiles = (
