@@ -130,7 +130,6 @@ const Profile = () => {
     }
   };
   const {inputs, setInputs, handleInputChange} = useForm();
-
   const modifyProfile = async () => {
     if (file) {
       try {
@@ -164,6 +163,11 @@ const Profile = () => {
       try {
         const withoutConfirm = {...inputs};
         delete withoutConfirm.confirm;
+        console.log(withoutConfirm);
+
+        for (const [key, value] of Object.entries(withoutConfirm)) {
+          if (value === '') delete withoutConfirm[key];
+        }
         const token = localStorage.getItem('userToken');
         await putUser(withoutConfirm, token);
         handleModalClose();
@@ -171,7 +175,7 @@ const Profile = () => {
         setUser(user);
         setInputs(null);
       } catch (error) {
-        alert(error.message);
+        /* */
       }
     }
   };
@@ -192,7 +196,11 @@ const Profile = () => {
       return value === inputs?.password || inputs?.password === undefined;
     });
     ValidatorForm.addValidationRule('isUsernameAvailable', async (value) => {
-      return await getCheckUser(inputs?.username);
+      if (value !== '') {
+        console.log(value);
+        return await getCheckUser(inputs?.username);
+      }
+      return true;
     });
   }, [inputs]); // Päivittää useeffectin kun inputs muuttuu
 
