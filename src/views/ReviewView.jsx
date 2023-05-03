@@ -292,9 +292,8 @@ const ReviewView = () => {
                 marginTop: '1em',
               }}
             >
-              <Typography variant="body2">By: {owner.username}</Typography>
               <Button variant="text" onClick={reviewerProfile}>
-                Reviewer Profile
+                By: {owner.username}
               </Button>
             </Box>
           </Box>
