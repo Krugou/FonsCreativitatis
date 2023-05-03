@@ -4,15 +4,16 @@ import React, {useEffect, useState} from 'react';
 const ClientStatistics = ({targetId}) => {
   const [mediaCount, setMediaCount] = useState(0);
   const [favoritesCount, setFavoritesCount] = useState(0);
-  const [otherCount, setOtherCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch media count, favorites count, and other count for the user
-      // Replace these lines with actual API calls to fetch the data
+      
+
+
       setMediaCount(Math.floor(Math.random() * 100));
       setFavoritesCount(Math.floor(Math.random() * 100));
-      setOtherCount(Math.floor(Math.random() * 100));
+      setCommentsCount(Math.floor(Math.random() * 100));
     };
 
     fetchData();
@@ -84,9 +85,9 @@ const ClientStatistics = ({targetId}) => {
           }}
         >
           <Typography variant="h4" component="div">
-            {otherCount}
+            {commentsCount}
           </Typography>
-          <Typography variant="subtitle1">Other Data</Typography>
+          <Typography variant="subtitle1">Comments</Typography>
         </Box>
       </Grid>
     </Grid>
