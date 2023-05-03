@@ -22,8 +22,5 @@ const loginValidators = {
 const reviewValidators = {
   title: ['required', 'minStringLength:3'],
   review: ['required', 'minStringLength:2'],
-  website: [
-    'matchRegexp:^(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?$',
-  ],
 };
 export {loginValidators, registerValidators, reviewValidators, editValidators};

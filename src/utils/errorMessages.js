@@ -27,8 +27,7 @@ const loginForm = {
 };
 
 const reviewForm = {
-  title: ['this field is required', 'title must be atleast 3 characters'],
-  review: ['this field is required', 'title must be atleast 2 characters'],
-  website: ['enter a correct website URL'],
+  title: ['this field is required', 'Title must be atleast 3 characters'],
+  review: ['this field is required', 'Title must be atleast 2 characters'],
 };
 export {loginForm, registerForm, reviewForm, editForm};
