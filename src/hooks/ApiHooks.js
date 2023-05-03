@@ -290,7 +290,23 @@ const useFavourite = () => {
     }
   };
 
-  return {postFavourite, getFavourites, deleteFavourite, getLikes};
+  const getFavouritesOfUser = async (token) => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    return await doFetch(baseUrl + 'favourites', options);
+  };
+
+  return {
+    postFavourite,
+    getFavourites,
+    deleteFavourite,
+    getLikes,
+    getFavouritesOfUser,
+  };
 };
 
 export {
@@ -300,6 +316,5 @@ export {
   useFavourite,
   useMedia,
   useTags,
-  useUser
+  useUser,
 };
-

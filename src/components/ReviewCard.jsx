@@ -14,17 +14,14 @@ import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {useUser} from '../hooks/apiHooks';
 import {mediaUrl} from '../utils/variables';
 import DeleteModal from './DeleteModal';
 import {Edit} from '@mui/icons-material';
 
 const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   const [showDelete, setShowDelete] = useState(false);
-  const {user, update, setUpdate} = useContext(MediaContext);
-  const [owner, setOwner] = useState({username: ''});
+  const {update, setUpdate} = useContext(MediaContext);
   const navigate = useNavigate();
-  const {getUser} = useUser();
 
   const doDelete = async () => {
     try {
@@ -47,25 +44,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   } catch (error) {
     /* Empty */
   }
-  const fetchOwner = async () => {
-    try {
-      const userToken = user
-        ? localStorage.getItem('userToken')
-        : defaultUserToken;
-      const ownerInfo = await getUser(file.user_id, userToken);
-      setOwner(ownerInfo);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-  useEffect(() => {
-    fetchOwner();
-  }, [file]);
-  /*
-   <Button component={Link} variant="contained" onClick={doDelete}>
-        Delete
-      </Button>
-  */
+
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
@@ -193,7 +172,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
           justifyContent: 'space-between',
         }}
         title={file.title}
-        subtitle={owner.username ? 'By: ' + owner.username : ''}
+        subtitle={file.owner?.username ? 'By: ' + file.owner?.username : ''}
         actionIcon={
           <Box>
             <Rating
@@ -207,7 +186,9 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
                 },
                 mr: 1,
               }}
-            />
+            >
+              {' '}
+            </Rating>
           </Box>
         }
       />

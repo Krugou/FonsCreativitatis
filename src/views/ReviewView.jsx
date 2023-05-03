@@ -213,21 +213,27 @@ const ReviewView = () => {
                   marginTop: '1em',
                 }}
               >
-                {allData.tags.map((tag) => (
-                  <Typography
-                    key={tag}
-                    sx={{
-                      backgroundColor: 'black',
-                      color: 'white',
-                      borderRadius: '4px',
-                      padding: '0.2em 0.5em',
-                      margin: '0.2em',
-                      display: 'inline-block',
-                    }}
-                  >
-                    {tag}
-                  </Typography>
-                ))}
+                {allData.tags.length === 0 ? (
+                  <Typography>No Tags</Typography>
+                ) : (
+                  <>
+                    {allData.tags.map((tag) => (
+                      <Typography
+                        key={tag}
+                        sx={{
+                          backgroundColor: 'black',
+                          color: 'white',
+                          borderRadius: '4px',
+                          padding: '0.2em 0.5em',
+                          margin: '0.2em',
+                          display: 'inline-block',
+                        }}
+                      >
+                        {tag}
+                      </Typography>
+                    ))}
+                  </>
+                )}
               </Box>
               <Typography
                 sx={{
