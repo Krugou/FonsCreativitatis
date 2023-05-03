@@ -87,10 +87,7 @@ const NearbyRestaurants = () => {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            setLocation({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            });
+            fetchData(position.coords.latitude, position.coords.longitude);
           },
           (error) => {
             console.error('Error getting geolocation:', error);
@@ -102,9 +99,8 @@ const NearbyRestaurants = () => {
       }
     };
 
-    fetchData();
     getGeolocation();
-  }, [location, fakeRestaurantAdded]);
+  }, []);
 
   return (
     <>
