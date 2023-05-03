@@ -2,10 +2,12 @@ import {
   Avatar,
   Box,
   Button,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   Modal,
   TextField,
   Typography,
@@ -205,32 +207,83 @@ const Profile = () => {
 
       {user && (
         <>
-          <div
-            style={{
+          <Container
+            maxWidth="sm"
+            sx={{
+              marginTop: '2rem',
+              minHeight: '100vh',
               display: 'flex',
-              marginTop: '10px',
-
               justifyContent: 'center',
-              alignItems: 'start',
-              height: '100vh',
+              alignItems: 'center',
+              backgroundColor: 'background.paper',
+              borderRadius: '0.125rem',
+              p: {xs: '1rem', sm: '2rem'},
+              boxShadow: 2,
             }}
           >
-            <Box>
-              <h1>Profile</h1>
-              <Avatar
-                src={avatar}
-                imgProps={{alt: `${user.username}'s profile picture`}}
-                sx={{width: '5rem', height: '5rem'}}
-              />
-              <p>Username: {user.username}</p>
-              {/* if user has full name show it if not dont */}
-              {user.full_name && <p>Full name: {user.full_name}</p>}
-              <p>Email: {user.email}</p>
-              <Button variant="contained" onClick={handleModalOpen}>
-                Edit profile
-              </Button>
-            </Box>
-          </div>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Grid item>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    marginBottom: '1rem',
+                    color: 'text.primary',
+                    fontWeight: 'bold',
+                    fontSize: {xs: '2rem', sm: '2.5rem', md: '3rem'},
+                  }}
+                >
+                  Profile
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Avatar
+                  src={avatar}
+                  imgProps={{alt: `${user.username}'s profile picture`}}
+                  sx={{
+                    width: {xs: '10rem', sm: '12rem'},
+                    height: {xs: '10rem', sm: '12rem'},
+                    marginBottom: '1rem',
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <Typography variant="subtitle1">
+                  Username: {user.username}
+                </Typography>
+              </Grid>
+              {user.full_name && (
+                <Grid item>
+                  <Typography variant="subtitle1">
+                    Full name: {user.full_name}
+                  </Typography>
+                </Grid>
+              )}
+              <Grid item>
+                <Typography variant="subtitle1">Email: {user.email}</Typography>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    marginTop: '1rem',
+                    textTransform: 'none',
+                    fontWeight: 'bold',
+                    fontSize: {xs: '0.9rem', sm: '1rem'},
+                  }}
+                  onClick={handleModalOpen}
+                >
+                  Edit profile
+                </Button>
+              </Grid>
+            </Grid>
+          </Container>
           <Modal open={isModalOpen} onClose={handleModalClose}>
             <Box
               sx={{
