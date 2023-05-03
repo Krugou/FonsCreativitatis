@@ -1,14 +1,16 @@
 import {Button, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import useForm from '../hooks/FormHooks';
 import {useUser} from '../hooks/apiHooks';
 import {registerForm} from '../utils/errorMessages';
 import {registerValidators} from '../utils/validators';
+import ErrorAlert from './ErrorAlert';
 
 const RegisterForm = ({toggle}) => {
   const {postUser, getCheckUser} = useUser();
+  const [alert, setAlert] = useState('');
 
   const initValues = {
     username: '',
@@ -22,11 +24,10 @@ const RegisterForm = ({toggle}) => {
     try {
       const withoutConfirm = {...inputs};
       delete withoutConfirm.confirm;
-      const userResult = await postUser(withoutConfirm);
-      alert(userResult.message);
+      await postUser(withoutConfirm);
       toggle();
     } catch (error) {
-      alert(error.message);
+      setAlert(error.message);
     }
   };
 
@@ -52,6 +53,8 @@ const RegisterForm = ({toggle}) => {
 
   return (
     <>
+      {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
+
       <Typography component="h1" variant="h3">
         Register
       </Typography>

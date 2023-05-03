@@ -26,10 +26,13 @@ import {mediaUrl} from '../utils/variables';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {reviewValidators} from '../utils/validators';
 import {reviewForm} from '../utils/errorMessages';
+import ErrorAlert from '../components/ErrorAlert';
 const Update = (props) => {
   const {putMedia} = useMedia();
   const navigate = useNavigate();
   const {state} = useLocation();
+  const [alert, setAlert] = useState('');
+
   const viewText = 'Update';
   const file = state;
   console.log(file);
@@ -82,7 +85,7 @@ const Update = (props) => {
         navigate('/');
       }, 500);
     } catch (error) {
-      alert(error.message);
+      setAlert(error.message);
     }
   };
 
@@ -119,6 +122,8 @@ const Update = (props) => {
   console.log(selectedTags);
   return (
     <>
+      {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
+
       <HeroImage heroText={viewText} />
       <ValidatorForm onSubmit={handleSubmit}>
         <Grid container justifyContent="center">

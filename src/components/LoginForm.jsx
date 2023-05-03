@@ -8,10 +8,13 @@ import useForm from '../hooks/FormHooks';
 import {useAuthentication} from '../hooks/apiHooks';
 import {loginForm} from '../utils/errorMessages';
 import {loginValidators} from '../utils/validators';
+import ErrorAlert from './ErrorAlert';
 
 const LoginForm = (props) => {
   const {setUser} = useContext(MediaContext);
   const {postLogin} = useAuthentication();
+  const [alert, setAlert] = useState('');
+
   const navigate = useNavigate();
 
   const initValues = {
@@ -26,7 +29,7 @@ const LoginForm = (props) => {
       setUser(loginResult.user);
       navigate('/');
     } catch (error) {
-      alert(error.message);
+      setAlert(error.message);
     }
   };
 
@@ -37,6 +40,8 @@ const LoginForm = (props) => {
 
   return (
     <>
+      {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
+
       <Typography component="h1" variant="h3">
         Login
       </Typography>
