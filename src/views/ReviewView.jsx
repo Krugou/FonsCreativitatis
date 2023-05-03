@@ -304,7 +304,16 @@ const ReviewView = () => {
                 marginTop: '1em',
               }}
             >
-              <Button variant="text" onClick={reviewerProfile}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={reviewerProfile}
+                sx={{
+                  textTransform: 'none',
+                  fontWeight: 'bold',
+                  fontSize: {xs: '0.9rem', sm: '1rem'},
+                }}
+              >
                 By: {owner.username}
               </Button>
             </Box>
