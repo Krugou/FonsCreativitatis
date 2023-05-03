@@ -12,6 +12,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import ClientStatistics from '../components/ClientStatistics';
+
 import React, {useContext, useEffect, useState} from 'react';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {useNavigate} from 'react-router-dom';
@@ -284,6 +286,7 @@ const Profile = () => {
               </Grid>
             </Grid>
           </Container>
+          <ClientStatistics targetId={user.user_id} />
           <Modal open={isModalOpen} onClose={handleModalClose}>
             <Box
               sx={{
