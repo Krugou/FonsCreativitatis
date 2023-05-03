@@ -176,11 +176,14 @@ const Update = (props) => {
               multiline
               value={inputs.city}
             />
-            <TextField
+            <TextValidator
               onChange={handleInputChange}
               name="website"
+              fullWidth
               label="Link to Restaurant's Website"
               margin="normal"
+              validators={reviewValidators.website}
+              errorMessages={reviewForm.website}
               multiline
               value={inputs.website}
             />
