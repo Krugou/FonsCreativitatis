@@ -120,8 +120,11 @@ const ReviewView = () => {
   const viewText = 'Review View';
   useScrollToTop();
   usePageTitle(viewText, file.title);
-  const websiteUrl = new URL(allData.website);
-  const websiteLink = websiteUrl.href;
+  // add https:// to allData.website
+  if (allData.website && !allData.website.includes('http')) {
+    allData.website = 'https://' + allData.website;
+  }
+
   return (
     <>
       {owner.username ? (
@@ -199,10 +202,11 @@ const ReviewView = () => {
               >
                 Website:{' '}
                 <Link
-                  href={websiteLink}
+                  href={allData.website}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
+                  {console.log(allData.website)}
                   {allData.website}
                 </Link>
               </Typography>
