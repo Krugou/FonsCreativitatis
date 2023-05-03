@@ -35,7 +35,6 @@ const Update = (props) => {
 
   const viewText = 'Update';
   const file = state;
-  console.log(file);
   let fileDesc;
   try {
     fileDesc = JSON.parse(file.description);
@@ -52,7 +51,6 @@ const Update = (props) => {
     fileDesc.tags ? fileDesc.tags : []
   );
 
-  console.log(fileDesc);
   const initValues = {
     title: file?.title,
     review: fileDesc?.review,
@@ -76,11 +74,9 @@ const Update = (props) => {
         title: inputs.title,
         description: JSON.stringify(allData),
       };
-      console.log(data, allData);
 
       const userToken = localStorage.getItem('userToken');
-      const updateResult = await putMedia(file?.file_id, data, userToken);
-      console.log('doUpdate', updateResult);
+      await putMedia(file?.file_id, data, userToken);
       setTimeout(() => {
         navigate('/');
       }, 500);
@@ -97,7 +93,6 @@ const Update = (props) => {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
     );
-    console.log(selectedTags);
   };
 
   const {inputs, handleSubmit, handleInputChange} = useForm(
@@ -119,7 +114,6 @@ const Update = (props) => {
     'Vegan food',
     'Vegetarian food',
   ];
-  console.log(selectedTags);
   return (
     <>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
