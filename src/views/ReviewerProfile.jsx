@@ -9,7 +9,9 @@ import {
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import ClientStatistics from '../components/ClientStatistics';
 import HeroImage from '../components/HeroImage';
+
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
 import {doFetch, useAuthentication, useTags, useUser} from '../hooks/ApiHooks';
@@ -22,7 +24,6 @@ const ReviewerProfile = () => {
   usePageTitle(viewText);
   const {id} = useContext(UserIdContext);
   const {getTag} = useTags();
-  const {user} = useContext(MediaContext);
   const {getUser} = useUser();
   const {postLogin} = useAuthentication();
   const [userData, setUserData] = useState(null);
@@ -30,7 +31,7 @@ const ReviewerProfile = () => {
   useEffect(() => {
     const getUserData = async () => {
       const generalUserLog = await postLogin(generalUser);
-      const token = user
+      const token = id
         ? localStorage.getItem('userToken')
         : generalUserLog.token;
 
@@ -63,7 +64,7 @@ const ReviewerProfile = () => {
     };
 
     getUserData();
-  }, [id, user, getUser]);
+  }, [id]);
 
   const [avatar, setAvatar] = useState('https://placekitten.com/300');
 
@@ -128,7 +129,6 @@ const ReviewerProfile = () => {
               >
                 {userData.map((item) => (
                   <Box
-
                     key={item.title}
                     mb={{xs: '0.5rem', sm: '1rem', md: '1.5rem'}}
                     width="100%"
@@ -155,6 +155,7 @@ const ReviewerProfile = () => {
           )}
         </Box>
       </Container>
+      <ClientStatistics targetId={userData ? userData[0].user_id : null} />
     </>
   );
 };
