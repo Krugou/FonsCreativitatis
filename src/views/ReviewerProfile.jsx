@@ -12,13 +12,13 @@ import {Link} from 'react-router-dom';
 import ClientStatistics from '../components/ClientStatistics';
 import HeroImage from '../components/HeroImage';
 
+import ReviewTable from '../components/ReviewTable';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
 import {doFetch, useAuthentication, useTags, useUser} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 import {baseUrl, generalUser, mediaUrl} from '../utils/variables';
-import ReviewTable from '../components/ReviewTable';
 const ReviewerProfile = () => {
   const viewText = 'Reviewer Profile';
   useScrollToTop();
@@ -85,14 +85,10 @@ const ReviewerProfile = () => {
   return (
     <>
       <HeroImage heroText={viewText} />
-      {userData && userData.length > 0 && (
-        <ReviewTable userid={userData[0].user_id} />
-      )}
+
       <Container
-        maxWidth="sm"
         sx={{
           marginTop: '2rem',
-          minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -125,30 +121,10 @@ const ReviewerProfile = () => {
                   marginBottom: '1rem',
                 }}
               />
-              <Box
-                mt={{xs: '0.5rem', sm: '1rem', md: '1.5rem'}}
-                px={{xs: '1rem', sm: '2rem', md: '3rem'}}
-                width="100%"
-              >
-                {userData.map((item) => (
-                  <Box
-                    key={item.title}
-                    mb={{xs: '0.5rem', sm: '1rem', md: '1.5rem'}}
-                    width="100%"
-                  >
-                    <Typography
-                      variant="h6"
-                      gutterBottom
-                      sx={{textDecoration: 'none', color: 'inherit'}}
-                      component={Link}
-                      to={'/ReviewView'}
-                      state={{item}}
-                    >
-                      {item.title}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
+
+              {userData && userData.length > 0 && (
+                <ReviewTable userid={userData[0].user_id} />
+              )}
             </>
           ) : (
             <Box my="1rem">

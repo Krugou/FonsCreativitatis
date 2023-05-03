@@ -219,10 +219,8 @@ const Profile = () => {
       {user && (
         <>
           <Container
-            maxWidth="sm"
             sx={{
               marginTop: '2rem',
-              minHeight: '100vh',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
