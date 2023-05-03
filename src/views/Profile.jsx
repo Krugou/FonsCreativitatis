@@ -240,7 +240,7 @@ const Profile = () => {
                     fontSize: {xs: '2rem', sm: '2.5rem', md: '3rem'},
                   }}
                 >
-                  Profile
+                  {user.username}
                 </Typography>
               </Grid>
               <Grid item>
@@ -254,20 +254,14 @@ const Profile = () => {
                   }}
                 />
               </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">
-                  Username: {user.username}
-                </Typography>
-              </Grid>
+
               {user.full_name && (
                 <Grid item>
-                  <Typography variant="subtitle1">
-                    Full name: {user.full_name}
-                  </Typography>
+                  <Typography variant="subtitle1">{user.full_name}</Typography>
                 </Grid>
               )}
               <Grid item>
-                <Typography variant="subtitle1">Email: {user.email}</Typography>
+                <Typography variant="subtitle1">{user.email}</Typography>
               </Grid>
               <Grid item>
                 <Button
