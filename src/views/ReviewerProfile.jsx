@@ -12,44 +12,30 @@ import {Link} from 'react-router-dom';
 import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
-import {doFetch, useAuthentication} from '../hooks/ApiHooks';
+import {doFetch, useAuthentication, useTags, useUser} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
-
-import {useTags} from '../hooks/ApiHooks';
 import {baseUrl, generalUser, mediaUrl} from '../utils/variables';
 const ReviewerProfile = () => {
-  const viewText = 'Profile';
+  const viewText = 'Reviewer Profile';
   useScrollToTop();
   usePageTitle(viewText);
   const {id} = useContext(UserIdContext);
   const {getTag} = useTags();
-  const {user, update, setUpdate} = useContext(MediaContext);
-
+  const {user} = useContext(MediaContext);
+  const {getUser} = useUser();
   const {postLogin} = useAuthentication();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const getUserData = async () => {
       const generalUserLog = await postLogin(generalUser);
-
       const token = user
         ? localStorage.getItem('userToken')
         : generalUserLog.token;
-      try {
-        // Fetch user details
-        const userDetailsUrl = `${baseUrl}users/${id}`;
-        const userDetailsOptions = {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': token,
-          },
-        };
-        const userDetails = await doFetch(userDetailsUrl, userDetailsOptions);
 
-        // Fetch user media
-        const userMediaUrl = `${baseUrl}media/user/${id}`;
+      try {
+        const userMediaUrl = `${baseUrl}media/user/${3505}`;
         const userMediaOptions = {
           method: 'GET',
           headers: {
@@ -58,47 +44,43 @@ const ReviewerProfile = () => {
         };
         const userMedia = await doFetch(userMediaUrl, userMediaOptions);
 
-        // Remove duplicate titles
-        const uniqueData = userMedia.reduce((acc, item) => {
-          if (
-            acc.findIndex(
-              (existingItem) => existingItem.title === item.title
-            ) === -1
-          ) {
-            acc.push(item);
-          }
-          return acc;
-        }, []);
+        const userMediaWithThumbnails = await Promise.all(
+          userMedia.map(async (file) => {
+            const ownerInfo = await getUser(file.user_id, token);
+            file['owner'] = ownerInfo;
+            const data = await doFetch(baseUrl + 'media/' + file.file_id);
+            return {
+              ...file,
+              thumbnails: data.thumbnails,
+            };
+          })
+        );
 
-        // Combine user details and user media data
-        const data = {
-          ...userDetails,
-          userMedia: uniqueData,
-        };
-
-        setUserData(data);
+        setUserData(userMediaWithThumbnails);
       } catch (e) {
         console.log(e.message);
       }
     };
 
     getUserData();
-  }, [id]);
+  }, [id, user, getUser]);
+
   const [avatar, setAvatar] = useState('https://placekitten.com/300');
-  const getProfilePic = async () => {
-    try {
-      if (id) {
-        const file = await getTag('avatarJAK_' + id);
-        console.log(file);
-        setAvatar(mediaUrl + file[0].filename);
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+
   useEffect(() => {
+    const getProfilePic = async () => {
+      try {
+        if (id) {
+          const file = await getTag('avatarJAK_' + id);
+          setAvatar(mediaUrl + file[0].filename);
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
     getProfilePic();
-  }, [id]);
+  }, [id, getTag]);
   return (
     <>
       <HeroImage heroText={viewText} />
@@ -108,6 +90,7 @@ const ReviewerProfile = () => {
           marginTop: '2rem',
           minHeight: '100vh',
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: 'background.paper',
@@ -116,16 +99,23 @@ const ReviewerProfile = () => {
           boxShadow: 2,
         }}
       >
-        <Box textAlign="center" my={{xs: '1rem', sm: '2rem', md: '3rem'}}>
+        <Box
+          textAlign="center"
+          my={{xs: '1rem', sm: '2rem', md: '3rem'}}
+          width="100%"
+        >
           {userData ? (
             <>
               <Typography variant="h3" component="h1" gutterBottom>
-                {userData.username}
+                {userData[0].owner.username}
               </Typography>
               <Avatar
                 src={avatar}
-                imgProps={{alt: `${userData.username}'s profile picture`}}
+                imgProps={{
+                  alt: `${userData[0].owner.username}'s profile picture`,
+                }}
                 sx={{
+                  margin: '0 auto',
                   width: {xs: '10rem', sm: '12rem'},
                   height: {xs: '10rem', sm: '12rem'},
                   marginBottom: '1rem',
@@ -134,16 +124,22 @@ const ReviewerProfile = () => {
               <Box
                 mt={{xs: '0.5rem', sm: '1rem', md: '1.5rem'}}
                 px={{xs: '1rem', sm: '2rem', md: '3rem'}}
+                width="100%"
               >
-                {userData.userMedia.map((item) => (
+                {userData.map((item) => (
                   <Box
+
                     key={item.title}
                     mb={{xs: '0.5rem', sm: '1rem', md: '1.5rem'}}
+                    width="100%"
                   >
                     <Typography
                       variant="h6"
                       gutterBottom
                       sx={{textDecoration: 'none', color: 'inherit'}}
+                      component={Link}
+                      to={'/ReviewView'}
+                      state={{item}}
                     >
                       {item.title}
                     </Typography>
