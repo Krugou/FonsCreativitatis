@@ -120,6 +120,8 @@ const ReviewView = () => {
   const viewText = 'Review View';
   useScrollToTop();
   usePageTitle(viewText, file.title);
+  const websiteUrl = new URL(allData.website);
+  const websiteLink = websiteUrl.href;
   return (
     <>
       {owner.username ? (
@@ -197,7 +199,7 @@ const ReviewView = () => {
               >
                 Website:{' '}
                 <Link
-                  href={allData.website}
+                  href={websiteLink}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
