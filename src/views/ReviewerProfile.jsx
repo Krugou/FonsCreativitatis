@@ -9,20 +9,21 @@ import {
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
 import {doFetch, useAuthentication} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
-import HeroImage from '../components/HeroImage';
 
-import {baseUrl, generalUser} from '../utils/variables';
+import {useTags} from '../hooks/ApiHooks';
+import {baseUrl, generalUser, mediaUrl} from '../utils/variables';
 const ReviewerProfile = () => {
   const viewText = 'Profile';
   useScrollToTop();
   usePageTitle(viewText);
   const {id} = useContext(UserIdContext);
-
+  const {getTag} = useTags();
   const {user, update, setUpdate} = useContext(MediaContext);
 
   const {postLogin} = useAuthentication();
@@ -83,27 +84,66 @@ const ReviewerProfile = () => {
 
     getUserData();
   }, [id]);
-
+  const [avatar, setAvatar] = useState('https://placekitten.com/300');
+  const getProfilePic = async () => {
+    try {
+      if (id) {
+        const file = await getTag('avatarJAK_' + id);
+        console.log(file);
+        setAvatar(mediaUrl + file[0].filename);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  useEffect(() => {
+    getProfilePic();
+  }, [id]);
   return (
     <>
-    <HeroImage heroText={viewText} />
-      <Container>
-        <Box textAlign="center" my={{xs: 2, sm: 4, md: 6}}>
-          <Typography variant="h3" component="h1" gutterBottom>
-            Reviewer Profile
-          </Typography>
+      <HeroImage heroText={viewText} />
+      <Container
+        maxWidth="sm"
+        sx={{
+          marginTop: '2rem',
+          minHeight: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'background.paper',
+          borderRadius: '0.125rem',
+          p: {xs: '1rem', sm: '2rem'},
+          boxShadow: 2,
+        }}
+      >
+        <Box textAlign="center" my={{xs: '1rem', sm: '2rem', md: '3rem'}}>
           {userData ? (
             <>
-              <Typography variant="h4" component="h2" gutterBottom>
+              <Typography variant="h3" component="h1" gutterBottom>
                 {userData.username}
               </Typography>
-              <Box mt={{xs: 1, sm: 2, md: 3}} px={{xs: 2, sm: 4, md: 6}}>
+              <Avatar
+                src={avatar}
+                imgProps={{alt: `${userData.username}'s profile picture`}}
+                sx={{
+                  width: {xs: '10rem', sm: '12rem'},
+                  height: {xs: '10rem', sm: '12rem'},
+                  marginBottom: '1rem',
+                }}
+              />
+              <Box
+                mt={{xs: '0.5rem', sm: '1rem', md: '1.5rem'}}
+                px={{xs: '1rem', sm: '2rem', md: '3rem'}}
+              >
                 {userData.userMedia.map((item) => (
-                  <Box key={item.title} mb={{xs: 1, sm: 2, md: 3}}>
+                  <Box
+                    key={item.title}
+                    mb={{xs: '0.5rem', sm: '1rem', md: '1.5rem'}}
+                  >
                     <Typography
                       variant="h6"
                       gutterBottom
-                      style={{textDecoration: 'none', color: 'inherit'}}
+                      sx={{textDecoration: 'none', color: 'inherit'}}
                     >
                       {item.title}
                     </Typography>
@@ -112,15 +152,15 @@ const ReviewerProfile = () => {
               </Box>
             </>
           ) : (
-            <Box my={2}>
+            <Box my="1rem">
               <CircularProgress />
               <Typography>Loading user data...</Typography>
             </Box>
           )}
         </Box>
-        </Container>
-      </>
-      );
+      </Container>
+    </>
+  );
 };
 
-      export default ReviewerProfile;
+export default ReviewerProfile;
