@@ -29,28 +29,35 @@ const NotFound = () => {
           alignItems="center"
           direction="column"
           spacing={2}
-          minHeight="100vh"
-          sx={{pt: {xs: 3, md: 6}, pb: {xs: 3, md: 6}}}
+          sx={{
+            pt: {xs: '1.5em', md: '3rem'},
+            pb: {xs: '1.5em', md: '3rem'},
+          }}
         >
           <Grid item>
-            <Typography variant="h1" align="center">
+            <Typography variant="h1" align="center" sx={{fontSize: '4rem'}}>
               404
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="h4" align="center">
-              Page Not Found
+            <Typography variant="h4" align="center" sx={{fontSize: '1.5rem'}}>
+              {`Sorry, the ${viewText.toLowerCase()} you are looking for could not be found.`}
             </Typography>
           </Grid>
           <Grid item>
             <Typography variant="body1" align="center">
-              Sorry, the page you are looking for could not be found.
+              {`Please check the URL and try again, or click the button below to go back to the ${viewText.toLowerCase()} page.`}
             </Typography>
           </Grid>
           <Grid item>
-            <Box textAlign="center" mt={{xs: 1, md: 2}}>
-              <Button component={Link} to="/" variant="contained">
-                Go Back Home
+            <Box textAlign="center" mt={{xs: '1em', md: '2em'}}>
+              <Button
+                component={Link}
+                to="/"
+                variant="contained"
+                sx={{fontSize: '1.2rem', padding: '0.8rem 2rem'}}
+              >
+                Go Back to Home
               </Button>
             </Box>
           </Grid>

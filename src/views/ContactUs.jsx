@@ -15,7 +15,7 @@ const Alert = (props) => {
 };
 
 const ContactUs = () => {
-  const viewText = 'ContactUs';
+  const viewText = 'Contact Us';
   useScrollToTop();
   usePageTitle(viewText);
   const [name, setName] = useState('');
