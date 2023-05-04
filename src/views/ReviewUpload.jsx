@@ -70,7 +70,7 @@ const ReviewUpload = (props) => {
       data.append('file', file);
       const userToken = localStorage.getItem('userToken');
       const uploadResult = await postMedia(data, userToken);
-      const tagResult = await postTag(
+      await postTag(
         {
           file_id: uploadResult.file_id,
           tag: appId,
@@ -79,7 +79,7 @@ const ReviewUpload = (props) => {
       );
       // Upload selected tags
       selectedTags.forEach(async (selectedTag) => {
-        const uploadSelectedTagsResult = await postTag(
+        await postTag(
           {
             file_id: uploadResult.file_id,
             tag: selectedTag,
@@ -93,7 +93,9 @@ const ReviewUpload = (props) => {
         navigate('/');
       }, 500);
     } catch (error) {
-      setAlert(error.message);
+      error.message === 'invalid request'
+        ? setAlert('You have to choose an image first.')
+        : setAlert(error.message);
     }
   };
 
@@ -169,7 +171,7 @@ const ReviewUpload = (props) => {
               component="label"
               sx={{ml: 2, height: 'fit-content'}}
             >
-              Upload Image
+              Choose Image
               <input
                 onChange={handleFileChange}
                 type="file"
