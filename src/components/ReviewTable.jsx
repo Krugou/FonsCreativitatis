@@ -81,7 +81,7 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
       userFavorites.forEach((favorite) => {
         mediaArray.forEach((file) => {
           if (file.file_id === favorite.file_id)
-            sortedMedia = [...mediaArray, file];
+            sortedMedia = [...sortedMedia, file];
         });
       });
       setMediaFiles(sortedMedia);
