@@ -1,3 +1,4 @@
+import {CloudUpload} from '@mui/icons-material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarIcon from '@mui/icons-material/Star';
@@ -6,18 +7,24 @@ import {
   CircularProgress,
   FormControl,
   ImageList,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   MenuItem,
   Select,
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {MediaContext} from '../contexts/MediaContext';
 import {useAuthentication, useFavourite, useMedia} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
 
 const ReviewTable = ({myFilesOnly = false, userid}) => {
+  const {user} = useContext(MediaContext);
   const {mediaArray, deleteMedia} = useMedia(myFilesOnly, userid);
   const windowSize = useWindowSize();
   const {postLogin} = useAuthentication();
@@ -117,10 +124,36 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
         <Typography variant="h3" component="h2">
           {sortOption} Reviews:
         </Typography>
+        {!user && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <ListItemButton
+              component={Link}
+              to="/login"
+              sx={{
+                '@media (max-width: 767px)': {
+                  display: 'none',
+                },
+              }}
+            >
+              <ListItemIcon>
+                <CloudUpload />
+              </ListItemIcon>
+              <ListItemText primary="Write A Review" />
+            </ListItemButton>
+          </Box>
+        )}
+
         <FormControl>
           <Typography variant="sort-by" sx={{ml: 1}}>
             Sort By:
           </Typography>
+
           <Select
             className="favorite-selector"
             value={sortOption}

@@ -135,7 +135,7 @@ const Layout = () => {
                     </ListItemButton>
                   </>
                 )}
-                {user && (
+                {user ? (
                   <>
                     <ListItemButton component={Link} to="/profile">
                       <ListItemIcon>
@@ -162,6 +162,13 @@ const Layout = () => {
                       <ListItemText primary="Logout" />
                     </ListItemButton>
                   </>
+                ) : (
+                  <ListItemButton component={Link} to="/login">
+                    <ListItemIcon>
+                      <CloudUpload />
+                    </ListItemIcon>
+                    <ListItemText primary="Write A Review" />
+                  </ListItemButton>
                 )}
               </List>
             </Drawer>
@@ -233,14 +240,15 @@ const Layout = () => {
             sx={{color: 'white', borderColor: 'white'}}
           />
           <BottomNavigationAction
-            label="Write Review"
+            label="Write a Review"
             icon={<RateReviewIcon />}
             component={Link}
-            to="/reviewupload"
+            to={user ? '/reviewupload' : '/login'}
             sx={{color: 'white', borderColor: 'white'}}
           />
+
           <BottomNavigationAction
-            label="Restaurants"
+            label="Nearby Restaurants"
             icon={<RestaurantIcon />}
             component={Link}
             to="/nearbyrestaurants"
