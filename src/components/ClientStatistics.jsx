@@ -115,7 +115,7 @@ const ClientStatistics = ({targetId}) => {
           <Typography variant="subtitle1">Favorites</Typography>
         </Box>
       </Grid>
-      ;{/* Comments count */}
+      {/* Comments count */}
       <Grid item xs={12} sm={4}>
         <Box
           sx={{
