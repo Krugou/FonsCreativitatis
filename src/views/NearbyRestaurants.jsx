@@ -30,10 +30,8 @@ const NearbyRestaurants = () => {
   const [location, setLocation] = useState({latitude: null, longitude: null});
   useEffect(() => {
     const fetchData = async () => {
-      console.log('Fetching data...');
 
       if (!location.latitude || !location.longitude) {
-        console.log('Location not available');
         return;
       }
 
@@ -51,7 +49,6 @@ const NearbyRestaurants = () => {
         const response = await doFetch(fullUrl);
 
         setBusinesses(response.businesses);
-        console.log('Fetched data successfully:', response.businesses);
       } catch (error) {
         console.error('Error fetching Yelp data:', error);
         // Use mock data when fetch fails
@@ -67,7 +64,6 @@ const NearbyRestaurants = () => {
 
   useEffect(() => {
     const getGeolocation = () => {
-      console.log('Getting geolocation...');
 
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
@@ -76,7 +72,6 @@ const NearbyRestaurants = () => {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
             });
-            console.log('Geolocation obtained:', position.coords);
           },
           (error) => {
             console.error('Error getting geolocation:', error);
