@@ -66,7 +66,7 @@ const ReviewerProfile = () => {
     getUserData();
   }, [id]);
 
-  const [avatar, setAvatar] = useState('https://placekitten.com/300');
+  const [avatar, setAvatar] = useState('./valtteri320.png');
 
   useEffect(() => {
     const getProfilePic = async () => {

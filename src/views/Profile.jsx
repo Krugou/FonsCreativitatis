@@ -36,7 +36,7 @@ const Profile = () => {
   const {getTag} = useTags();
   const [file, setFile] = useState(null);
 
-  const [avatar, setAvatar] = useState('https://placekitten.com/300');
+  const [avatar, setAvatar] = useState('./valtteri320.png');
   const [selectedImage, setSelectedImage] = useState(avatar);
   const [avatarInfo, setAvatarInfo] = useState(avatar);
   const [alert, setAlert] = useState('');
@@ -111,8 +111,6 @@ const Profile = () => {
       const randomUsername = generateRandomString(12);
       const randomPassword = generateRandomString(12);
       const randomEmail = generateRandomEmail();
-
-     
 
       const data = {
         username: randomUsername,
