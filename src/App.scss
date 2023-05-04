@@ -9,6 +9,7 @@ form {
   align-items: center;
   margin-bottom: 0.5em;
 }
+
 .review-favorite-button:hover {
   color: red !important;
 }
@@ -78,4 +79,42 @@ form {
     align-items: center;
     gap: 1em;
   }
+}
+
+.MuiBottomNavigationAction-root {
+  // Add styles for the root element
+}
+
+.Mui-selected {
+  // Add styles for the selected state
+  color: white;
+
+  .MuiBottomNavigationAction-label {
+    color: white;
+  }
+
+  .MuiSvgIcon-root {
+    color: white;
+  }
+}
+
+.MuiBottomNavigationAction-root:not(.Mui-selected) {
+  // Add styles for the unselected state
+  color: rgba(255, 255, 255, 0.6);
+
+  .MuiBottomNavigationAction-label {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .MuiSvgIcon-root {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.MuiBottomNavigationAction-iconOnly {
+  // Add styles for the icon only state (when showLabel={false} and not selected)
+}
+
+.MuiBottomNavigationAction-label {
+  // Add styles for the label's span element
 }
