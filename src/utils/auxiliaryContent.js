@@ -58,7 +58,7 @@ const imageUrls = {
     'krugou_Dont_feel_like_cooking_tonight_Explore_the_cozy_inviting_bb17b7c1-896e-41c9-a145-1a8f46568733.png',
     'krugou_Dont_feel_like_cooking_tonight_Explore_the_cozy_inviting_e8fc7844-47d1-4692-8249-d44b4042dc47.png',
   ],
-  notfound: [
+  pagenotfound: [
     'krugou_A_lighthearted_image_of_a_confused_chef_holding_a_menu_i_360e9f0d-1bb8-425e-ba6f-a5080502b5bb.png',
     'krugou_Confused_chef_lost_menu_humor_2298dddc-23ce-4bf0-917b-150b9e7d2e11.png',
     'krugou_Confused_chef_lost_menu_humor_5914581c-a272-476c-853d-4bd25724551a.png',
