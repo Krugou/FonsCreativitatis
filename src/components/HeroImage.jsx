@@ -5,13 +5,13 @@ import imageUrls from '../utils/auxiliaryContent';
 
 const HeroImage = ({heroText}) => {
   const [randomImageUrl, setRandomImageUrl] = useState('');
+  const heroTextSpacesCleared = heroText.replace(/\s/g, '');
 
   useEffect(() => {
     const getRandomImageUrl = (imageUrlsArray) => {
       const randomIndex = Math.floor(Math.random() * imageUrlsArray.length);
       return imageUrlsArray[randomIndex];
     };
-    const heroTextSpacesCleared = heroText.replace(/\s/g, '');
     const imageUrlsArray =
       imageUrls[heroTextSpacesCleared.toLowerCase()] || imageUrls.default;
     setRandomImageUrl(getRandomImageUrl(imageUrlsArray));
@@ -21,7 +21,7 @@ const HeroImage = ({heroText}) => {
     <>
       <Box
         sx={{
-          backgroundImage: `url('./heroimages/${randomImageUrl}')`,
+          backgroundImage: `url('./heroimages/${heroTextSpacesCleared.toLowerCase()}/${randomImageUrl}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           height: {xs: '11rem', sm: '13.75rem', md: '19.25rem'},
