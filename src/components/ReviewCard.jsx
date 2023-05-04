@@ -163,6 +163,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
         }
         alt={file.title}
       />
+
       <ImageListItemBar
         sx={{
           display: 'flex',
@@ -170,7 +171,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
           justifyContent: 'space-between',
         }}
         title={file.title}
-        subtitle={'By: ' + file.owner?.username}
+        subtitle={file.owner ? 'By: ' + file.owner.username : ''}
         actionIcon={
           <Box>
             <Rating
