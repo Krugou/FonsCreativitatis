@@ -75,9 +75,8 @@ const Update = (props) => {
 
       const userToken = localStorage.getItem('userToken');
       await putMedia(file?.file_id, data, userToken);
-      setTimeout(() => {
-        navigate('/');
-      }, 500);
+
+      navigate('/');
     } catch (error) {
       setAlert(error.message);
     }
@@ -205,7 +204,14 @@ const Update = (props) => {
               >
                 {tagNames.map((name) => (
                   <MenuItem key={name} value={name}>
-                    <Checkbox checked={selectedTags.indexOf(name) > -1} />
+                    <Checkbox
+                      checked={selectedTags.indexOf(name) > -1}
+                      sx={{
+                        '.MuiSvgIcon-root': {
+                          color: 'black',
+                        },
+                      }}
+                    />
                     <ListItemText primary={name} />
                   </MenuItem>
                 ))}

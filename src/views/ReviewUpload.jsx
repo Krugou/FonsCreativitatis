@@ -89,12 +89,10 @@ const ReviewUpload = (props) => {
         // console.log(uploadSelectedTagsResult);
       });
 
-      setTimeout(() => {
-        navigate('/');
-      }, 500);
+      navigate('/');
     } catch (error) {
       error.message === 'invalid request'
-        ? setAlert('You have to choose an image first.')
+        ? setAlert('You have to choose an image.')
         : setAlert(error.message);
     }
   };
@@ -239,12 +237,12 @@ const ReviewUpload = (props) => {
               value={restaurantRating}
             />
             <FormControl sx={{mt: 2, width: 300}}>
-              <InputLabel id="demo-multiple-checkbox-label">
+              <InputLabel id="multiple-checkbox-label">
                 Add Categories
               </InputLabel>
               <Select
-                labelId="demo-multiple-checkbox-label"
-                id="demo-multiple-checkbox"
+                labelId="multiple-checkbox-label"
+                id="multiple-checkbox"
                 multiple
                 value={selectedTags}
                 onChange={handleChange}
@@ -253,7 +251,15 @@ const ReviewUpload = (props) => {
               >
                 {tagNames.map((name) => (
                   <MenuItem key={name} value={name}>
-                    <Checkbox checked={selectedTags.indexOf(name) > -1} />
+                    <Checkbox
+                      checked={selectedTags.indexOf(name) > -1}
+                      sx={{
+                        '.MuiSvgIcon-root': {
+                          color: 'black',
+                        },
+                      }}
+                    />
+
                     <ListItemText primary={name} />
                   </MenuItem>
                 ))}
