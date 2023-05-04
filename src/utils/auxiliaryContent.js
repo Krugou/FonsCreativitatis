@@ -1,6 +1,6 @@
 // image urls for all elements of  routes
 const imageUrls = {
-  aboutus: [
+  whoweare: [
     'krugou_Our_restaurant_is_more_than_just_a_place_to_eat._Were_a__42ec5939-2dee-4851-b4c2-28cb4c43ad83.png',
     'krugou_Our_restaurant_is_more_than_just_a_place_to_eat._Were_a__683e0052-e916-4a7e-a97d-24c5453fe29b.png',
     'krugou_Our_restaurant_is_more_than_just_a_place_to_eat._Were_a__68964813-ad38-45bc-aad6-d7de7b3cf46a.png',
@@ -99,7 +99,7 @@ const imageUrls = {
     'krugou_Add_a_personal_touch_to_your_dining_experience_by_sharin_b8064e1b-17ea-4cab-af2b-5ac854f55211.png',
     'krugou_Add_a_personal_touch_to_your_dining_experience_by_sharin_edcfd5b6-c348-407f-a95b-2d97cba6523b.png',
   ],
-  reviewView: [
+  reviewview: [
     'krugou_Join_the_conversation_and_share_your_favorite_restaurant_5d180750-0a5e-4488-9e48-1cf13777c549.png',
     'krugou_Join_the_conversation_and_share_your_favorite_restaurant_a81f7d73-91f5-4ec8-8406-10e8c1fa95bb.png',
     'krugou_Join_the_conversation_and_share_your_favorite_restaurant_dab01061-2231-44d6-81b7-35f279b57149.png',
