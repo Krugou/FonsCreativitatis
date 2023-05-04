@@ -76,12 +76,12 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
       const sortedMedia = [...mediaArray].sort((a, b) => b.likes - a.likes);
       setMediaFiles(sortedMedia);
     }
-    if (value === 'My Favorites') {
+    if (value === 'My Favorite') {
       let sortedMedia = [];
       userFavorites.forEach((favorite) => {
         mediaArray.forEach((file) => {
           if (file.file_id === favorite.file_id)
-            sortedMedia = [...sortedMedia, file];
+            sortedMedia = [...mediaArray, file];
         });
       });
       setMediaFiles(sortedMedia);
@@ -93,15 +93,17 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
       const likeInfo = await getLikes(file.file_id);
       file['likes'] = likeInfo.length;
     });
-    mediaArray.forEach(async (file) => {
-      try {
-        const userToken = user ? localStorage.getItem('userToken') : token;
-        const ownerInfo = await getUser(file.user_id, userToken);
-        file['owner'] = ownerInfo;
-      } catch (error) {
-        console.error(error.message);
-      }
-    });
+    if (token || user) {
+      mediaArray.forEach(async (file) => {
+        try {
+          const userToken = user ? localStorage.getItem('userToken') : token;
+          const ownerInfo = await getUser(file.user_id, userToken);
+          file['owner'] = ownerInfo;
+        } catch (error) {
+          console.error(error.message);
+        }
+      });
+    }
     handleChange();
   }, [mediaArray]);
   const columns = () => {
@@ -164,7 +166,7 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
                 <span className="favorite-selector-text">Most Favorited</span>
               </div>
             </MenuItem>
-            <MenuItem value="My Favorites">
+            <MenuItem value="My Favorite">
               <div className="favorite-selector">
                 <FavoriteIcon
                   className="favorite-selector-icon"
