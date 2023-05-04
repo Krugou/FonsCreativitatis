@@ -1,5 +1,5 @@
 import {Container, Divider, Typography} from '@mui/material';
-import React, {useEffect} from 'react';
+import React from 'react';
 import HeroImage from '../components/HeroImage';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';

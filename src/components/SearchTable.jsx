@@ -30,7 +30,9 @@ const SearchTable = ({myFilesOnly = false, files}) => {
       {files.map((item, index) => {
         try {
           // console.log(JSON.parse(item.description));
-        } catch (error) {}
+        } catch (error) {
+          // console.log(error.message);
+        }
 
         return <ReviewCard key={index} file={item} defaultUserToken={token} />;
       })}

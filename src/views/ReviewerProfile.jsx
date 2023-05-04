@@ -3,12 +3,9 @@ import {
   Box,
   CircularProgress,
   Container,
-  Grid,
-  Paper,
   Typography,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
 import ClientStatistics from '../components/ClientStatistics';
 import HeroImage from '../components/HeroImage';
 

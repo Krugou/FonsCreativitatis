@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Checkbox,
   FormControl,
@@ -13,20 +12,19 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import useForm from '../hooks/FormHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
+import ErrorAlert from '../components/ErrorAlert';
 import HeroImage from '../components/HeroImage';
 import {useMedia} from '../hooks/apiHooks';
-import {mediaUrl} from '../utils/variables';
-import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
-import {reviewValidators} from '../utils/validators';
 import {reviewForm} from '../utils/errorMessages';
-import ErrorAlert from '../components/ErrorAlert';
+import {reviewValidators} from '../utils/validators';
+import {mediaUrl} from '../utils/variables';
 const Update = (props) => {
   const {putMedia} = useMedia();
   const navigate = useNavigate();

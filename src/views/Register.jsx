@@ -1,5 +1,5 @@
 import {Button, Grid} from '@mui/material';
-import React, {useState} from 'react';
+import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import HeroImage from '../components/HeroImage';
 import RegisterForm from '../components/RegisterForm';

@@ -11,14 +11,8 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, {useContext, useEffect, useState} from 'react';
-import {MediaContext} from '../contexts/MediaContext';
-import {
-  useAuthentication,
-  useFavourite,
-  useMedia,
-  useUser,
-} from '../hooks/ApiHooks';
+import React, {useEffect, useState} from 'react';
+import {useAuthentication, useFavourite, useMedia} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';

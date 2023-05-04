@@ -1,11 +1,6 @@
 import {
-  Alert,
   Button,
   Checkbox,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   FormControl,
   Grid,
   InputLabel,
@@ -17,7 +12,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {useNavigate} from 'react-router-dom';
@@ -25,12 +19,12 @@ import useForm from '../hooks/FormHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 
+import ErrorAlert from '../components/ErrorAlert';
 import HeroImage from '../components/HeroImage';
 import {useMedia, useTags} from '../hooks/apiHooks';
 import {reviewForm} from '../utils/errorMessages';
 import {reviewValidators} from '../utils/validators';
 import {appId} from '../utils/variables';
-import ErrorAlert from '../components/ErrorAlert';
 const ReviewUpload = (props) => {
   const viewText = 'Review Upload';
   useScrollToTop();

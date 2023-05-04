@@ -30,7 +30,6 @@ const NearbyRestaurants = () => {
   const [location, setLocation] = useState({latitude: null, longitude: null});
   useEffect(() => {
     const fetchData = async () => {
-
       if (!location.latitude || !location.longitude) {
         return;
       }
@@ -63,7 +62,6 @@ const NearbyRestaurants = () => {
 
   useEffect(() => {
     const getGeolocation = () => {
-
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
