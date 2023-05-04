@@ -158,7 +158,10 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
         }}
       >
         <img
-          src={getWeatherDescription(weatherSymbol)}
+          src={
+            'https://krugou.github.io/FonsCreativitatis/project/' +
+            getWeatherDescription(weatherSymbol)
+          }
           alt="Weather Icon"
           style={{maxWidth: '100%', maxHeight: '100%'}}
         />
