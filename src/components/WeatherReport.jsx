@@ -55,7 +55,9 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
   const getWeatherDescription = (weatherSymbol) => {
     switch (weatherSymbol) {
       case 1:
+        return './logos/weather/sunny.png';
       case 2:
+        return './logos/weather/cloud.png';
       case 3:
         return './logos/weather/cloud.png';
       case 21:
@@ -65,7 +67,7 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
       case 31:
       case 32:
       case 33:
-        return './logos/weather/rainy.png';
+        return './logos/weather/drizzle.png';
       case 41:
       case 42:
       case 43:
@@ -76,7 +78,22 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
         return './logos/weather/snow.png';
       case 61:
       case 62:
+      case 63:
         return './logos/weather/thunder.png';
+      case 64:
+        return './logos/weather/thunder.png';
+      case 71:
+      case 72:
+      case 73:
+        return './logos/weather/freeze.png';
+      case 81:
+      case 82:
+      case 83:
+        return './logos/weather/freeze.png';
+      case 91:
+        return './logos/weather/fog.png';
+      case 92:
+        return './logos/weather/fog.png';
       default:
         return '';
     }
