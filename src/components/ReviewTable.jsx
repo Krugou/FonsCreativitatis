@@ -33,6 +33,7 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
   const [userFavorites, setUserFavorites] = useState([]);
   const {getFavouritesOfUser} = useFavourite();
   const [cardsLoaded, setCardsLoaded] = useState(false);
+  const [sortValue, setSortValue] = useState('');
   const fetchDefaultUserToken = async () => {
     const defaultUser = await postLogin(generalUser);
     setToken(defaultUser.token);
@@ -52,7 +53,7 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
   }, [mediaFiles]);
 
   useEffect(() => {
-    if (mediaFiles.length > 0 || myFilesOnly) {
+    if (mediaFiles.length > 0 || myFilesOnly || sortValue === 'My Favorite') {
       setCardsLoaded(true);
     }
   }, [mediaFiles]);
@@ -63,6 +64,7 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
   }, []);
   const handleChange = (event) => {
     const value = event ? event.target.value : 'Latest';
+    setSortValue(value);
     if (value === 'Oldest') {
       const sortedMedia = [...mediaArray].sort((a, b) => a.file_id - b.file_id);
       setMediaFiles(sortedMedia);
