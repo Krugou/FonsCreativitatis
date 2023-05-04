@@ -248,7 +248,7 @@ const Layout = () => {
           />
 
           <BottomNavigationAction
-            label="Nearby Restaurants"
+            label="Restaurants"
             icon={<RestaurantIcon />}
             component={Link}
             to="/nearbyrestaurants"
