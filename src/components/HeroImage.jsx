@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import imageUrls from '../utils/auxiliaryContent';
 
 const HeroImage = ({heroText}) => {
+  console.log('🚀 ~ file: HeroImage.jsx:7 ~ HeroImage ~ heroText:', heroText);
   const [randomImageUrl, setRandomImageUrl] = useState('');
   const heroTextSpacesCleared = heroText.replace(/\s/g, '');
 
