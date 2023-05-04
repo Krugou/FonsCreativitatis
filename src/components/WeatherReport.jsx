@@ -1,4 +1,4 @@
-import {Card, CardContent, Paper, Typography} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import CheckRestaurantsPrompt from './CheckRestaurantsPrompt';
@@ -57,26 +57,26 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
       case 1:
       case 2:
       case 3:
-        return 'Pilvistä';
+        return './logos/weather/cloud.png';
       case 21:
       case 22:
       case 23:
-        return 'Sadekuuroja';
+        return './logos/weather/rainy.png';
       case 31:
       case 32:
       case 33:
-        return 'Vesisadetta';
+        return './logos/weather/rainy.png';
       case 41:
       case 42:
       case 43:
-        return 'Lumikuuroja';
+        return './logos/weather/snow.png';
       case 51:
       case 52:
       case 53:
-        return 'Lumisadetta';
+        return './logos/weather/snow.png';
       case 61:
       case 62:
-        return 'Ukkoskuuroja';
+        return './logos/weather/thunder.png';
       default:
         return '';
     }
@@ -95,19 +95,16 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
   }
 
   return (
-    <Paper
-      elevation={5}
+    <Box
       sx={{
         padding: '0.5rem',
-        cursor: 'pointer',
-        transition: 'all .3s',
-        '&:hover': {
-          transform: 'scale(1.1)',
-        },
         display: 'flex',
         flexDirection: {xs: 'column', sm: 'column', md: 'row'},
         backgroundColor: 'primary.main',
         color: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
       }}
     >
       {!Number.isNaN(wind) && (
@@ -132,17 +129,25 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
       >
         {temp.toFixed(1)} °C
       </Typography>
-      <Typography
-        variant="body1"
+      <Box
         sx={{
-          m: {xs: '0rem', sm: '0rem', md: '0.5rem'},
-          textAlign: {xs: 'center', sm: 'center', md: 'left'},
+          width: {xs: '3rem', sm: '4rem', md: '5rem'},
+          height: {xs: '3rem', sm: '4rem', md: '5rem'},
+          alignSelf: 'center',
+          m: {xs: '0.5rem', sm: '0.5rem', md: '0.5rem'},
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        {getWeatherDescription(weatherSymbol)}
-      </Typography>
+        <img
+          src={getWeatherDescription(weatherSymbol)}
+          alt="Weather Icon"
+          style={{maxWidth: '100%', maxHeight: '100%'}}
+        />
+      </Box>
       <CheckRestaurantsPrompt />
-    </Paper>
+    </Box>
   );
 };
 WeatherReport.propTypes = {

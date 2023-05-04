@@ -30,10 +30,6 @@ const CheckRestaurantsPrompt = () => {
           sx={{
             padding: '0.5rem',
             cursor: 'pointer',
-            transition: 'all .3s',
-            '&:hover': {
-              transform: 'scale(1.1)',
-            },
             backgroundColor: 'primary.main',
             color: 'white',
           }}
