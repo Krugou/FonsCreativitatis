@@ -24,6 +24,7 @@ const ReviewerProfile = () => {
   useScrollToTop();
   usePageTitle(viewText);
   const {id} = useContext(UserIdContext);
+  const {user} = useContext(MediaContext);
   const {getTag} = useTags();
   const {getUser} = useUser();
   const {postLogin} = useAuthentication();
@@ -31,12 +32,13 @@ const ReviewerProfile = () => {
 
   useEffect(() => {
     const getUserData = async () => {
-      const generalUserLog = await postLogin(generalUser);
-      const token = id
-        ? localStorage.getItem('userToken')
-        : generalUserLog.token;
-
       try {
+        const generalUserLog = await postLogin(generalUser);
+
+        const token = user
+          ? localStorage.getItem('userToken')
+          : generalUserLog.token;
+
         const userMediaUrl = `${baseUrl}media/user/${id}`;
         const userMediaOptions = {
           method: 'GET',
