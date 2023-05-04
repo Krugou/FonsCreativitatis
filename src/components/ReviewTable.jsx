@@ -124,30 +124,29 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
         <Typography variant="h3" component="h2">
           {sortOption} Reviews:
         </Typography>
-        {!user && (
-          <Box
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <ListItemButton
+            component={Link}
+            to={user ? '/reviewupload' : '/login'}
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              '@media (max-width: 767px)': {
+                display: 'none',
+              },
             }}
           >
-            <ListItemButton
-              component={Link}
-              to="/login"
-              sx={{
-                '@media (max-width: 767px)': {
-                  display: 'none',
-                },
-              }}
-            >
-              <ListItemIcon>
-                <CloudUpload />
-              </ListItemIcon>
-              <ListItemText primary="Write A Review" />
-            </ListItemButton>
-          </Box>
-        )}
+            <ListItemIcon>
+              <CloudUpload />
+            </ListItemIcon>
+            <ListItemText primary="Write A Review" />
+          </ListItemButton>
+        </Box>
 
         <FormControl>
           <Typography variant="sort-by" sx={{ml: 1}}>
