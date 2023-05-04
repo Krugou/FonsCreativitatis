@@ -44,7 +44,6 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
   } catch (error) {
     /* Empty */
   }
-
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
@@ -67,7 +66,6 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
       </Box>
     );
   }
-
   return (
     <ImageListItem
       component={Link}
@@ -172,7 +170,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
           justifyContent: 'space-between',
         }}
         title={file.title}
-        subtitle={file.owner?.username ? 'By: ' + file.owner?.username : ''}
+        subtitle={'By: ' + file.owner?.username}
         actionIcon={
           <Box>
             <Rating
