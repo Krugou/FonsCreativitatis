@@ -58,7 +58,6 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
       image.onload = null;
     };
   }, [file.media_type, file.thumbnails]);
-
   if (!isImageLoaded) {
     return (
       <Box sx={{display: 'flex', justifyContent: 'center'}}>
@@ -158,7 +157,7 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
       <img
         src={
           file.media_type !== 'audio'
-            ? mediaUrl + file.thumbnails?.w640
+            ? mediaUrl + file.thumbnails.w640
             : 'vite.svg'
         }
         alt={file.title}

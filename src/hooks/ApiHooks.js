@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
-import {appId, baseUrl} from '../utils/variables';
+import {appId, baseUrl, generalUser} from '../utils/variables';
 
 const doFetch = async (url, options) => {
   const response = await fetch(url, options);
@@ -14,30 +14,83 @@ const doFetch = async (url, options) => {
   return json;
 };
 
+const getFavourites = async (id) => {
+  return await doFetch(baseUrl + 'favourites/file/' + id);
+};
+
+const getLikes = async (fileid) => {
+  try {
+    const likeInfo = await getFavourites(fileid);
+    return likeInfo;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const getUser = async (userid, token) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  return await doFetch(baseUrl + 'users/' + userid, options);
+};
+
+const postLogin = async (inputs) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inputs),
+  };
+  return await doFetch(baseUrl + 'login', options);
+};
+
 const useMedia = (myFilesOnly = false, userid) => {
   const [mediaArray, setMediaArray] = useState([]);
   const {user, update} = useContext(MediaContext);
+
+  const fetchDefaultUserToken = async () => {
+    const defaultUser = await postLogin(generalUser);
+    return defaultUser.token;
+  };
+
   const getMedia = async () => {
     try {
       let files = await useTags().getTag(appId);
+
       if (myFilesOnly) {
         files = files.filter((file) => {
           return file.user_id === user.user_id;
         });
       }
+
       if (userid) {
         files = files.filter((file) => {
           return file.user_id === userid;
         });
       }
 
-      const filesWithThumbnail = await Promise.all(
+      const token = await fetchDefaultUserToken();
+
+      files = await Promise.all(
         files.map(async (file) => {
-          return await doFetch(baseUrl + 'media/' + file.file_id);
+          const likeInfo = await getLikes(file.file_id);
+          file.likes = likeInfo.length;
+
+          const ownerInfo = await getUser(file.user_id, token);
+          file.owner = ownerInfo;
+
+          const thumbnail = await doFetch(baseUrl + 'media/' + file.file_id);
+          file.thumbnails = thumbnail.thumbnails;
+
+          return file;
         })
       );
 
-      setMediaArray(filesWithThumbnail);
+      setMediaArray(files);
     } catch (error) {
       console.log('getMedia', error.message);
     }

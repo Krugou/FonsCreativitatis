@@ -1,5 +1,6 @@
 import {
   Box,
+  CircularProgress,
   FormControl,
   ImageList,
   MenuItem,
@@ -30,9 +31,8 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
   const [sortOption, setSortOption] = useState('Latest');
   const [mediaFiles, setMediaFiles] = useState([]);
   const [userFavorites, setUserFavorites] = useState([]);
-  const {getLikes, getFavouritesOfUser} = useFavourite();
-  const {user} = useContext(MediaContext);
-  const {getUser} = useUser();
+  const {getFavouritesOfUser} = useFavourite();
+  const [cardsLoaded, setCardsLoaded] = useState(false);
   const fetchDefaultUserToken = async () => {
     const defaultUser = await postLogin(generalUser);
     setToken(defaultUser.token);
@@ -48,10 +48,19 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
   };
 
   useEffect(() => {
+    setCardsLoaded(false);
+  }, [mediaFiles]);
+
+  useEffect(() => {
+    if (mediaFiles.length > 0 || myFilesOnly) {
+      setCardsLoaded(true);
+    }
+  }, [mediaFiles]);
+
+  useEffect(() => {
     fetchDefaultUserToken();
     getUserFavorites();
   }, []);
-
   const handleChange = (event) => {
     const value = event ? event.target.value : 'Latest';
     if (value === 'Oldest') {
@@ -89,21 +98,6 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
     setSortOption(value);
   };
   useEffect(() => {
-    mediaArray.forEach(async (file) => {
-      const likeInfo = await getLikes(file.file_id);
-      file['likes'] = likeInfo.length;
-    });
-    if (token || user) {
-      mediaArray.forEach(async (file) => {
-        try {
-          const userToken = user ? localStorage.getItem('userToken') : token;
-          const ownerInfo = await getUser(file.user_id, userToken);
-          file['owner'] = ownerInfo;
-        } catch (error) {
-          console.error(error.message);
-        }
-      });
-    }
     handleChange();
   }, [mediaArray]);
   const columns = () => {
@@ -178,19 +172,33 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
           </Select>
         </FormControl>
       </Box>
-      <ImageList cols={columns()} gap={24} component={Box} mt={3}>
-        {mediaFiles.map((item, index) => {
-          return (
-            <ReviewCard
-              key={index}
-              file={item}
-              deleteMedia={deleteMedia}
-              myFilesOnly={myFilesOnly}
-              defaultUserToken={token}
-            />
-          );
-        })}
-      </ImageList>
+      {!cardsLoaded && (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50vh',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
+      {cardsLoaded && (
+        <ImageList cols={columns()} gap={24} component={Box} mt={3}>
+          {mediaFiles.map((item, index) => {
+            return (
+              <ReviewCard
+                key={index}
+                file={item}
+                deleteMedia={deleteMedia}
+                myFilesOnly={myFilesOnly}
+                defaultUserToken={token}
+              />
+            );
+          })}
+        </ImageList>
+      )}
     </>
   );
 };
