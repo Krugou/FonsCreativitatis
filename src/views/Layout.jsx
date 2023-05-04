@@ -3,7 +3,6 @@ import {
   AppBar,
   Box,
   Button,
-  ButtonGroup,
   Container,
   CssBaseline,
   Drawer,
@@ -14,10 +13,9 @@ import {
   ListItemText,
   ThemeProvider,
   Toolbar,
-  Typography,
   createTheme,
 } from '@mui/material';
-// material-ui icons
+
 import {
   AccountCircle,
   CloudUpload,
@@ -27,14 +25,14 @@ import {
   Search,
 } from '@mui/icons-material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
-import RestoreIcon from '@mui/icons-material/Restore';
-import {BottomNavigation, BottomNavigationAction} from '@mui/material';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
-import CheckRestaurantsPrompt from '../components/CheckRestaurantsPrompt';
 import FetchWeather from '../components/FetchWeather';
 import OurFooter from '../components/OurFooter';
 import {MediaContext} from '../contexts/MediaContext';
@@ -47,6 +45,10 @@ const Layout = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const getUserInfo = async () => {
     const userToken = localStorage.getItem('userToken');
@@ -215,13 +217,35 @@ const Layout = () => {
         <BottomNavigation
           showLabels
           value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
+          onChange={handleChange}
+          sx={{
+            bgcolor: 'primary.main',
+            color: 'white',
+            zIndex: 'max',
+            borderColor: 'white',
           }}
         >
-          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-          <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+          <BottomNavigationAction
+            label="Home"
+            icon={<HomeIcon />}
+            component={Link}
+            to="/"
+            sx={{color: 'white', borderColor: 'white'}}
+          />
+          <BottomNavigationAction
+            label="Write Review"
+            icon={<RateReviewIcon />}
+            component={Link}
+            to="/reviewupload"
+            sx={{color: 'white', borderColor: 'white'}}
+          />
+          <BottomNavigationAction
+            label="Restaurants"
+            icon={<RestaurantIcon />}
+            component={Link}
+            to="/nearbyrestaurants"
+            sx={{color: 'white', borderColor: 'white'}}
+          />
         </BottomNavigation>
       </Box>
       <OurFooter />
