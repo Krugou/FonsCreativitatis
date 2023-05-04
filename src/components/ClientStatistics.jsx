@@ -146,7 +146,7 @@ const ClientStatistics = ({targetId}) => {
   );
 };
 ClientStatistics.propTypes = {
-  targetId: PropTypes.string.isRequired,
+  targetId: PropTypes.number.isRequired,
 };
 
 export default ClientStatistics;
