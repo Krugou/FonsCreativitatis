@@ -72,7 +72,6 @@ const ReviewUpload = (props) => {
         tags: [...selectedTags],
         // filters: filterInputs,
       };
-      console.log(mediaData);
       data.append('description', JSON.stringify(mediaData));
       data.append('file', file);
       const userToken = localStorage.getItem('userToken');
@@ -93,10 +92,9 @@ const ReviewUpload = (props) => {
           },
           userToken
         );
-        console.log(uploadSelectedTagsResult);
+        // console.log(uploadSelectedTagsResult);
       });
 
-      console.log(tagResult);
       setTimeout(() => {
         navigate('/');
       }, 500);
@@ -106,7 +104,6 @@ const ReviewUpload = (props) => {
   };
 
   const handleFileChange = (event) => {
-    console.log(event.target.files);
     event.persist();
     setFile(event.target.files[0]);
     const reader = new FileReader();
@@ -127,7 +124,6 @@ const ReviewUpload = (props) => {
     filterInitValues
   );
   */
-  console.log('upload', inputs, restaurantRating);
 
   const tagNames = [
     'Burgers',
@@ -153,7 +149,6 @@ const ReviewUpload = (props) => {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
     );
-    console.log(selectedTags);
   };
 
   return (

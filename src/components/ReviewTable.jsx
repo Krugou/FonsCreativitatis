@@ -1,3 +1,6 @@
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import StarIcon from '@mui/icons-material/Star';
 import {
   Box,
   CircularProgress,
@@ -8,10 +11,8 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import StarIcon from '@mui/icons-material/Star';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
 import React, {useContext, useEffect, useState} from 'react';
+import {MediaContext} from '../contexts/MediaContext';
 import {
   useAuthentication,
   useFavourite,
@@ -21,7 +22,6 @@ import {
 import {useWindowSize} from '../hooks/WindowHooks';
 import {generalUser} from '../utils/variables';
 import ReviewCard from './ReviewCard';
-import {MediaContext} from '../contexts/MediaContext';
 
 const ReviewTable = ({myFilesOnly = false, userid}) => {
   const {mediaArray, deleteMedia} = useMedia(myFilesOnly, userid);
@@ -44,7 +44,7 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
       const userFavorites = await getFavouritesOfUser(token);
       setUserFavorites(userFavorites);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
@@ -78,7 +78,7 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
             JSON.parse(b.description).stars - JSON.parse(a.description).stars
           );
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       });
       setMediaFiles(sortedMedia);

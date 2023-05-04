@@ -50,9 +50,7 @@ const Profile = () => {
   const getProfilePic = async () => {
     try {
       if (user) {
-        console.log(user.user_id);
         const file = await getTag('avatarJAK_' + user.user_id);
-        console.log(file);
         setAvatar(mediaUrl + file[0].filename);
         setSelectedImage(mediaUrl + file[0].filename);
         setAvatarInfo(file[0]);
@@ -80,7 +78,6 @@ const Profile = () => {
       // Step 1. Delete all files of the user
       const token = localStorage.getItem('userToken');
       const allFiles = await getAllFiles(user.user_id, token);
-      console.log(allFiles);
 
       allFiles.forEach(async (file) => {
         await deleteMedia(file.file_id, token);
@@ -115,9 +112,7 @@ const Profile = () => {
       const randomPassword = generateRandomString(12);
       const randomEmail = generateRandomEmail();
 
-      console.log(randomUsername);
-      console.log(randomPassword);
-      console.log(randomEmail);
+     
 
       const data = {
         username: randomUsername,
@@ -125,7 +120,6 @@ const Profile = () => {
         email: randomEmail,
       };
       const modifyAccount = await putUser(data, token);
-      console.log(modifyAccount);
       navigate('/logout');
     } catch (error) {
       /* */
@@ -143,7 +137,6 @@ const Profile = () => {
         // DELETE PREVIOUS Avatar before posting new one
         if (avatarInfo.file_id) {
           const deleteResponse = await deleteMedia(avatarInfo.file_id, token);
-          console.log(deleteResponse);
         }
 
         const uploadFile = await postMedia(data, token);
@@ -165,7 +158,6 @@ const Profile = () => {
       try {
         const withoutConfirm = {...inputs};
         delete withoutConfirm.confirm;
-        console.log(withoutConfirm);
 
         for (const [key, value] of Object.entries(withoutConfirm)) {
           if (value === '') delete withoutConfirm[key];
@@ -183,7 +175,6 @@ const Profile = () => {
   };
 
   const handleFileChange = (event) => {
-    console.log(event.target.files);
     event.persist();
     setFile(event.target.files[0]);
     const reader = new FileReader();
@@ -199,7 +190,6 @@ const Profile = () => {
     });
     ValidatorForm.addValidationRule('isUsernameAvailable', async (value) => {
       if (value !== '') {
-        console.log(value);
         return await getCheckUser(inputs?.username);
       }
       return true;

@@ -27,7 +27,6 @@ const ReviewCard = ({file, deleteMedia, defaultUserToken, myFilesOnly}) => {
     try {
       const token = localStorage.getItem('userToken');
       const deleteResult = await deleteMedia(file.file_id, token);
-      console.log(deleteResult);
       setUpdate(!update);
     } catch (error) {
       console.error(error.message);

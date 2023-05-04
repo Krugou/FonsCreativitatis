@@ -62,7 +62,7 @@ const ReviewerProfile = () => {
 
         setUserData(userMediaWithThumbnails);
       } catch (e) {
-        console.log(e.message);
+        // console.log(e.message);
       }
     };
 

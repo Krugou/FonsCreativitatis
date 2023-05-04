@@ -84,10 +84,9 @@ const ReviewView = () => {
       const userToken = localStorage.getItem('userToken');
       const data = {file_id: file.file_id};
       const likeInfo = await postFavourite(data, userToken);
-      console.log(likeInfo);
       setUserLike(true);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
@@ -95,10 +94,9 @@ const ReviewView = () => {
     try {
       const userToken = localStorage.getItem('userToken');
       const likeInfo = await deleteFavourite(file.file_id, userToken);
-      console.log(likeInfo);
       setUserLike(false);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 

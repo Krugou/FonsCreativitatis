@@ -23,7 +23,7 @@ const getLikes = async (fileid) => {
     const likeInfo = await getFavourites(fileid);
     return likeInfo;
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
   }
 };
 
@@ -92,7 +92,7 @@ const useMedia = (myFilesOnly = false, userid) => {
 
       setMediaArray(files);
     } catch (error) {
-      console.log('getMedia', error.message);
+      // console.log('getMedia', error.message);
     }
   };
 
@@ -100,7 +100,7 @@ const useMedia = (myFilesOnly = false, userid) => {
     try {
       getMedia();
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   }, [update]); // Aina kun update muuttuu, ajaa useEffectin
 
@@ -109,7 +109,7 @@ const useMedia = (myFilesOnly = false, userid) => {
       try {
         getMedia(myFilesOnly);
       } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
       }
     }
   }, [user]); // Aina kun user muuttuu, ajaa useEffectin
@@ -358,7 +358,7 @@ const useFavourite = () => {
       const likeInfo = await getFavourites(fileid);
       return likeInfo;
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 

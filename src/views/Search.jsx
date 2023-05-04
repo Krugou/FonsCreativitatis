@@ -152,10 +152,8 @@ const Search = () => {
     // innertext to lowercase and first uppercase letter
     let innertext = event.target.innerText.toLowerCase();
     innertext = innertext.charAt(0).toUpperCase() + innertext.slice(1);
-    console.log('Target text:', innertext);
     const filtered = media.filter((item) =>
       item.tags.some((tag) => {
-        console.log('Item tag:', tag.tag);
         return tag.tag === innertext;
       })
     );
@@ -165,9 +163,7 @@ const Search = () => {
     // innertext to lowercase and first uppercase letter
     let innertext = event.target.innerText.toLowerCase();
     innertext = innertext.charAt(0).toUpperCase() + innertext.slice(1);
-    console.log('Target text:', innertext);
     const filtered = media.filter((item) => item.city === innertext);
-    console.log('Filtered media:', filtered);
     setMedia(filtered);
   };
   const filterByRestaurants = (event) => {
@@ -176,9 +172,7 @@ const Search = () => {
       .split(' ')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
-    console.log('Target text:', innertext);
     const filtered = media.filter((item) => item.title === innertext);
-    console.log('Filtered media:', filtered);
     setMedia(filtered);
   };
 

@@ -16,7 +16,6 @@ const DeleteModal = ({onDelete, title, toggleDelete}) => {
     setIsOpen(false);
     toggleDelete();
   };
-  console.log(isOpen);
   return (
     <>
       <Dialog

@@ -53,7 +53,6 @@ const NearbyRestaurants = () => {
         console.error('Error fetching Yelp data:', error);
         // Use mock data when fetch fails
         setBusinesses(mockYelpData[0].businesses);
-        console.log('Using mock data:', mockYelpData[0].businesses);
       }
     };
 
