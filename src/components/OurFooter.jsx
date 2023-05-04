@@ -23,22 +23,38 @@ const OurFooter = () => {
             </Typography>
             <List>
               <ListItem disableGutters>
-                <RouterLink to="/aboutus" style={{textDecoration: 'none'}}>
+                <RouterLink
+                  className="footer-link"
+                  to="/aboutus"
+                  style={{textDecoration: 'none'}}
+                >
                   Who We Are
                 </RouterLink>
               </ListItem>
               <ListItem disableGutters>
-                <RouterLink to="/ourteam" style={{textDecoration: 'none'}}>
+                <RouterLink
+                  className="footer-link"
+                  to="/ourteam"
+                  style={{textDecoration: 'none'}}
+                >
                   Our Team
                 </RouterLink>
               </ListItem>
               <ListItem disableGutters>
-                <RouterLink to="/contactus" style={{textDecoration: 'none'}}>
+                <RouterLink
+                  className="footer-link"
+                  to="/contactus"
+                  style={{textDecoration: 'none'}}
+                >
                   Contact Us
                 </RouterLink>
               </ListItem>
               <ListItem disableGutters>
-                <RouterLink to="/careers" style={{textDecoration: 'none'}}>
+                <RouterLink
+                  className="footer-link"
+                  to="/careers"
+                  style={{textDecoration: 'none'}}
+                >
                   Careers
                 </RouterLink>
               </ListItem>
@@ -51,6 +67,7 @@ const OurFooter = () => {
             <List>
               <ListItem disableGutters>
                 <RouterLink
+                  className="footer-link"
                   to="/privacypolicy"
                   style={{textDecoration: 'none'}}
                 >
@@ -59,6 +76,7 @@ const OurFooter = () => {
               </ListItem>
               <ListItem disableGutters>
                 <RouterLink
+                  className="footer-link"
                   to="/termsofservice"
                   style={{textDecoration: 'none'}}
                 >
@@ -66,12 +84,17 @@ const OurFooter = () => {
                 </RouterLink>
               </ListItem>
               <ListItem disableGutters>
-                <RouterLink to="/sitemap" style={{textDecoration: 'none'}}>
+                <RouterLink
+                  className="footer-link"
+                  to="/sitemap"
+                  style={{textDecoration: 'none'}}
+                >
                   404 route test
                 </RouterLink>
               </ListItem>
               <ListItem disableGutters>
                 <RouterLink
+                  className="footer-link"
                   to="/nearbyrestaurants"
                   style={{textDecoration: 'none'}}
                 >
