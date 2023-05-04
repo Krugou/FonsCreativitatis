@@ -22,45 +22,20 @@ import mockYelpData from '../utils/mockData';
 const placeholderImage = 'https://via.placeholder.com/140'; // Add a placeholder image URL
 
 const NearbyRestaurants = () => {
-  const [fakeRestaurantAdded, setFakeRestaurantAdded] = useState(false);
-
   const viewText = 'Nearby Restaurants';
 
   useScrollToTop();
   usePageTitle(viewText);
   const [businesses, setBusinesses] = useState([]);
   const [location, setLocation] = useState({latitude: null, longitude: null});
-
   useEffect(() => {
-    if (!fakeRestaurantAdded) {
-      const fakeRestaurant = {
-        id: 'fake-restaurant',
-        name: 'API Activation Required',
-        image_url: '',
-        categories: [],
-        rating: 0,
-        price: '',
-        location: {
-          display_address: [],
-        },
-        display_phone: '',
-        website: 'https://167.71.51.18:3000/',
-        description:
-          'To enable the live Yelp data, please visit the provided website link. Once you have done so, refresh the page to see updated restaurant listings.',
-      };
-
-      // Add fake restaurant only once
-      if (
-        !mockYelpData[0].businesses.some(
-          (business) => business.id === fakeRestaurant.id
-        )
-      ) {
-        mockYelpData[0].businesses.unshift(fakeRestaurant);
-        setFakeRestaurantAdded(true);
-      }
-    }
     const fetchData = async () => {
-      if (!location.latitude || !location.longitude) return;
+      console.log('Fetching data...');
+
+      if (!location.latitude || !location.longitude) {
+        console.log('Location not available');
+        return;
+      }
 
       try {
         const proxyUrl = 'https://167.71.51.18:3000/yelp';
@@ -76,26 +51,46 @@ const NearbyRestaurants = () => {
         const response = await doFetch(fullUrl);
 
         setBusinesses(response.businesses);
+        console.log('Fetched data successfully:', response.businesses);
       } catch (error) {
         console.error('Error fetching Yelp data:', error);
         // Use mock data when fetch fails
         setBusinesses(mockYelpData[0].businesses);
+        console.log('Using mock data:', mockYelpData[0].businesses);
       }
     };
 
+    if (location.latitude && location.longitude) {
+      fetchData();
+    }
+  }, [location]);
+
+  useEffect(() => {
     const getGeolocation = () => {
+      console.log('Getting geolocation...');
+
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            fetchData(position.coords.latitude, position.coords.longitude);
+            setLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
+            console.log('Geolocation obtained:', position.coords);
           },
           (error) => {
             console.error('Error getting geolocation:', error);
+            // Fallback to a default location if geolocation fails
+            const defaultLocation = {latitude: 60.2052, longitude: 24.6564};
+            setLocation(defaultLocation);
           },
           {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}
         );
       } else {
         console.error('Geolocation not supported by this browser.');
+        // Fallback to a default location if geolocation is not supported
+        const defaultLocation = {latitude: 60.2052, longitude: 24.6564};
+        setLocation(defaultLocation);
       }
     };
 

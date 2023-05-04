@@ -2,6 +2,43 @@ const mockYelpData = [
   {
     businesses: [
       {
+        id: 'fake-restaurant',
+        name: 'API Activation Required',
+        image_url: 'https://via.placeholder.com/140',
+        is_closed: false,
+        url: 'https://167.71.51.18:3000/',
+        review_count: 0,
+        categories: [
+          {
+            alias: 'restaurants',
+            title: 'Restaurants',
+          },
+        ],
+        rating: 0,
+        coordinates: {
+          latitude: null,
+          longitude: null,
+        },
+        transactions: [],
+        price: '',
+        location: {
+          address1: '',
+          address2: '',
+          address3: '',
+          city: '',
+          zip_code: '',
+          country: '',
+          state: '',
+          display_address: [],
+        },
+        phone: '',
+        display_phone: '',
+        distance: null,
+        website: 'https://167.71.51.18:3000/',
+        description:
+          'To enable the live Yelp data, please visit the provided website link. Once you have done so, refresh the page to see updated restaurant listings.',
+      },
+      {
         id: 'c1ZcPZ7zAq_9uWICSFvdSQ',
         alias: 'the-chilis-espoo',
         name: "The Chili's",
