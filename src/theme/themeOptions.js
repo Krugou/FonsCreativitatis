@@ -2,10 +2,10 @@ import '@fontsource/anonymous-pro';
 
 const themeOptions = {
   typography: {
-    fontFamily: 'Anonymous Pro',
+    fontFamily: 'Open sans',
   },
   body1: {
-    fontFamily: 'Anonymous Pro',
+    fontFamily: 'Open sans',
   },
   palette: {
     primary: {
