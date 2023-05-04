@@ -206,7 +206,6 @@ const ReviewView = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {console.log(allData.website)}
                   {allData.website}
                 </Link>
               </Typography>
