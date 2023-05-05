@@ -10,9 +10,11 @@ const themeOptions = {
   palette: {
     primary: {
       main: '#1C1C1C',
+      dark: '#000000',
     },
     secondary: {
       main: '#D11E1E',
+      dark: '#A80000',
     },
   },
 };
