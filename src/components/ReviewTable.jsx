@@ -139,10 +139,17 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
               '@media (max-width: 767px)': {
                 display: 'none',
               },
+              backgroundColor: 'primary.main',
+              borderRadius: '4px',
+              color: 'white',
+              padding: '8px',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
+              },
             }}
           >
             <ListItemIcon>
-              <CloudUpload />
+              <CloudUpload sx={{color: 'white'}} />
             </ListItemIcon>
             <ListItemText primary="Write A Review" />
           </ListItemButton>
