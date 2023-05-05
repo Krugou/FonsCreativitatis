@@ -41,9 +41,7 @@ const LoginForm = (props) => {
     <>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
-      <Typography component="h1" variant="h3">
-        Login
-      </Typography>
+      
       <ValidatorForm onSubmit={handleSubmit} noValidate>
         <TextValidator
           fullWidth
