@@ -68,6 +68,7 @@ const RegisterForm = ({toggle}) => {
           value={inputs.username}
           validators={registerValidators.username}
           errorMessages={registerForm.username}
+          autoCapitalize={false}
         />
         <TextValidator
           fullWidth
@@ -79,6 +80,7 @@ const RegisterForm = ({toggle}) => {
           value={inputs.password}
           validators={registerValidators.password}
           errorMessages={registerForm.password}
+          autoCapitalize={false}
         />
         <TextValidator
           fullWidth
@@ -90,6 +92,7 @@ const RegisterForm = ({toggle}) => {
           value={inputs.confirm}
           validators={registerValidators.confirm}
           errorMessages={registerForm.confirm}
+          autoCapitalize={false}
         />
         <TextValidator
           fullWidth
@@ -101,6 +104,7 @@ const RegisterForm = ({toggle}) => {
           value={inputs.email}
           validators={registerValidators.email}
           errorMessages={registerForm.email}
+          autoCapitalize={false}
         />
         <TextValidator
           fullWidth
@@ -111,6 +115,7 @@ const RegisterForm = ({toggle}) => {
           value={inputs.full_name}
           validators={registerValidators.full_name}
           errorMessages={registerForm.full_name}
+          autoCapitalize={false}
         />
         <Button
           fullWidth

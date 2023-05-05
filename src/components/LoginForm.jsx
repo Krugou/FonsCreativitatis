@@ -41,7 +41,7 @@ const LoginForm = (props) => {
     <>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
-      
+
       <ValidatorForm onSubmit={handleSubmit} noValidate>
         <TextValidator
           fullWidth
@@ -52,6 +52,7 @@ const LoginForm = (props) => {
           value={inputs.username}
           validators={loginValidators.username}
           errorMessages={loginForm.username}
+          autoCapitalize={false}
         />
         <TextValidator
           fullWidth
@@ -63,6 +64,7 @@ const LoginForm = (props) => {
           value={inputs.password}
           validators={loginValidators.password}
           errorMessages={loginForm.password}
+          autoCapitalize={false}
         />
         <Button
           sx={{
