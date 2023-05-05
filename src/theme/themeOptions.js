@@ -1,4 +1,4 @@
-import '@fontsource/anonymous-pro';
+import '@fontsource/open-sans';
 
 const themeOptions = {
   typography: {
