@@ -226,28 +226,43 @@ const useComments = () => {
 
   const getComments = async (fileId) => {
     try {
-      const response = await doFetch(baseUrl + `comments/file/${fileId}`);
-      return response.data;
-    } catch (e) {
-      setError(e.message);
-      throw e;
+      const response = await fetch(
+        `https://media.mw.metropolia.fi/wbma/comments/file/${fileId}`
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to get comments');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw new Error(error.message);
     }
   };
 
   const postComment = async (fileId, comment, userToken) => {
     try {
-      const response = await doFetch(baseUrl + 'comments', {
+      const response = await fetch(baseUrl + 'comments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': userToken,
         },
-        body: JSON.stringify({file_id: fileId, comment: comment}),
+        body: JSON.stringify({
+          file_id: fileId,
+          comment: comment,
+        }),
       });
-      return response.data;
-    } catch (e) {
-      setError(e.message);
-      throw e;
+
+      if (!response.ok) {
+        throw new Error('Failed to post comment');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw new Error(error.message);
     }
   };
   const getAllComments = async (userToken) => {

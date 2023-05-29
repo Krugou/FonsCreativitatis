@@ -30,4 +30,12 @@ const reviewForm = {
   title: ['this field is required', 'Title must be atleast 3 characters'],
   review: ['this field is required', 'Title must be atleast 2 characters'],
 };
-export {loginForm, registerForm, reviewForm, editForm};
+
+const commentForm = {
+  commentText: [
+    'this field is required',
+    'Comment must be atleast 5 characters',
+  ],
+};
+
+export {loginForm, registerForm, reviewForm, editForm, commentForm};

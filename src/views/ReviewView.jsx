@@ -7,24 +7,31 @@ import {
   CardMedia,
   Link,
   Rating,
+  TextField,
   Typography,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
+import {commentForm} from '../utils/errorMessages';
+import {commentValidators} from '../utils/validators';
 import {useAuthentication} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 
 import HeroImage from '../components/HeroImage';
-import {useFavourite, useUser} from '../hooks/apiHooks';
+import {useFavourite, useUser, useComments} from '../hooks/apiHooks';
 import {generalUser, mediaUrl} from '../utils/variables';
 const ReviewView = () => {
   const {postLogin} = useAuthentication();
   const [owner, setOwner] = useState({username: ''});
   const [likes, setLikes] = useState(0);
   const [userLike, setUserLike] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState('');
+  const [commentUsers, setCommentUsers] = useState({});
+  const {postComment, getComments} = useComments();
   const {user} = useContext(MediaContext);
   const {getUser} = useUser();
   const {postFavourite, deleteFavourite, getLikes} = useFavourite();
@@ -122,6 +129,78 @@ const ReviewView = () => {
   if (allData.website && !allData.website.includes('http')) {
     allData.website = 'https://' + allData.website;
   }
+
+  const fetchComments = async () => {
+    const commentInfo = await getComments(file.file_id);
+    setComments(commentInfo);
+  };
+
+  // Post a new comment
+  const addComment = async () => {
+    try {
+      const userToken = localStorage.getItem('userToken');
+      const commentInfo = await postComment(
+        file.file_id,
+        commentText,
+        userToken
+      );
+      setCommentText('');
+      // Refresh comments
+      fetchComments();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const fetchCommentUsers = async () => {
+    try {
+      const fetchedCommentUsers = {};
+
+      for (const comment of comments) {
+        const userInfo = await getUser(comment.user_id);
+        fetchedCommentUsers[comment.comment_id] = userInfo;
+      }
+
+      setCommentUsers(fetchedCommentUsers);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const fetchCommentUser = async (comment) => {
+    try {
+      const userToken = localStorage.getItem('userToken');
+      const userInfo = await getUser(comment.user_id, userToken);
+      return userInfo.username;
+    } catch (error) {
+      console.error(error.message);
+      return 'Unknown User';
+    }
+  };
+
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  useEffect(() => {
+    fetchCommentUsers();
+  }, [comments]);
+
+  const AsyncUsername = ({ comment }) => {
+    const [username, setUsername] = useState('Loading...');
+
+    useEffect(() => {
+      const fetchUsername = async () => {
+        const fetchedUsername = await fetchCommentUser(comment);
+        setUsername(fetchedUsername);
+      };
+
+      fetchUsername();
+    }, [comment]);
+
+    return <span>{username}</span>;
+  };
 
   return (
     <>
@@ -314,12 +393,54 @@ const ReviewView = () => {
                 By: {owner.username}
               </Button>
             </Box>
+            <Box mt={4}>
+              <Typography variant="h6" gutterBottom>
+                Comments
+              </Typography>
+              {comments.map((comment) => (
+                <Card key={comment.comment_id} elevation={2} sx={{ mb: 2 }}>
+                  <CardContent>
+                    <Typography variant="subtitle2" gutterBottom>
+                      {comment.user_id ? (
+                        <AsyncUsername comment={comment} />
+                      ) : (
+                        'Unknown User'
+                      )}
+                    </Typography>
+                    <Typography variant="body2">{comment.comment}</Typography>
+                  </CardContent>
+                </Card>
+              ))}
+              <Box mt={2}>
+                <TextField
+                  fullWidth
+                  name="commentText"
+                  label="Add a comment"
+                  variant="outlined"
+                  validators={commentValidators.commentText}
+                  errorMessages={commentForm.commentText}
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                />
+              </Box>
+              <Box mt={2}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={addComment}
+                >
+                  Post Comment
+                </Button>
+              </Box>
+            </Box>
           </Box>
         </>
       ) : null}
     </>
   );
 };
+
+
 
 // TODO in the next task: add propType for location
 
