@@ -1,5 +1,6 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
+  Avatar,
   Box,
   Button,
   Card,
@@ -21,10 +22,12 @@ import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 
 import HeroImage from '../components/HeroImage';
-import {useFavourite, useUser, useComments} from '../hooks/apiHooks';
+import {useFavourite, useUser, useComments, useTags} from '../hooks/apiHooks';
 import {generalUser, mediaUrl} from '../utils/variables';
 const ReviewView = () => {
   const {postLogin} = useAuthentication();
+  const {getTag} = useTags();
+  const {id} = useContext(UserIdContext);
   const [owner, setOwner] = useState({username: ''});
   const [likes, setLikes] = useState(0);
   const [userLike, setUserLike] = useState(false);
@@ -122,10 +125,7 @@ const ReviewView = () => {
     setId(file.user_id);
     navigate(`/reviewerprofile`);
   };
-  const commentProfile = () => {
-    setId(file.user_id);
-    navigate(`/profile`);
-  };
+
   const viewText = 'Review View';
   useScrollToTop();
   usePageTitle(viewText, file.title);
@@ -185,7 +185,6 @@ const ReviewView = () => {
     }
   };
 
-
   useEffect(() => {
     fetchComments();
   }, []);
@@ -194,8 +193,14 @@ const ReviewView = () => {
     fetchCommentUsers();
   }, [comments]);
 
+
   const AsyncUsername = ({ comment }) => {
     const [username, setUsername] = useState('Loading...');
+
+    const handleUsernameClick = () => {
+      setId(comment.user_id);
+      navigate(`/ReviewerProfile`);
+    };
 
     useEffect(() => {
       const fetchUsername = async () => {
@@ -206,7 +211,7 @@ const ReviewView = () => {
       fetchUsername();
     }, [comment]);
 
-    return <span>{username}</span>;
+    return <span onClick={handleUsernameClick}>{username}</span>;
   };
 
   return (
@@ -400,49 +405,48 @@ const ReviewView = () => {
                 By: {owner.username}
               </Button>
             </Box>
-            <Box mt={4}>
-              <Typography variant="h6" gutterBottom>
-                Comments
-              </Typography>
-              {comments.map((comment) => (
-                <Card key={comment.comment_id} elevation={2} sx={{ mb: 2 }}>
-                  <CardContent>
-                    <Button
-                      onClick={commentProfile}
-                      variant="subtitle2"
-                      gutterBottom
-                    >
-                      {comment.user_id ? (
-                        <AsyncUsername comment={comment} />
-                      ) : (
-                        'Unknown User'
-                      )}
-                    </Button>
-                    <Typography variant="body2">{comment.comment}</Typography>
-                  </CardContent>
-                </Card>
-              ))}
-              <Box mt={2}>
-                <TextField
-                  fullWidth
-                  name="commentText"
-                  label="Add a comment"
-                  variant="outlined"
-                  validators={commentValidators.commentText}
-                  errorMessages={commentForm.commentText}
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                />
-              </Box>
-              <Box mt={2}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={addComment}
-                >
-                  Post Comment
-                </Button>
-              </Box>
+          </Box>
+          <Box mt={4}>
+            <Typography variant="h6" gutterBottom>
+              Comments
+            </Typography>
+            {comments.map((comment) => (
+              <Card key={comment.comment_id} elevation={2} sx={{mb: 2}}>
+                <CardContent>
+                  <Button
+                    variant="subtitle2"
+                    gutterBottom
+                  >
+                    {comment.user_id ? (
+                      <AsyncUsername comment={comment} />
+                    ) : (
+                      'Unknown User'
+                    )}
+                  </Button>
+                  <Typography variant="body2">{comment.comment}</Typography>
+                </CardContent>
+              </Card>
+            ))}
+            <Box mt={2}>
+              <TextField
+                fullWidth
+                name="commentText"
+                label="Add a comment"
+                variant="outlined"
+                validators={commentValidators.commentText}
+                errorMessages={commentForm.commentText}
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+              />
+            </Box>
+            <Box mt={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={addComment}
+              >
+                Post Comment
+              </Button>
             </Box>
           </Box>
         </>
@@ -450,8 +454,6 @@ const ReviewView = () => {
     </>
   );
 };
-
-
 
 // TODO in the next task: add propType for location
 
