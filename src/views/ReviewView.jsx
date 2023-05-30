@@ -26,14 +26,11 @@ import {useFavourite, useUser, useComments, useTags} from '../hooks/apiHooks';
 import {generalUser, mediaUrl} from '../utils/variables';
 const ReviewView = () => {
   const {postLogin} = useAuthentication();
-  const {getTag} = useTags();
-  const {id} = useContext(UserIdContext);
   const [owner, setOwner] = useState({username: ''});
   const [likes, setLikes] = useState(0);
   const [userLike, setUserLike] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
-  const [commentUsers, setCommentUsers] = useState({});
   const {postComment, getComments} = useComments();
   const {user} = useContext(MediaContext);
   const {getUser} = useUser();
