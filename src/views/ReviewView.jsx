@@ -1,6 +1,5 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
-  Avatar,
   Box,
   Button,
   Card,
@@ -31,7 +30,7 @@ const ReviewView = () => {
   const [userLike, setUserLike] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
-  const {postComment, getComments} = useComments();
+  const {postComment, getComments, deleteComment} = useComments();
   const {user} = useContext(MediaContext);
   const {getUser} = useUser();
   const {postFavourite, deleteFavourite, getLikes} = useFavourite();
@@ -153,6 +152,18 @@ const ReviewView = () => {
     }
   };
 
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const userToken = localStorage.getItem('userToken');
+      await deleteComment(commentId, userToken);
+      // Refresh comments
+      fetchComments();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+
   const fetchCommentUsers = async () => {
     try {
       const fetchedCommentUsers = {};
@@ -190,8 +201,7 @@ const ReviewView = () => {
     fetchCommentUsers();
   }, [comments]);
 
-
-  const AsyncUsername = ({ comment }) => {
+  const AsyncUsername = ({comment}) => {
     const [username, setUsername] = useState('Loading...');
 
     const handleUsernameClick = () => {
@@ -408,12 +418,9 @@ const ReviewView = () => {
               Comments
             </Typography>
             {comments.map((comment) => (
-              <Card key={comment.comment_id} elevation={2} sx={{mb: 2}}>
+              <Card key={comment.comment_id} elevation={2} sx={{ mb: 2 }}>
                 <CardContent>
-                  <Button
-                    variant="subtitle2"
-                    gutterBottom
-                  >
+                  <Button variant="subtitle2" gutterBottom>
                     {comment.user_id ? (
                       <AsyncUsername comment={comment} />
                     ) : (
@@ -421,12 +428,21 @@ const ReviewView = () => {
                     )}
                   </Button>
                   <Typography variant="body2">{comment.comment}</Typography>
+                  {comment.user_id === user.user_id && (
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      onClick={() => handleDeleteComment(comment.comment_id)}
+                      sx={{ mt: 1 }}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             ))}
             <Box mt={2}>
               <TextField
-                fullWidth
                 name="commentText"
                 label="Add a comment"
                 variant="outlined"
@@ -437,11 +453,7 @@ const ReviewView = () => {
               />
             </Box>
             <Box mt={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={addComment}
-              >
+              <Button variant="contained" color="primary" onClick={addComment}>
                 Post Comment
               </Button>
             </Box>

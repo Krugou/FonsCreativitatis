@@ -283,14 +283,26 @@ const useComments = () => {
 
   const deleteComment = async (commentId, userToken) => {
     try {
-      const response = await doFetch(baseUrl + `comments/${commentId}`, {
+      const response = await fetch(`https://media.mw.metropolia.fi/wbma/comments/${commentId}`, {
         method: 'DELETE',
-        headers: {'x-access-token': userToken},
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': userToken,
+        },
       });
-      return response.data;
-    } catch (e) {
-      setError(e.message);
-      throw e;
+
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        if (errorResponse.message === 'Comment not found') {
+          throw new Error(`Failed to delete comment: Comment not found`);
+        } else {
+          throw new Error(`Failed to delete comment: ${errorResponse.message}`);
+        }
+      }
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   };
 
