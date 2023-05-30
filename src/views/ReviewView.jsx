@@ -418,7 +418,7 @@ const ReviewView = () => {
               Comments
             </Typography>
             {comments.map((comment) => (
-              <Card key={comment.comment_id} elevation={2} sx={{ mb: 2 }}>
+              <Card key={comment.comment_id} elevation={2} sx={{mb: 2}}>
                 <CardContent>
                   <Button variant="subtitle2" gutterBottom>
                     {comment.user_id ? (
@@ -428,12 +428,12 @@ const ReviewView = () => {
                     )}
                   </Button>
                   <Typography variant="body2">{comment.comment}</Typography>
-                  {comment.user_id === user.user_id && (
+                  {comment.user_id === user.user_id && ( // Only render delete button for the comment's author
                     <Button
                       variant="outlined"
                       color="secondary"
                       onClick={() => handleDeleteComment(comment.comment_id)}
-                      sx={{ mt: 1 }}
+                      sx={{mt: 1}}
                     >
                       Delete
                     </Button>
