@@ -11,6 +11,14 @@ Fons Creativitatis - (Source of Creativity)
 
 [KaarleH](https://github.com/KaarleH)
 
+Muutokset Projektiin Deadlinen jälkeen:
+
+23.05.2023-26.05.2023: Kommenttiosion työstöä/säätöä.
+
+29.05.2023: Kommenttiosio missä käyttäjä pystyy kommentoimaan pushattu.
+
+30.05.2023: Kommentiin toimiva navigointi kommentin kirjoittajan profiiliin. Kommentin poisto nappi joka näkyy vain kommentin kirjoittajalle ja poistaa kommentin.
+
 ## Aleksi Nokelainen
 
 [Krugou](https://github.com/Krugou)
