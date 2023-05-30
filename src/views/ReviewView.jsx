@@ -122,6 +122,10 @@ const ReviewView = () => {
     setId(file.user_id);
     navigate(`/reviewerprofile`);
   };
+  const commentProfile = () => {
+    setId(file.user_id);
+    navigate(`/profile`);
+  };
   const viewText = 'Review View';
   useScrollToTop();
   usePageTitle(viewText, file.title);
@@ -169,7 +173,10 @@ const ReviewView = () => {
 
   const fetchCommentUser = async (comment) => {
     try {
-      const userToken = localStorage.getItem('userToken');
+      const generalUserLog = await postLogin(generalUser);
+      const userToken = user
+        ? localStorage.getItem('userToken')
+        : generalUserLog.token;
       const userInfo = await getUser(comment.user_id, userToken);
       return userInfo.username;
     } catch (error) {
@@ -400,13 +407,17 @@ const ReviewView = () => {
               {comments.map((comment) => (
                 <Card key={comment.comment_id} elevation={2} sx={{ mb: 2 }}>
                   <CardContent>
-                    <Typography variant="subtitle2" gutterBottom>
+                    <Button
+                      onClick={commentProfile}
+                      variant="subtitle2"
+                      gutterBottom
+                    >
                       {comment.user_id ? (
                         <AsyncUsername comment={comment} />
                       ) : (
                         'Unknown User'
                       )}
-                    </Typography>
+                    </Button>
                     <Typography variant="body2">{comment.comment}</Typography>
                   </CardContent>
                 </Card>
