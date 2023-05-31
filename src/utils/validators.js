@@ -24,13 +24,4 @@ const reviewValidators = {
   review: ['required', 'minStringLength:2'],
 };
 
-const commentValidators = {
-  commentText: ['required', 'minStringLength:5'],
-};
-export {
-  loginValidators,
-  registerValidators,
-  reviewValidators,
-  editValidators,
-  commentValidators,
-};
+export {loginValidators, registerValidators, reviewValidators, editValidators};

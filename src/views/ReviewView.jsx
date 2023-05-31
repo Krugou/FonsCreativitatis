@@ -14,14 +14,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import UserIdContext from '../contexts/UserIdContext';
-import {commentForm} from '../utils/errorMessages';
-import {commentValidators} from '../utils/validators';
 import {useAuthentication} from '../hooks/ApiHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
 
 import HeroImage from '../components/HeroImage';
-import {useFavourite, useUser, useComments, useTags} from '../hooks/apiHooks';
+import {useFavourite, useUser, useComments} from '../hooks/apiHooks';
 import {generalUser, mediaUrl} from '../utils/variables';
 const ReviewView = () => {
   const {postLogin} = useAuthentication();
@@ -30,6 +28,7 @@ const ReviewView = () => {
   const [userLike, setUserLike] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
+  const [isCommentValid, setIsCommentValid] = useState(true);
   const {postComment, getComments, deleteComment} = useComments();
   const {user} = useContext(MediaContext);
   const {getUser} = useUser();
@@ -135,6 +134,10 @@ const ReviewView = () => {
     setComments(commentInfo);
   };
 
+  const validateComment = () => {
+    setIsCommentValid(commentText.length >= 5);
+  };
+
   const addComment = async () => {
     if (!user) {
       // User is not logged in, redirect to the login page
@@ -142,14 +145,22 @@ const ReviewView = () => {
       return;
     }
 
-    try {
-      const userToken = localStorage.getItem('userToken');
-      const commentInfo = await postComment(file.file_id, commentText, userToken);
-      setCommentText('');
-      // Refresh comments
-      fetchComments();
-    } catch (error) {
-      console.error(error.message);
+    validateComment();
+
+    if (isCommentValid && commentText.length >= 5) {
+      try {
+        const userToken = localStorage.getItem('userToken');
+        const commentInfo = await postComment(
+          file.file_id,
+          commentText,
+          userToken
+        );
+        setCommentText('');
+        // Refresh comments
+        fetchComments();
+      } catch (error) {
+        console.error(error.message);
+      }
     }
   };
 
@@ -163,7 +174,6 @@ const ReviewView = () => {
       console.error(error.message);
     }
   };
-
 
   const fetchCommentUsers = async () => {
     try {
@@ -429,16 +439,17 @@ const ReviewView = () => {
                     )}
                   </Button>
                   <Typography variant="body2">{comment.comment}</Typography>
-                  {comment.user_id === user.user_id && ( // Only render delete button for the comment's author
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={() => handleDeleteComment(comment.comment_id)}
-                      sx={{mt: 1}}
-                    >
-                      Delete
-                    </Button>
-                  )}
+                  {user &&
+                    comment.user_id === user.user_id && ( // Check if user is defined before accessing user.user_id
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => handleDeleteComment(comment.comment_id)}
+                        sx={{mt: 1}}
+                      >
+                        Delete
+                      </Button>
+                    )}
                 </CardContent>
               </Card>
             ))}
@@ -447,8 +458,8 @@ const ReviewView = () => {
                 name="commentText"
                 label="Add a comment"
                 variant="outlined"
-                validators={commentValidators.commentText}
-                errorMessages={commentForm.commentText}
+                error={!isCommentValid}
+                helperText={!isCommentValid && 'Comment must be at least 5 characters long'}
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
               />
