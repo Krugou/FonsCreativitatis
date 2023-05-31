@@ -17,6 +17,8 @@ Muutokset Projektiin Deadlinen jälkeen:
 
 30.05.2023: Kommentiin toimiva navigointi kommentin kirjoittajan profiiliin. Kommentin poisto nappi joka näkyy vain kommentin kirjoittajalle ja poistaa kommentin.
 
+31.05.2023: Kommentteihin validointi ja fixejä.
+
 [KaarleH](https://github.com/KaarleH)
 
 ## Aleksi Nokelainen
