@@ -283,13 +283,16 @@ const useComments = () => {
 
   const deleteComment = async (commentId, userToken) => {
     try {
-      const response = await fetch(`https://media.mw.metropolia.fi/wbma/comments/${commentId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': userToken,
-        },
-      });
+      const response = await fetch(
+        `https://media.mw.metropolia.fi/wbma/comments/${commentId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': userToken,
+          },
+        }
+      );
 
       if (!response.ok) {
         const errorResponse = await response.json();

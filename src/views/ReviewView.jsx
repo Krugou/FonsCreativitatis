@@ -141,7 +141,7 @@ const ReviewView = () => {
   const addComment = async () => {
     if (!user) {
       // User is not logged in, redirect to the login page
-      navigate('/login'); // Replace '/login' with the actual URL of your login page
+      navigate('/login');
       return;
     }
 
