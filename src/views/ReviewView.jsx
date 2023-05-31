@@ -135,15 +135,16 @@ const ReviewView = () => {
     setComments(commentInfo);
   };
 
-  // Post a new comment
   const addComment = async () => {
+    if (!user) {
+      // User is not logged in, redirect to the login page
+      navigate('/login'); // Replace '/login' with the actual URL of your login page
+      return;
+    }
+
     try {
       const userToken = localStorage.getItem('userToken');
-      const commentInfo = await postComment(
-        file.file_id,
-        commentText,
-        userToken
-      );
+      const commentInfo = await postComment(file.file_id, commentText, userToken);
       setCommentText('');
       // Refresh comments
       fetchComments();
