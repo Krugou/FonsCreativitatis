@@ -32,6 +32,7 @@ const CheckRestaurantsPrompt = () => {
             cursor: 'pointer',
             backgroundColor: 'primary.main',
             color: 'white',
+            display: {xs: 'none', md: 'set'},
           }}
         >
           <Typography variant="body1" fontSize="1.1rem" fontWeight="500">

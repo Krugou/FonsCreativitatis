@@ -116,7 +116,7 @@ const WeatherReport = ({lat, lon, hoursFromNow}) => {
       sx={{
         padding: '0.5rem',
         display: 'flex',
-        flexDirection: {xs: 'column', sm: 'column', md: 'row'},
+        flexDirection: {sm:'row', xs:'column'},
         backgroundColor: 'primary.main',
         color: 'white',
         alignItems: 'center',

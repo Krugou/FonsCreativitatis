@@ -252,6 +252,7 @@ const ReviewView = () => {
               display: 'flex',
               flexDirection: {xs: 'column', sm: 'row'},
               marginBottom: '1em',
+              gap: '1em',
             }}
           >
             <CardMedia
@@ -261,25 +262,25 @@ const ReviewView = () => {
               src={mediaUrl + file.filename}
               title={file.title}
               sx={{
-                width: {md: '500px', sm: '70%', xs: '100%'},
+                width: {md: '400px', sm: '70%', xs: '100%'},
                 height: {
                   lg: '400px',
                   md: '400px',
                   sm: '400px',
-                  xs: 'fit-content',
-                  xl: 'auto',
+                  xs: '300px',
+                  xl: '400px',
                 },
                 boxShadow: '0 3px 10px rgb(0 0 0 / 0.2);',
               }}
             />
             <CardContent
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: {xs: '1.5em', sm: '3em'},
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: {xs: '1em', sm: '1em'},
                 justifyContent: 'center',
                 paddingLeft: {xs: '2em', md: '2em'},
-                alignItems: {md: 'unset', sm: 'unset', xs: 'center'},
+                alignItems: {md: 'center', sm: 'center', xs: 'center'},
               }}
             >
               <Typography

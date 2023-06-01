@@ -74,7 +74,14 @@ const Layout = () => {
       <CssBaseline />
       <Container maxWidth="xl">
         <AppBar position="sticky">
-          <Toolbar disableGutters sx={{justifyContent: 'space-between'}}>
+          <Toolbar
+            disableGutters
+            sx={{
+              justifyContent: 'space-between',
+              display: {xs: 'grid', sm: 'flex'},
+              gridTemplateColumns: '1fr 1fr',
+            }}
+          >
             <IconButton
               sx={{
                 ml: 2,
@@ -173,7 +180,14 @@ const Layout = () => {
               </List>
             </Drawer>
             <FetchWeather />
-            <Box sx={{mr: 2}}>
+            <Box
+              sx={{
+                mr: 2,
+                display:'flex',
+                gap:'1rem',
+                justifyContent:'center',
+              }}
+            >
               <Button
                 sx={{
                   color: 'white',
