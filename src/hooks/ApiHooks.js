@@ -265,19 +265,40 @@ const useComments = () => {
       throw new Error(error.message);
     }
   };
-  const getAllComments = async (userToken) => {
+  const deleteCommentsByUser = async (userId, userToken) => {
     try {
-      const response = await doFetch(baseUrl + 'comments', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': userToken,
-        },
-      });
-      return response.data;
-    } catch (e) {
-      setError(e.message);
-      throw e;
+      const response = await fetch(
+        `https://media.mw.metropolia.fi/wbma/comments?user_id=${userId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': userToken,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const comments = await response.json();
+
+        for (const comment of comments) {
+          await fetch(
+            `https://media.mw.metropolia.fi/wbma/comments/${comment.comment_id}`,
+            {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': userToken,
+              },
+            }
+          );
+        }
+      } else {
+        const errorData = await response.json();
+        console.error('Error fetching comments:', errorData.error);
+      }
+    } catch (error) {
+      console.error('Error fetching comments:', error);
     }
   };
 
@@ -309,7 +330,7 @@ const useComments = () => {
     }
   };
 
-  return {getComments, postComment, deleteComment, getAllComments, error};
+  return {getComments, postComment, deleteComment, deleteCommentsByUser, error};
 };
 
 const useAuthentication = () => {

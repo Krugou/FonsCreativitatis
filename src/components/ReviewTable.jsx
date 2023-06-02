@@ -121,7 +121,7 @@ const ReviewTable = ({myFilesOnly = false, userid}) => {
           gap: {xs: '1rem', sm: '0'},
         }}
       >
-        <Typography variant="h3" component="h2">
+        <Typography variant="h3" component="h2" sx={{fontSize: '2em',}}>
           {sortOption} Reviews:
         </Typography>
 

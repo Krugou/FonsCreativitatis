@@ -19,7 +19,7 @@ import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import {useNavigate} from 'react-router-dom';
 import HeroImage from '../components/HeroImage';
 import {MediaContext} from '../contexts/MediaContext';
-import {useMedia, useTags, useUser} from '../hooks/ApiHooks';
+import {useMedia, useTags, useUser, useComments} from '../hooks/ApiHooks';
 import useForm from '../hooks/FormHooks';
 import usePageTitle from '../hooks/UsePageTitle';
 import useScrollToTop from '../hooks/UseScrollToTop';
@@ -40,6 +40,7 @@ const Profile = () => {
   const [selectedImage, setSelectedImage] = useState(avatar);
   const [avatarInfo, setAvatarInfo] = useState(avatar);
   const [alert, setAlert] = useState('');
+  const {deleteCommentsByUser} = useComments();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -78,10 +79,12 @@ const Profile = () => {
       // Step 1. Delete all files of the user
       const token = localStorage.getItem('userToken');
       const allFiles = await getAllFiles(user.user_id, token);
+      await deleteCommentsByUser(user.user_id, token);
 
       allFiles.forEach(async (file) => {
         await deleteMedia(file.file_id, token);
       });
+
       // Step 2. modify user's username and password to random stuff
       const generateRandomString = (length) => {
         let result = '';
